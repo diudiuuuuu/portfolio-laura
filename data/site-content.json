@@ -1,0 +1,819 @@
+{
+    "settings": {
+        "logo_text": "LOGO",
+        "menu_works": "Works",
+        "menu_intro": "Introduction",
+        "banner_ratio": "4.5",
+        "banner_overlay": "/uploads/banner/20260411095505_73f036c449.png",
+        "banner_bg": "/uploads/banner/20260411095505_f8817bd971.jpg",
+        "logo_image": "/uploads/banner/20260411094750_c1b97e4027.png",
+        "music_file": "/uploads/banner/20260421161021_711ac5bb31.mp3",
+        "cat_active_bg": "#000000",
+        "cat_border_color": "#111111"
+    },
+    "categories": [
+        {
+            "id": 1,
+            "name": "BeautycamVisuals",
+            "sort_order": 100
+        },
+        {
+            "id": 2,
+            "name": "AI Workflow",
+            "sort_order": 1
+        },
+        {
+            "id": 3,
+            "name": "Visual Experiment",
+            "sort_order": 0
+        }
+    ],
+    "banner_items": [
+        {
+            "id": 17,
+            "media_path": "/uploads/banner/20260421160255_94ef1e1824.png",
+            "media_type": "image",
+            "sort_order": 15,
+            "created_at": "2026-04-21T16:02:55+00:00"
+        },
+        {
+            "id": 16,
+            "media_path": "/uploads/banner/20260421160255_862df289ae.png",
+            "media_type": "image",
+            "sort_order": 14,
+            "created_at": "2026-04-21T16:02:55+00:00"
+        },
+        {
+            "id": 15,
+            "media_path": "/uploads/banner/20260421160255_c802c777d3.png",
+            "media_type": "image",
+            "sort_order": 13,
+            "created_at": "2026-04-21T16:02:55+00:00"
+        },
+        {
+            "id": 14,
+            "media_path": "/uploads/banner/20260421160255_36a06b1728.png",
+            "media_type": "image",
+            "sort_order": 12,
+            "created_at": "2026-04-21T16:02:55+00:00"
+        },
+        {
+            "id": 13,
+            "media_path": "/uploads/banner/20260421160255_2c9bed5144.png",
+            "media_type": "image",
+            "sort_order": 11,
+            "created_at": "2026-04-21T16:02:55+00:00"
+        },
+        {
+            "id": 12,
+            "media_path": "/uploads/banner/20260421160152_7d30a2a4a1.png",
+            "media_type": "image",
+            "sort_order": 11,
+            "created_at": "2026-04-21T16:01:52+00:00"
+        },
+        {
+            "id": 11,
+            "media_path": "/uploads/banner/20260421160152_35012a42b9.png",
+            "media_type": "image",
+            "sort_order": 10,
+            "created_at": "2026-04-21T16:01:52+00:00"
+        },
+        {
+            "id": 10,
+            "media_path": "/uploads/banner/20260421160152_802a3cda57.png",
+            "media_type": "image",
+            "sort_order": 9,
+            "created_at": "2026-04-21T16:01:52+00:00"
+        },
+        {
+            "id": 9,
+            "media_path": "/uploads/banner/20260421160152_5ca6798597.png",
+            "media_type": "image",
+            "sort_order": 8,
+            "created_at": "2026-04-21T16:01:52+00:00"
+        },
+        {
+            "id": 8,
+            "media_path": "/uploads/banner/20260421160152_99bea9857f.png",
+            "media_type": "image",
+            "sort_order": 7,
+            "created_at": "2026-04-21T16:01:52+00:00"
+        },
+        {
+            "id": 7,
+            "media_path": "/uploads/banner/20260411101807_8ab5d38e98.jpg",
+            "media_type": "image",
+            "sort_order": 7,
+            "created_at": "2026-04-11T10:18:07+00:00"
+        },
+        {
+            "id": 4,
+            "media_path": "/uploads/banner/20260411101807_899d88594c.jpg",
+            "media_type": "image",
+            "sort_order": 4,
+            "created_at": "2026-04-11T10:18:07+00:00"
+        },
+        {
+            "id": 2,
+            "media_path": "/uploads/banner/20260411101807_482ecf3661.png",
+            "media_type": "image",
+            "sort_order": 2,
+            "created_at": "2026-04-11T10:18:07+00:00"
+        }
+    ],
+    "intro_content": {
+        "id": 1,
+        "col1_title": "Accident 2022\r\nPoster design, 2022Accident 2022\r\nPoster design, 2022",
+        "col2_text": "Poster design, 2022Accident 2022\r\nPoster design, 2022Accident 2022\r\nPoster design, 2022\r\nPoster design, 2022Accident 2022\r\nPoster design, 2022Accident 2022\r\nPoster design, 2022Poster design, 2022Accident 2022\r\nPoster design, 2022Accident 2022\r\nPoster design, 2022",
+        "col3_text": "Poster design, 2022Accident 2022\r\nPoster design, 2022Accident 2022\r\nPoster design, 2022",
+        "top_image_path": "/uploads/intro/sample-intro.png",
+        "font_size": 20,
+        "font_weight": 500,
+        "font_family": "Arial, sans-serif",
+        "color": "#ffffff",
+        "italic": 0,
+        "underline": 1,
+        "line_height": 1
+    },
+    "works": [
+        {
+            "id": 1,
+            "title": "韩系风格",
+            "description": "以“数字桌面”与“社论网格”重塑高价值审美建模\r\n\r\n在社交审美从“数字整容”转向**「Effortless Chic（不费力的时髦）」与「Clean Girl（净感女孩）」的趋势下，本项目通过一套系统化的平面设计策略**（Digital Desktop & Editorial Grid），将韩系清透的蓝白冷调、复古胶片的硬核质感以及原生证件照的极致肌理深度整合。精准还原了韩系氧气感少女、复古胶片叙事以及发丝级原生妆感的视觉内核。色彩策略上，利用高明度冷调与中性色系的博弈，不仅提升了整体画面的“审美溢价”，更直观展示了算法对肤质优化的高级感。",
+            "meta_text": "该系列凭借极佳的审美共鸣与专业感背书，成为美颜相机订阅转化率最高的模块，实现了商业价值与美学调性的双向突破。",
+            "created_time": "Date: 2026",
+            "cover_path": "/uploads/covers/20260423164401_7dd4522499.jpg",
+            "emphasized": 0,
+            "title_font_size": 14,
+            "title_font_weight": 30,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "sort_order": 100,
+            "created_at": "2026-04-11T08:40:52+00:00",
+            "updated_at": "2026-04-23T17:33:54+00:00",
+            "modal_font_size": 14,
+            "category_id": 1,
+            "card_bg": "white",
+            "media": [
+                {
+                    "id": 7,
+                    "work_id": 1,
+                    "media_path": "/uploads/media/20260422153550_dee3dd7939.jpg",
+                    "media_type": "image",
+                    "position": 0,
+                    "created_at": "2026-04-22T15:35:50+00:00"
+                },
+                {
+                    "id": 8,
+                    "work_id": 1,
+                    "media_path": "/uploads/media/20260422153550_d57fa5d0fd.jpg",
+                    "media_type": "image",
+                    "position": 1,
+                    "created_at": "2026-04-22T15:35:50+00:00"
+                },
+                {
+                    "id": 52,
+                    "work_id": 1,
+                    "media_path": "/uploads/media/20260422171306_e65780a749.jpg",
+                    "media_type": "image",
+                    "position": 2,
+                    "created_at": "2026-04-22T17:13:06+00:00"
+                }
+            ]
+        },
+        {
+            "id": 13,
+            "title": "混排实验",
+            "description": "",
+            "meta_text": "",
+            "created_time": "Date: 2024",
+            "cover_path": "",
+            "emphasized": 0,
+            "title_font_size": 16,
+            "title_font_weight": 600,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "sort_order": 0,
+            "created_at": "2026-04-22T17:11:20+00:00",
+            "updated_at": "2026-04-22T17:11:20+00:00",
+            "modal_font_size": 28,
+            "category_id": 1,
+            "card_bg": "black",
+            "media": [
+                {
+                    "id": 51,
+                    "work_id": 13,
+                    "media_path": "/uploads/media/20260422171120_6b81572941.jpg",
+                    "media_type": "image",
+                    "position": 0,
+                    "created_at": "2026-04-22T17:11:20+00:00"
+                }
+            ]
+        },
+        {
+            "id": 12,
+            "title": "AI场景生成",
+            "description": "",
+            "meta_text": "",
+            "created_time": "Date: 2025",
+            "cover_path": "",
+            "emphasized": 0,
+            "title_font_size": 16,
+            "title_font_weight": 600,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "sort_order": 0,
+            "created_at": "2026-04-22T17:08:21+00:00",
+            "updated_at": "2026-04-22T17:08:21+00:00",
+            "modal_font_size": 28,
+            "category_id": 1,
+            "card_bg": "black",
+            "media": [
+                {
+                    "id": 46,
+                    "work_id": 12,
+                    "media_path": "/uploads/media/20260422170821_58ffe31025.mp4",
+                    "media_type": "video",
+                    "position": 0,
+                    "created_at": "2026-04-22T17:08:21+00:00"
+                }
+            ]
+        },
+        {
+            "id": 11,
+            "title": "AI功能上线",
+            "description": "",
+            "meta_text": "",
+            "created_time": "Date: 2026",
+            "cover_path": "/uploads/covers/20260423164340_50d0975723.jpg",
+            "emphasized": 0,
+            "title_font_size": 16,
+            "title_font_weight": 600,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "sort_order": 0,
+            "created_at": "2026-04-22T17:02:37+00:00",
+            "updated_at": "2026-04-23T16:43:40+00:00",
+            "modal_font_size": 28,
+            "category_id": 1,
+            "card_bg": "black",
+            "media": [
+                {
+                    "id": 43,
+                    "work_id": 11,
+                    "media_path": "/uploads/media/20260422170237_2a527ca758.png",
+                    "media_type": "image",
+                    "position": 0,
+                    "created_at": "2026-04-22T17:02:37+00:00"
+                },
+                {
+                    "id": 45,
+                    "work_id": 11,
+                    "media_path": "/uploads/media/20260422170237_539ea24caf.jpg",
+                    "media_type": "image",
+                    "position": 2,
+                    "created_at": "2026-04-22T17:02:37+00:00"
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "title": "FANZIO.AI",
+            "description": "",
+            "meta_text": "",
+            "created_time": "Date: 2026",
+            "cover_path": "/uploads/covers/20260423164327_c15eede20d.jpg",
+            "emphasized": 1,
+            "title_font_size": 16,
+            "title_font_weight": 600,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "sort_order": 0,
+            "created_at": "2026-04-22T16:59:35+00:00",
+            "updated_at": "2026-04-23T16:43:28+00:00",
+            "modal_font_size": 28,
+            "category_id": 2,
+            "card_bg": "black",
+            "media": [
+                {
+                    "id": 41,
+                    "work_id": 10,
+                    "media_path": "/uploads/media/20260422165935_7c2d082f46.jpg",
+                    "media_type": "image",
+                    "position": 0,
+                    "created_at": "2026-04-22T16:59:35+00:00"
+                },
+                {
+                    "id": 42,
+                    "work_id": 10,
+                    "media_path": "/uploads/media/20260422165935_60146a3bb6.jpg",
+                    "media_type": "image",
+                    "position": 1,
+                    "created_at": "2026-04-22T16:59:35+00:00"
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "title": "联名活动",
+            "description": "项目定位： 美颜相机品牌跨界营销 (Co-branding) 与核心节点专题视觉全案。\r\n\r\n设计策略： 本系列旨在通过“品牌资产深度解构”与“场景化叙事”，将美颜相机的影像技术能力与不同维度（潮流、情感、大众化）的品牌语境进行视觉缝合。通过建立多模态一致的视觉秩序，不仅实现了品牌心智的跨圈层渗透，更利用设计心理学逻辑优化了从“视觉曝光”到“UGC 产生与保存”的商业全链路转化。",
+            "meta_text": "潮流先锋案 (Innersect)\r\n情感营销案 (520 自恋项目)\r\n国民 IP 联动案 (蜜雪冰城)",
+            "created_time": "Date: 2024",
+            "cover_path": "/uploads/covers/20260423164313_2f5fdcc27b.jpg",
+            "emphasized": 0,
+            "title_font_size": 14,
+            "title_font_weight": 100,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "sort_order": 0,
+            "created_at": "2026-04-22T16:53:18+00:00",
+            "updated_at": "2026-04-23T16:48:34+00:00",
+            "modal_font_size": 14,
+            "category_id": 1,
+            "card_bg": "black",
+            "media": [
+                {
+                    "id": 35,
+                    "work_id": 9,
+                    "media_path": "/uploads/media/20260422165318_bd39d3c4fe.jpg",
+                    "media_type": "image",
+                    "position": 0,
+                    "created_at": "2026-04-22T16:53:18+00:00"
+                },
+                {
+                    "id": 36,
+                    "work_id": 9,
+                    "media_path": "/uploads/media/20260422165746_48d06a7cd2.jpg",
+                    "media_type": "image",
+                    "position": 1,
+                    "created_at": "2026-04-22T16:57:46+00:00"
+                },
+                {
+                    "id": 37,
+                    "work_id": 9,
+                    "media_path": "/uploads/media/20260422165746_d54eac19b6.jpg",
+                    "media_type": "image",
+                    "position": 2,
+                    "created_at": "2026-04-22T16:57:46+00:00"
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "title": "品牌相关",
+            "description": "",
+            "meta_text": "",
+            "created_time": "",
+            "cover_path": "/uploads/covers/20260423164258_b6e56514c9.jpg",
+            "emphasized": 0,
+            "title_font_size": 16,
+            "title_font_weight": 600,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "sort_order": 0,
+            "created_at": "2026-04-22T16:29:33+00:00",
+            "updated_at": "2026-04-23T16:42:59+00:00",
+            "modal_font_size": 28,
+            "category_id": 1,
+            "card_bg": "black",
+            "media": [
+                {
+                    "id": 23,
+                    "work_id": 8,
+                    "media_path": "/uploads/media/20260422162933_0dddd21271.jpg",
+                    "media_type": "image",
+                    "position": 1,
+                    "created_at": "2026-04-22T16:29:33+00:00"
+                },
+                {
+                    "id": 38,
+                    "work_id": 8,
+                    "media_path": "/uploads/media/20260422165806_c9ab881e5c.jpg",
+                    "media_type": "image",
+                    "position": 2,
+                    "created_at": "2026-04-22T16:58:06+00:00"
+                },
+                {
+                    "id": 39,
+                    "work_id": 8,
+                    "media_path": "/uploads/media/20260422165806_8503c2eef8.jpg",
+                    "media_type": "image",
+                    "position": 3,
+                    "created_at": "2026-04-22T16:58:06+00:00"
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "title": "会员/订阅",
+            "description": "",
+            "meta_text": "",
+            "created_time": "Date: 2025",
+            "cover_path": "/uploads/covers/20260422164729_df0e818d13.jpg",
+            "emphasized": 0,
+            "title_font_size": 16,
+            "title_font_weight": 600,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "sort_order": 0,
+            "created_at": "2026-04-22T16:28:38+00:00",
+            "updated_at": "2026-04-22T16:58:29+00:00",
+            "modal_font_size": 28,
+            "category_id": 1,
+            "card_bg": "black",
+            "media": [
+                {
+                    "id": 26,
+                    "work_id": 7,
+                    "media_path": "/uploads/media/20260422163324_7bf5a2e6a4.jpg",
+                    "media_type": "image",
+                    "position": 1,
+                    "created_at": "2026-04-22T16:33:24+00:00"
+                },
+                {
+                    "id": 27,
+                    "work_id": 7,
+                    "media_path": "/uploads/media/20260422164650_f61f059e6c.jpg",
+                    "media_type": "image",
+                    "position": 2,
+                    "created_at": "2026-04-22T16:46:50+00:00"
+                },
+                {
+                    "id": 40,
+                    "work_id": 7,
+                    "media_path": "/uploads/media/20260422165829_4cca076f02.jpg",
+                    "media_type": "image",
+                    "position": 3,
+                    "created_at": "2026-04-22T16:58:29+00:00"
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "title": "6",
+            "description": "",
+            "meta_text": "",
+            "created_time": "",
+            "cover_path": "/uploads/covers/20260422153842_bd37d79b40.mp4",
+            "emphasized": 0,
+            "title_font_size": 16,
+            "title_font_weight": 600,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "sort_order": 0,
+            "created_at": "2026-04-11T09:03:58+00:00",
+            "updated_at": "2026-04-22T17:16:34+00:00",
+            "modal_font_size": 28,
+            "category_id": 3,
+            "card_bg": "black",
+            "media": [
+                {
+                    "id": 54,
+                    "work_id": 6,
+                    "media_path": "/uploads/media/20260422171621_a61855bde4.mp4",
+                    "media_type": "video",
+                    "position": 1,
+                    "created_at": "2026-04-22T17:16:21+00:00"
+                },
+                {
+                    "id": 55,
+                    "work_id": 6,
+                    "media_path": "/uploads/media/20260422171634_a685284675.png",
+                    "media_type": "image",
+                    "position": 2,
+                    "created_at": "2026-04-22T17:16:34+00:00"
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "title": "AI玩法特效",
+            "description": "",
+            "meta_text": "",
+            "created_time": "",
+            "cover_path": "/uploads/covers/20260422162105_2f76c32b3f.jpg",
+            "emphasized": 0,
+            "title_font_size": 16,
+            "title_font_weight": 600,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "sort_order": 0,
+            "created_at": "2026-04-11T09:02:58+00:00",
+            "updated_at": "2026-04-22T16:51:00+00:00",
+            "modal_font_size": 28,
+            "category_id": 1,
+            "card_bg": "black",
+            "media": [
+                {
+                    "id": 33,
+                    "work_id": 4,
+                    "media_path": "/uploads/media/20260422165100_b81b62d127.jpg",
+                    "media_type": "image",
+                    "position": 0,
+                    "created_at": "2026-04-22T16:51:00+00:00"
+                },
+                {
+                    "id": 34,
+                    "work_id": 4,
+                    "media_path": "/uploads/media/20260422165100_c63a932261.jpg",
+                    "media_type": "image",
+                    "position": 1,
+                    "created_at": "2026-04-22T16:51:00+00:00"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "title": "滤镜/妆容/场景",
+            "description": "",
+            "meta_text": "",
+            "created_time": "",
+            "cover_path": "/uploads/covers/20260423164417_9535a58c9d.jpg",
+            "emphasized": 0,
+            "title_font_size": 16,
+            "title_font_weight": 600,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "sort_order": 0,
+            "created_at": "2026-04-11T09:02:43+00:00",
+            "updated_at": "2026-04-23T16:44:17+00:00",
+            "modal_font_size": 28,
+            "category_id": 1,
+            "card_bg": "black",
+            "media": [
+                {
+                    "id": 28,
+                    "work_id": 3,
+                    "media_path": "/uploads/media/20260422164825_99c9f9b0b0.jpg",
+                    "media_type": "image",
+                    "position": 0,
+                    "created_at": "2026-04-22T16:48:25+00:00"
+                },
+                {
+                    "id": 30,
+                    "work_id": 3,
+                    "media_path": "/uploads/media/20260422164825_1a5c43d038.jpg",
+                    "media_type": "image",
+                    "position": 2,
+                    "created_at": "2026-04-22T16:48:25+00:00"
+                },
+                {
+                    "id": 31,
+                    "work_id": 3,
+                    "media_path": "/uploads/media/20260422164825_b3f5da57aa.jpg",
+                    "media_type": "image",
+                    "position": 3,
+                    "created_at": "2026-04-22T16:48:25+00:00"
+                },
+                {
+                    "id": 32,
+                    "work_id": 3,
+                    "media_path": "/uploads/media/20260422164825_02ab030884.jpg",
+                    "media_type": "image",
+                    "position": 4,
+                    "created_at": "2026-04-22T16:48:25+00:00"
+                },
+                {
+                    "id": 49,
+                    "work_id": 3,
+                    "media_path": "/uploads/media/20260422170946_72fb081ca7.jpg",
+                    "media_type": "image",
+                    "position": 5,
+                    "created_at": "2026-04-22T17:09:46+00:00"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Accident 2022 Poster design, 2022",
+            "description": "Accident 2022\r\nPoster design, 2022",
+            "meta_text": "Accident 2022\r\nPoster design, 2022",
+            "created_time": "Date: 2026",
+            "cover_path": "/uploads/covers/20260422162644_2b24748822.png",
+            "emphasized": 0,
+            "title_font_size": 10,
+            "title_font_weight": 200,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 1,
+            "sort_order": 0,
+            "created_at": "2026-04-11T08:45:30+00:00",
+            "updated_at": "2026-04-22T17:10:29+00:00",
+            "modal_font_size": 28,
+            "category_id": 1,
+            "card_bg": "black",
+            "media": [
+                {
+                    "id": 20,
+                    "work_id": 2,
+                    "media_path": "/uploads/media/20260422162600_8f0fd69ba7.png",
+                    "media_type": "image",
+                    "position": 3,
+                    "created_at": "2026-04-22T16:26:00+00:00"
+                },
+                {
+                    "id": 21,
+                    "work_id": 2,
+                    "media_path": "/uploads/media/20260422162600_423cf7a354.jpg",
+                    "media_type": "image",
+                    "position": 4,
+                    "created_at": "2026-04-22T16:26:00+00:00"
+                },
+                {
+                    "id": 48,
+                    "work_id": 2,
+                    "media_path": "/uploads/media/20260422170937_d6f2f2a5bf.jpg",
+                    "media_type": "image",
+                    "position": 5,
+                    "created_at": "2026-04-22T17:09:37+00:00"
+                },
+                {
+                    "id": 50,
+                    "work_id": 2,
+                    "media_path": "/uploads/media/20260422171029_a8744cb616.jpg",
+                    "media_type": "image",
+                    "position": 6,
+                    "created_at": "2026-04-22T17:10:29+00:00"
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "title": "胶片/微单/滤镜Date: 2025",
+            "description": "在后移动摄影时代，用户对美颜的诉求已从单一的肤质磨皮转向对**“影像载体”与“光学质感”的追溯。本项目通过“硬件仿真的设计策略，将复杂的影像模式转化为用户可感知的复古相机图标、拍立得实物堆叠、以及专业相机的排版说明书。\r\n该系列视觉成功捕捉了“胶片复兴”与“CCD回潮”的流行红利，将原本抽象的影像参数具象化为极具收藏价值的“视觉资产”。这种“所见即所得”的硬核视觉呈现，直接驱动了该板块成为全站日活（DAU）最高及拉新最稳健的模式之一，真正实现了以美学设计驱动业务硬增长。",
+            "meta_text": "复古拟物化（Skeuomorphism）\r\n模拟相机的信任契约",
+            "created_time": "Date: 2025",
+            "cover_path": "/uploads/covers/20260423165910_25b1319ff3.jpg",
+            "emphasized": 0,
+            "title_font_size": 14,
+            "title_font_weight": 100,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "sort_order": -5,
+            "created_at": "2026-04-11T09:03:33+00:00",
+            "updated_at": "2026-04-23T16:59:10+00:00",
+            "modal_font_size": 14,
+            "category_id": 3,
+            "card_bg": "black",
+            "media": [
+                {
+                    "id": 11,
+                    "work_id": 5,
+                    "media_path": "/uploads/media/20260422154339_a8c56b53c1.jpg",
+                    "media_type": "image",
+                    "position": 0,
+                    "created_at": "2026-04-22T15:43:39+00:00"
+                },
+                {
+                    "id": 12,
+                    "work_id": 5,
+                    "media_path": "/uploads/media/20260422154339_82c818bcd4.jpg",
+                    "media_type": "image",
+                    "position": 1,
+                    "created_at": "2026-04-22T15:43:39+00:00"
+                },
+                {
+                    "id": 13,
+                    "work_id": 5,
+                    "media_path": "/uploads/media/20260422154339_f18e888c61.jpg",
+                    "media_type": "image",
+                    "position": 2,
+                    "created_at": "2026-04-22T15:43:39+00:00"
+                },
+                {
+                    "id": 47,
+                    "work_id": 5,
+                    "media_path": "/uploads/media/20260422170927_5ad9dfda31.jpg",
+                    "media_type": "image",
+                    "position": 3,
+                    "created_at": "2026-04-22T17:09:27+00:00"
+                }
+            ]
+        }
+    ],
+    "admins": [
+        {
+            "id": 1,
+            "username": "admin",
+            "password_hash": "$2y$10$E29BVOZ94dg9GiS0BL27DOTSj5ZaNSy9RhlE1M7uaq4iLD4pilN8q"
+        }
+    ],
+    "audit_logs": [
+        {
+            "id": 1,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 8：品牌相关",
+            "created_at": "2026-04-23T16:42:59+00:00"
+        },
+        {
+            "id": 2,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 9：联名活动",
+            "created_at": "2026-04-23T16:43:13+00:00"
+        },
+        {
+            "id": 3,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 10：FANZIO.AI",
+            "created_at": "2026-04-23T16:43:28+00:00"
+        },
+        {
+            "id": 4,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 11：AI功能上线",
+            "created_at": "2026-04-23T16:43:40+00:00"
+        },
+        {
+            "id": 5,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 1：韩系风格",
+            "created_at": "2026-04-23T16:44:01+00:00"
+        },
+        {
+            "id": 6,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 3：滤镜/妆容/场景",
+            "created_at": "2026-04-23T16:44:17+00:00"
+        },
+        {
+            "id": 7,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 9：联名活动",
+            "created_at": "2026-04-23T16:47:10+00:00"
+        },
+        {
+            "id": 8,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 9：联名活动",
+            "created_at": "2026-04-23T16:48:34+00:00"
+        },
+        {
+            "id": 9,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 1：韩系风格",
+            "created_at": "2026-04-23T16:51:07+00:00"
+        },
+        {
+            "id": 10,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 5：胶片/微单/滤镜",
+            "created_at": "2026-04-23T16:54:38+00:00"
+        },
+        {
+            "id": 11,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 5：胶片/微单/滤镜",
+            "created_at": "2026-04-23T16:58:53+00:00"
+        },
+        {
+            "id": 12,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 5：胶片/微单/滤镜Date: 2025",
+            "created_at": "2026-04-23T16:59:10+00:00"
+        },
+        {
+            "id": 13,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 1：韩系风格",
+            "created_at": "2026-04-23T17:33:54+00:00"
+        }
+    ]
+}

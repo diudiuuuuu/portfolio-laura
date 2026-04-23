@@ -7,7 +7,7 @@ $logoImage = setting('logo_image', '');
 $menuWorks = setting('menu_works', 'Works');
 $menuIntro = setting('menu_intro', 'Introduction');
 
-$intro = db()->query('SELECT * FROM intro_content WHERE id = 1')->fetch() ?: [];
+$intro = fetchIntroContent();
 $introStyle = introStyleString($intro);
 ?>
 <!doctype html>

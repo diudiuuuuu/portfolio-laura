@@ -11,9 +11,7 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim((string) ($_POST['username'] ?? ''));
     $password = (string) ($_POST['password'] ?? '');
-    $stmt = db()->prepare('SELECT * FROM admins WHERE username = :u LIMIT 1');
-    $stmt->execute([':u' => $username]);
-    $admin = $stmt->fetch();
+    $admin = findAdminByUsername($username);
     if ($admin && password_verify($password, $admin['password_hash'])) {
         $_SESSION['admin_id'] = (int) $admin['id'];
         $_SESSION['admin_username'] = $admin['username'];

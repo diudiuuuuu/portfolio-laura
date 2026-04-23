@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 const APP_ROOT = __DIR__ . '/../';
-const DB_PATH = APP_ROOT . 'data/site.sqlite';
+const SITE_CONTENT_PATH = APP_ROOT . 'data/site-content.json';
 const UPLOAD_BASE = __DIR__ . '/uploads';
 const ALLOWED_MEDIA_EXT = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'webm'];
 const ALLOWED_IMAGE_EXT = ['jpg', 'jpeg', 'png', 'gif'];
@@ -18,267 +18,6 @@ const ALLOWED_AUDIO_EXT = ['mp3', 'mpeg', 'mpga'];
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
-}
-
-function db(): PDO
-{
-    static $pdo = null;
-    if ($pdo instanceof PDO) {
-        return $pdo;
-    }
-
-    $needInit = !file_exists(DB_PATH);
-    $pdo = new PDO('sqlite:' . DB_PATH);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-
-    if ($needInit) {
-        initDatabase($pdo);
-    }
-    migrateDatabase($pdo);
-    return $pdo;
-}
-
-function initDatabase(PDO $pdo): void
-{
-    $pdo->exec(
-        'CREATE TABLE IF NOT EXISTS admins (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT UNIQUE NOT NULL,
-            password_hash TEXT NOT NULL
-        )'
-    );
-    $pdo->exec(
-        'CREATE TABLE IF NOT EXISTS works (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT NOT NULL,
-            description TEXT NOT NULL DEFAULT "",
-            meta_text TEXT NOT NULL DEFAULT "",
-            created_time TEXT NOT NULL DEFAULT "",
-            cover_path TEXT NOT NULL DEFAULT "",
-            emphasized INTEGER NOT NULL DEFAULT 0,
-            title_font_size INTEGER NOT NULL DEFAULT 16,
-            title_font_weight INTEGER NOT NULL DEFAULT 600,
-            title_font_family TEXT NOT NULL DEFAULT "Arial, sans-serif",
-            title_color TEXT NOT NULL DEFAULT "#ffffff",
-            title_italic INTEGER NOT NULL DEFAULT 0,
-            title_underline INTEGER NOT NULL DEFAULT 0,
-            modal_font_size INTEGER NOT NULL DEFAULT 28,
-            category_id INTEGER NOT NULL DEFAULT 1,
-            card_bg TEXT NOT NULL DEFAULT "black",
-            sort_order INTEGER NOT NULL DEFAULT 0,
-            created_at TEXT NOT NULL,
-            updated_at TEXT NOT NULL
-        )'
-    );
-    $pdo->exec(
-        'CREATE TABLE IF NOT EXISTS work_media (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            work_id INTEGER NOT NULL,
-            media_path TEXT NOT NULL,
-            media_type TEXT NOT NULL,
-            position INTEGER NOT NULL DEFAULT 0,
-            created_at TEXT NOT NULL,
-            FOREIGN KEY(work_id) REFERENCES works(id) ON DELETE CASCADE
-        )'
-    );
-    $pdo->exec(
-        'CREATE TABLE IF NOT EXISTS settings (
-            key_name TEXT PRIMARY KEY,
-            value_text TEXT NOT NULL DEFAULT ""
-        )'
-    );
-    $pdo->exec(
-        'CREATE TABLE IF NOT EXISTS banner_items (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            media_path TEXT NOT NULL,
-            media_type TEXT NOT NULL,
-            sort_order INTEGER NOT NULL DEFAULT 0,
-            created_at TEXT NOT NULL
-        )'
-    );
-    $pdo->exec(
-        'CREATE TABLE IF NOT EXISTS audit_logs (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            section TEXT NOT NULL,
-            action TEXT NOT NULL,
-            detail TEXT NOT NULL,
-            created_at TEXT NOT NULL
-        )'
-    );
-    $pdo->exec(
-        'CREATE TABLE IF NOT EXISTS categories (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL UNIQUE,
-            sort_order INTEGER NOT NULL DEFAULT 0
-        )'
-    );
-    $pdo->exec(
-        'CREATE TABLE IF NOT EXISTS intro_content (
-            id INTEGER PRIMARY KEY CHECK(id = 1),
-            col1_title TEXT NOT NULL DEFAULT "",
-            col2_text TEXT NOT NULL DEFAULT "",
-            col3_text TEXT NOT NULL DEFAULT "",
-            top_image_path TEXT NOT NULL DEFAULT "",
-            font_size INTEGER NOT NULL DEFAULT 24,
-            font_weight INTEGER NOT NULL DEFAULT 500,
-            font_family TEXT NOT NULL DEFAULT "Arial, sans-serif",
-            color TEXT NOT NULL DEFAULT "#ffffff",
-            italic INTEGER NOT NULL DEFAULT 0,
-            underline INTEGER NOT NULL DEFAULT 0,
-            line_height REAL NOT NULL DEFAULT 1.5
-        )'
-    );
-
-    $adminCount = (int) $pdo->query('SELECT COUNT(*) FROM admins')->fetchColumn();
-    if ($adminCount === 0) {
-        $stmt = $pdo->prepare('INSERT INTO admins (username, password_hash) VALUES (:u, :p)');
-        $stmt->execute([
-            ':u' => 'admin',
-            ':p' => password_hash('admin123456', PASSWORD_DEFAULT),
-        ]);
-    }
-
-    $introCount = (int) $pdo->query('SELECT COUNT(*) FROM intro_content')->fetchColumn();
-    if ($introCount === 0) {
-        $pdo->exec("INSERT INTO intro_content (id, col1_title, col2_text, col3_text, top_image_path, line_height) VALUES (1, 'Introduction', '在这里编辑简介内容。', 'Date: 2026', '/uploads/intro/sample-intro.png', 1.5)");
-    }
-
-    $defaults = [
-        'logo_text' => 'LOGO',
-        'menu_works' => 'Works',
-        'menu_intro' => 'Introduction',
-        'banner_ratio' => '4.5',
-        'banner_overlay' => '/uploads/banner/default-top.png',
-        'banner_bg' => '',
-        'logo_image' => '',
-        'music_file' => '',
-        'cat_active_bg' => '#000000',
-        'cat_border_color' => '#111111',
-    ];
-    $stmt = $pdo->prepare('INSERT OR IGNORE INTO settings (key_name, value_text) VALUES (:k, :v)');
-    foreach ($defaults as $k => $v) {
-        $stmt->execute([':k' => $k, ':v' => $v]);
-    }
-
-    $catCount = (int) $pdo->query('SELECT COUNT(*) FROM categories')->fetchColumn();
-    if ($catCount === 0) {
-        $stmtCat = $pdo->prepare('INSERT INTO categories (name, sort_order) VALUES (:name, :sort_order)');
-        $stmtCat->execute([':name' => '未分类', ':sort_order' => 100]);
-    }
-
-    $worksCount = (int) $pdo->query('SELECT COUNT(*) FROM works')->fetchColumn();
-    if ($worksCount === 0) {
-        $now = date('c');
-        $stmt = $pdo->prepare(
-            'INSERT INTO works (
-                title, description, meta_text, created_time, cover_path, emphasized, title_font_size, title_font_weight, title_font_family,
-                title_color, title_italic, title_underline, card_bg, sort_order, created_at, updated_at
-            ) VALUES (
-                :title, :description, :meta_text, :created_time, :cover_path, :emphasized, 22, 600, "Arial, sans-serif",
-                "#ffffff", 0, 0, "black", 100, :created_at, :updated_at
-            )'
-        );
-        $stmt->execute([
-            ':title' => '示例作品',
-            ':description' => "这里是作品简介（第二列）。\n你可以在后台自由编辑。",
-            ':meta_text' => "这里是补充信息。\n支持多行文本。",
-            ':created_time' => 'Date: 2026',
-            ':cover_path' => '/uploads/covers/sample-cover.png',
-            ':emphasized' => 1,
-            ':created_at' => $now,
-            ':updated_at' => $now,
-        ]);
-        $workId = (int) $pdo->lastInsertId();
-        $stmtMedia = $pdo->prepare(
-            'INSERT INTO work_media (work_id, media_path, media_type, position, created_at) VALUES (:work_id, :media_path, :media_type, :position, :created_at)'
-        );
-        $stmtMedia->execute([
-            ':work_id' => $workId,
-            ':media_path' => '/uploads/media/sample-detail.png',
-            ':media_type' => 'image',
-            ':position' => 0,
-            ':created_at' => $now,
-        ]);
-    }
-}
-
-function migrateDatabase(PDO $pdo): void
-{
-    $columns = [];
-    foreach ($pdo->query('PRAGMA table_info(works)')->fetchAll() as $col) {
-        $columns[] = $col['name'];
-    }
-    if (!in_array('modal_font_size', $columns, true)) {
-        $pdo->exec('ALTER TABLE works ADD COLUMN modal_font_size INTEGER NOT NULL DEFAULT 28');
-    }
-    if (!in_array('category_id', $columns, true)) {
-        $pdo->exec('ALTER TABLE works ADD COLUMN category_id INTEGER NOT NULL DEFAULT 1');
-    }
-    if (!in_array('card_bg', $columns, true)) {
-        $pdo->exec('ALTER TABLE works ADD COLUMN card_bg TEXT NOT NULL DEFAULT "black"');
-    }
-
-    $introCols = [];
-    foreach ($pdo->query('PRAGMA table_info(intro_content)')->fetchAll() as $col) {
-        $introCols[] = $col['name'];
-    }
-    if (!in_array('line_height', $introCols, true)) {
-        $pdo->exec('ALTER TABLE intro_content ADD COLUMN line_height REAL NOT NULL DEFAULT 1.5');
-    }
-
-    $pdo->exec(
-        'CREATE TABLE IF NOT EXISTS categories (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL UNIQUE,
-            sort_order INTEGER NOT NULL DEFAULT 0
-        )'
-    );
-    $pdo->exec(
-        'CREATE TABLE IF NOT EXISTS banner_items (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            media_path TEXT NOT NULL,
-            media_type TEXT NOT NULL,
-            sort_order INTEGER NOT NULL DEFAULT 0,
-            created_at TEXT NOT NULL
-        )'
-    );
-    $pdo->exec(
-        'CREATE TABLE IF NOT EXISTS audit_logs (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            section TEXT NOT NULL,
-            action TEXT NOT NULL,
-            detail TEXT NOT NULL,
-            created_at TEXT NOT NULL
-        )'
-    );
-    $count = (int) $pdo->query('SELECT COUNT(*) FROM categories')->fetchColumn();
-    if ($count === 0) {
-        $stmt = $pdo->prepare('INSERT INTO categories (name, sort_order) VALUES (:name, :sort_order)');
-        $stmt->execute([':name' => '未分类', ':sort_order' => 100]);
-    }
-    $firstCat = $pdo->query('SELECT id, name FROM categories ORDER BY id ASC LIMIT 1')->fetch();
-    if ($firstCat && $firstCat['name'] === 'all') {
-        $u = $pdo->prepare('UPDATE categories SET name = :n WHERE id = :id');
-        $u->execute([':n' => '未分类', ':id' => (int) $firstCat['id']]);
-    }
-
-    $settingDefaults = [
-        'logo_text' => 'LOGO',
-        'menu_works' => 'Works',
-        'menu_intro' => 'Introduction',
-        'banner_ratio' => '4.5',
-        'banner_overlay' => '/uploads/banner/default-top.png',
-        'banner_bg' => '',
-        'logo_image' => '',
-        'music_file' => '',
-        'cat_active_bg' => '#000000',
-        'cat_border_color' => '#111111',
-    ];
-    $stmtSetting = $pdo->prepare('INSERT OR IGNORE INTO settings (key_name, value_text) VALUES (:k, :v)');
-    foreach ($settingDefaults as $k => $v) {
-        $stmtSetting->execute([':k' => $k, ':v' => $v]);
-    }
 }
 
 function ensureUploadDirs(): void
@@ -297,23 +36,220 @@ function ensureUploadDirs(): void
     }
 }
 
+function normalizePublicPath(string $path): string
+{
+    $path = trim($path);
+    if ($path === '' || preg_match('#^(https?:)?//#i', $path)) {
+        return $path;
+    }
+    return str_starts_with($path, '/') ? $path : '/' . $path;
+}
+
+function loadSiteContent(): array
+{
+    if (isset($GLOBALS['__site_content_cache']) && is_array($GLOBALS['__site_content_cache'])) {
+        return $GLOBALS['__site_content_cache'];
+    }
+
+    $defaults = [
+        'settings' => [
+            'logo_text' => 'LOGO',
+            'menu_works' => 'Works',
+            'menu_intro' => 'Introduction',
+            'banner_ratio' => '4.5',
+            'banner_overlay' => '/uploads/banner/default-top.png',
+            'banner_bg' => '',
+            'logo_image' => '',
+            'music_file' => '',
+            'cat_active_bg' => '#000000',
+            'cat_border_color' => '#111111',
+        ],
+        'categories' => [
+            ['id' => 1, 'name' => '未分类', 'sort_order' => 100],
+        ],
+        'banner_items' => [],
+        'intro_content' => [
+            'id' => 1,
+            'col1_title' => 'Introduction',
+            'col2_text' => '在这里编辑简介内容。',
+            'col3_text' => 'Date: 2026',
+            'top_image_path' => '/uploads/intro/sample-intro.png',
+            'font_size' => 24,
+            'font_weight' => 500,
+            'font_family' => 'Arial, sans-serif',
+            'color' => '#ffffff',
+            'italic' => 0,
+            'underline' => 0,
+            'line_height' => 1.5,
+        ],
+        'works' => [],
+        'admins' => [
+            [
+                'id' => 1,
+                'username' => 'admin',
+                'password_hash' => password_hash('admin123456', PASSWORD_DEFAULT),
+            ],
+        ],
+        'audit_logs' => [],
+    ];
+
+    $decoded = null;
+    if (is_file(SITE_CONTENT_PATH)) {
+        $raw = @file_get_contents(SITE_CONTENT_PATH);
+        if ($raw !== false && $raw !== '') {
+            $json = json_decode($raw, true);
+            if (is_array($json)) {
+                $decoded = $json;
+            }
+        }
+    }
+
+    if (!is_array($decoded)) {
+        $GLOBALS['__site_content_cache'] = $defaults;
+        return $GLOBALS['__site_content_cache'];
+    }
+
+    $content = $defaults;
+    $content['settings'] = array_merge(
+        $defaults['settings'],
+        is_array($decoded['settings'] ?? null) ? $decoded['settings'] : []
+    );
+    $content['categories'] = is_array($decoded['categories'] ?? null) ? array_values($decoded['categories']) : $defaults['categories'];
+    $content['banner_items'] = is_array($decoded['banner_items'] ?? null) ? array_values($decoded['banner_items']) : [];
+    $content['intro_content'] = array_merge(
+        $defaults['intro_content'],
+        is_array($decoded['intro_content'] ?? null) ? $decoded['intro_content'] : []
+    );
+    $content['works'] = is_array($decoded['works'] ?? null) ? array_values($decoded['works']) : [];
+    $content['admins'] = is_array($decoded['admins'] ?? null) && $decoded['admins'] !== [] ? array_values($decoded['admins']) : $defaults['admins'];
+    $content['audit_logs'] = is_array($decoded['audit_logs'] ?? null) ? array_values($decoded['audit_logs']) : [];
+
+    $GLOBALS['__site_content_cache'] = $content;
+    return $GLOBALS['__site_content_cache'];
+}
+
+function saveSiteContent(array $content): void
+{
+    $json = json_encode($content, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    if ($json === false) {
+        throw new RuntimeException('Failed to encode site content.');
+    }
+    file_put_contents(SITE_CONTENT_PATH, $json);
+    $GLOBALS['__site_content_cache'] = $content;
+}
+
+function nextItemId(array $items): int
+{
+    $max = 0;
+    foreach ($items as $item) {
+        if (!is_array($item)) {
+            continue;
+        }
+        $id = (int) ($item['id'] ?? 0);
+        if ($id > $max) {
+            $max = $id;
+        }
+    }
+    return $max + 1;
+}
+
+function findAdminByUsername(string $username): ?array
+{
+    $username = trim($username);
+    if ($username === '') {
+        return null;
+    }
+    $admins = loadSiteContent()['admins'] ?? [];
+    if (!is_array($admins)) {
+        return null;
+    }
+    foreach ($admins as $admin) {
+        if (!is_array($admin)) {
+            continue;
+        }
+        if ((string) ($admin['username'] ?? '') === $username) {
+            return $admin;
+        }
+    }
+    return null;
+}
+
+function findAdminById(int $adminId): ?array
+{
+    if ($adminId <= 0) {
+        return null;
+    }
+    $admins = loadSiteContent()['admins'] ?? [];
+    if (!is_array($admins)) {
+        return null;
+    }
+    foreach ($admins as $admin) {
+        if ((int) ($admin['id'] ?? 0) === $adminId) {
+            return $admin;
+        }
+    }
+    return null;
+}
+
+function updateAdminCredentialsJson(int $adminId, string $username, string $passwordHash): bool
+{
+    if ($adminId <= 0 || $username === '' || $passwordHash === '') {
+        return false;
+    }
+    $content = loadSiteContent();
+    $admins = is_array($content['admins'] ?? null) ? $content['admins'] : [];
+    $targetIndex = null;
+    foreach ($admins as $idx => $admin) {
+        if (!is_array($admin)) {
+            continue;
+        }
+        $id = (int) ($admin['id'] ?? 0);
+        $name = (string) ($admin['username'] ?? '');
+        if ($id !== $adminId && $name === $username) {
+            return false;
+        }
+        if ($id === $adminId) {
+            $targetIndex = $idx;
+        }
+    }
+    if ($targetIndex === null) {
+        return false;
+    }
+    $admins[$targetIndex]['username'] = $username;
+    $admins[$targetIndex]['password_hash'] = $passwordHash;
+    $content['admins'] = array_values($admins);
+    saveSiteContent($content);
+    return true;
+}
+
 function setting(string $key, string $fallback = ''): string
 {
-    $stmt = db()->prepare('SELECT value_text FROM settings WHERE key_name = :k');
-    $stmt->execute([':k' => $key]);
-    $value = $stmt->fetchColumn();
-    return $value !== false ? (string) $value : $fallback;
+    $settings = loadSiteContent()['settings'] ?? [];
+    if (is_array($settings) && array_key_exists($key, $settings)) {
+        $value = (string) $settings[$key];
+    } else {
+        $value = $fallback;
+    }
+
+    if (in_array($key, ['logo_image', 'music_file', 'banner_overlay', 'banner_bg'], true)) {
+        return normalizePublicPath($value);
+    }
+    return $value;
 }
 
 function updateSetting(string $key, string $value): void
 {
-    $stmt = db()->prepare('INSERT INTO settings (key_name, value_text) VALUES (:k, :v) ON CONFLICT(key_name) DO UPDATE SET value_text = excluded.value_text');
-    $stmt->execute([':k' => $key, ':v' => $value]);
+    $content = loadSiteContent();
+    $settings = is_array($content['settings'] ?? null) ? $content['settings'] : [];
+    $settings[$key] = $value;
+    $content['settings'] = $settings;
+    saveSiteContent($content);
 }
 
 function isAdmin(): bool
 {
-    return isset($_SESSION['admin_id']);
+    $adminId = (int) ($_SESSION['admin_id'] ?? 0);
+    return $adminId > 0 && findAdminById($adminId) !== null;
 }
 
 function requireAdmin(): void
@@ -395,13 +331,13 @@ function isPostTooLarge(): bool
 function normalizeFontWeight(string $value): int
 {
     $num = (int) $value;
-    if ($num < 100) {
-        $num = 100;
+    if ($num < 0) {
+        $num = 0;
     }
     if ($num > 900) {
         $num = 900;
     }
-    return (int) (round($num / 100) * 100);
+    return $num;
 }
 
 function normalizeColor(string $value): string
@@ -604,8 +540,12 @@ function mediaTypeFromPath(string $path): string
 function styleString(array $item): string
 {
     $parts = [];
+    $weight = (int) ($item['title_font_weight'] ?? 600);
+    if ($weight <= 0) {
+        $weight = 1;
+    }
     $parts[] = 'font-size:' . (int) ($item['title_font_size'] ?? 16) . 'px';
-    $parts[] = 'font-weight:' . (int) ($item['title_font_weight'] ?? 600);
+    $parts[] = 'font-weight:' . $weight;
     $parts[] = 'font-family:' . ($item['title_font_family'] ?? 'Arial, sans-serif');
     $parts[] = 'color:' . normalizeColor((string) ($item['title_color'] ?? '#ffffff'));
     if ((int) ($item['title_italic'] ?? 0) === 1) {
@@ -635,70 +575,132 @@ function introStyleString(array $intro): string
     return implode(';', $parts);
 }
 
+function fetchIntroContent(): array
+{
+    $intro = loadSiteContent()['intro_content'] ?? [];
+    if (!is_array($intro)) {
+        return [];
+    }
+    if (isset($intro['top_image_path'])) {
+        $intro['top_image_path'] = normalizePublicPath((string) $intro['top_image_path']);
+    }
+    return $intro;
+}
+
 function fetchCategories(): array
 {
-    return db()->query('SELECT * FROM categories ORDER BY sort_order DESC, id DESC')->fetchAll();
+    $categories = loadSiteContent()['categories'] ?? [];
+    if (!is_array($categories)) {
+        return [];
+    }
+    usort($categories, static function (array $a, array $b): int {
+        $sortA = (int) ($a['sort_order'] ?? 0);
+        $sortB = (int) ($b['sort_order'] ?? 0);
+        if ($sortA !== $sortB) {
+            return $sortB <=> $sortA;
+        }
+        return ((int) ($b['id'] ?? 0)) <=> ((int) ($a['id'] ?? 0));
+    });
+    return array_values($categories);
 }
 
 function fetchBannerItems(): array
 {
-    return db()->query('SELECT * FROM banner_items ORDER BY sort_order DESC, id DESC')->fetchAll();
+    $items = loadSiteContent()['banner_items'] ?? [];
+    if (!is_array($items)) {
+        return [];
+    }
+    usort($items, static function (array $a, array $b): int {
+        $sortA = (int) ($a['sort_order'] ?? 0);
+        $sortB = (int) ($b['sort_order'] ?? 0);
+        if ($sortA !== $sortB) {
+            return $sortB <=> $sortA;
+        }
+        return ((int) ($b['id'] ?? 0)) <=> ((int) ($a['id'] ?? 0));
+    });
+    foreach ($items as &$item) {
+        $item['media_path'] = normalizePublicPath((string) ($item['media_path'] ?? ''));
+        $item['media_type'] = (string) ($item['media_type'] ?? mediaTypeFromPath($item['media_path']));
+    }
+    unset($item);
+    return array_values($items);
 }
 
 function defaultCategoryId(): int
 {
-    $row = db()->query('SELECT id FROM categories ORDER BY sort_order DESC, id DESC LIMIT 1')->fetch();
-    return $row ? (int) $row['id'] : 1;
+    $categories = fetchCategories();
+    return isset($categories[0]['id']) ? (int) $categories[0]['id'] : 1;
 }
 
 function addAuditLog(string $section, string $action, string $detail): void
 {
-    $stmt = db()->prepare('INSERT INTO audit_logs (section, action, detail, created_at) VALUES (:section, :action, :detail, :created_at)');
-    $stmt->execute([
-        ':section' => $section,
-        ':action' => $action,
-        ':detail' => $detail,
-        ':created_at' => date('c'),
-    ]);
+    $content = loadSiteContent();
+    $logs = is_array($content['audit_logs'] ?? null) ? $content['audit_logs'] : [];
+    $logs[] = [
+        'id' => nextItemId($logs),
+        'section' => $section,
+        'action' => $action,
+        'detail' => $detail,
+        'created_at' => date('c'),
+    ];
+    $content['audit_logs'] = $logs;
+    saveSiteContent($content);
 }
 
 function fetchAuditLogs(int $limit = 120): array
 {
-    $stmt = db()->prepare('SELECT * FROM audit_logs ORDER BY id DESC LIMIT :limit');
-    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetchAll();
+    $logs = loadSiteContent()['audit_logs'] ?? [];
+    if (!is_array($logs)) {
+        return [];
+    }
+    usort($logs, static function (array $a, array $b): int {
+        return ((int) ($b['id'] ?? 0)) <=> ((int) ($a['id'] ?? 0));
+    });
+    return array_slice(array_values($logs), 0, max(0, $limit));
 }
 
 function fetchWorksWithMedia(?int $categoryId = null): array
 {
-    if ($categoryId !== null && $categoryId > 0) {
-        $stmt = db()->prepare('SELECT * FROM works WHERE category_id = :cid ORDER BY sort_order DESC, id DESC');
-        $stmt->execute([':cid' => $categoryId]);
-        $works = $stmt->fetchAll();
-    } else {
-        $works = db()->query('SELECT * FROM works ORDER BY sort_order DESC, id DESC')->fetchAll();
-    }
-    if (!$works) {
+    $works = loadSiteContent()['works'] ?? [];
+    if (!is_array($works) || $works === []) {
         return [];
     }
-    $ids = array_column($works, 'id');
-    $marks = implode(',', array_fill(0, count($ids), '?'));
-    $stmt = db()->prepare("SELECT * FROM work_media WHERE work_id IN ($marks) ORDER BY position ASC, id ASC");
-    $stmt->execute($ids);
-    $allMedia = $stmt->fetchAll();
-    $mediaMap = [];
-    foreach ($allMedia as $m) {
-        $wid = (int) $m['work_id'];
-        if (!isset($mediaMap[$wid])) {
-            $mediaMap[$wid] = [];
+
+    $normalized = [];
+    foreach ($works as $work) {
+        if (!is_array($work)) {
+            continue;
         }
-        $mediaMap[$wid][] = $m;
+        $work['id'] = (int) ($work['id'] ?? 0);
+        $work['category_id'] = (int) ($work['category_id'] ?? 0);
+        if ($categoryId !== null && $categoryId > 0 && $work['category_id'] !== $categoryId) {
+            continue;
+        }
+        $work['cover_path'] = normalizePublicPath((string) ($work['cover_path'] ?? ''));
+        $mediaList = $work['media'] ?? [];
+        if (!is_array($mediaList)) {
+            $mediaList = [];
+        }
+        foreach ($mediaList as &$media) {
+            if (!is_array($media)) {
+                continue;
+            }
+            $media['media_path'] = normalizePublicPath((string) ($media['media_path'] ?? ''));
+            $media['media_type'] = (string) ($media['media_type'] ?? mediaTypeFromPath((string) $media['media_path']));
+        }
+        unset($media);
+        $work['media'] = array_values(array_filter($mediaList, 'is_array'));
+        $normalized[] = $work;
     }
-    foreach ($works as &$w) {
-        $w['media'] = $mediaMap[(int) $w['id']] ?? [];
-    }
-    return $works;
+    usort($normalized, static function (array $a, array $b): int {
+        $sortA = (int) ($a['sort_order'] ?? 0);
+        $sortB = (int) ($b['sort_order'] ?? 0);
+        if ($sortA !== $sortB) {
+            return $sortB <=> $sortA;
+        }
+        return ((int) ($b['id'] ?? 0)) <=> ((int) ($a['id'] ?? 0));
+    });
+    return $normalized;
 }
 
 function arrangeWorks(array $works): array
@@ -781,4 +783,3 @@ function hasUnused(array $pool): bool
 }
 
 ensureUploadDirs();
-db();

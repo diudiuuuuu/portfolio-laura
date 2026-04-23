@@ -17,20 +17,26 @@
 - `public/index.php`：Works 首页
 - `public/introduction.php`：Introduction 页面
 - `public/login.php` / `public/admin.php`：后台登录与管理
-- `public/bootstrap.php`：数据库、鉴权、上传、通用函数
+- `public/bootstrap.php`：JSON 数据读写、鉴权、上传、通用函数
 - `public/assets/style.css` / `public/assets/app.js`：样式与交互
-- `data/site.sqlite`：SQLite 数据库（首次运行自动生成）
+- `data/site-content.json`：站点数据（设置/分类/作品/媒体/简介/管理员/日志）
 - `public/uploads/*`：上传资源目录
 
 ## 本地启动
-当前代码为 `PHP + SQLite`，需要本机有 PHP 8+。
+当前代码为 `PHP + JSON`（无数据库依赖），需要本机有 PHP 8+。
 
 ```bash
 cd /Users/diu/Desktop/portfolio-site
-php -c /Users/diu/Desktop/portfolio-site/php.ini -S 127.0.0.1:8000 -t public
+./scripts/start-local.sh
+```
+
+可选端口（例如 9000）：
+
+```bash
+./scripts/start-local.sh 9000
 ```
 
 打开：
-- 前台：`http://127.0.0.1:8000/index.php`
-- Introduction：`http://127.0.0.1:8000/introduction.php`
-- 后台：`http://127.0.0.1:8000/login.php`
+- 前台：`http://127.0.0.1:8080/index.php`
+- Introduction：`http://127.0.0.1:8080/introduction.php`
+- 后台：`http://127.0.0.1:8080/login.php`

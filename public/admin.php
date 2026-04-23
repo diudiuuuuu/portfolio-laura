@@ -3,7 +3,42 @@ declare(strict_types=1);
 require __DIR__ . '/bootstrap.php';
 requireAdmin();
 
-$pdo = db();
+function findItemIndexById(array $items, int $id): ?int
+{
+    foreach ($items as $idx => $item) {
+        if (!is_array($item)) {
+            continue;
+        }
+        if ((int) ($item['id'] ?? 0) === $id) {
+            return $idx;
+        }
+    }
+    return null;
+}
+
+function nextMediaIdFromWorks(array $works): int
+{
+    $max = 0;
+    foreach ($works as $work) {
+        if (!is_array($work)) {
+            continue;
+        }
+        $mediaList = $work['media'] ?? [];
+        if (!is_array($mediaList)) {
+            continue;
+        }
+        foreach ($mediaList as $media) {
+            if (!is_array($media)) {
+                continue;
+            }
+            $id = (int) ($media['id'] ?? 0);
+            if ($id > $max) {
+                $max = $id;
+            }
+        }
+    }
+    return $max + 1;
+}
 
 if (isPostTooLarge()) {
     $limit = (string) ini_get('post_max_size');
@@ -19,15 +54,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name = trim((string) ($_POST['category_name'] ?? ''));
         $sortOrder = (int) ($_POST['sort_order'] ?? 0);
         if ($name !== '') {
-                $stmt = $pdo->prepare('INSERT INTO categories (name, sort_order) VALUES (:name, :sort_order)');
-                try {
-                    $stmt->execute([':name' => $name, ':sort_order' => $sortOrder]);
-                    flash('分类已创建', $flashTarget);
-                    addAuditLog('分类', '创建', '分类：' . $name);
-                } catch (Throwable $e) {
-                    flash('分类名重复或无效', $flashTarget, 'error');
+            $content = loadSiteContent();
+            $categories = is_array($content['categories'] ?? null) ? $content['categories'] : [];
+            $duplicated = false;
+            foreach ($categories as $cat) {
+                if ((string) ($cat['name'] ?? '') === $name) {
+                    $duplicated = true;
+                    break;
                 }
             }
+            if ($duplicated) {
+                flash('分类名重复或无效', $flashTarget, 'error');
+            } else {
+                $categories[] = [
+                    'id' => nextItemId($categories),
+                    'name' => $name,
+                    'sort_order' => $sortOrder,
+                ];
+                $content['categories'] = array_values($categories);
+                saveSiteContent($content);
+                flash('分类已创建', $flashTarget);
+                addAuditLog('分类', '创建', '分类：' . $name);
+            }
+        }
         redirectAdmin($flashTarget);
     }
 
@@ -36,33 +85,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name = trim((string) ($_POST['category_name'] ?? ''));
         $sortOrder = (int) ($_POST['sort_order'] ?? 0);
         if ($id > 0 && $name !== '') {
-                $stmt = $pdo->prepare('UPDATE categories SET name = :name, sort_order = :sort_order WHERE id = :id');
-                try {
-                    $stmt->execute([':name' => $name, ':sort_order' => $sortOrder, ':id' => $id]);
+            $content = loadSiteContent();
+            $categories = is_array($content['categories'] ?? null) ? $content['categories'] : [];
+            $index = findItemIndexById($categories, $id);
+            if ($index === null) {
+                flash('分类更新失败', $flashTarget, 'error');
+            } else {
+                $duplicated = false;
+                foreach ($categories as $cat) {
+                    if ((int) ($cat['id'] ?? 0) !== $id && (string) ($cat['name'] ?? '') === $name) {
+                        $duplicated = true;
+                        break;
+                    }
+                }
+                if ($duplicated) {
+                    flash('分类名重复或无效', $flashTarget, 'error');
+                } else {
+                    $categories[$index]['name'] = $name;
+                    $categories[$index]['sort_order'] = $sortOrder;
+                    $content['categories'] = array_values($categories);
+                    saveSiteContent($content);
                     flash('分类已更新', $flashTarget);
                     addAuditLog('分类', '更新', '分类ID ' . $id . ' -> ' . $name);
-                } catch (Throwable $e) {
-                    flash('分类更新失败', $flashTarget, 'error');
                 }
             }
+        }
         redirectAdmin($flashTarget);
     }
 
     if ($action === 'delete_category') {
         $id = (int) ($_POST['category_id'] ?? 0);
         if ($id > 0) {
-            $allCount = (int) $pdo->query('SELECT COUNT(*) FROM categories')->fetchColumn();
-            if ($allCount <= 1) {
+            $content = loadSiteContent();
+            $categories = is_array($content['categories'] ?? null) ? $content['categories'] : [];
+            if (count($categories) <= 1) {
                 flash('至少保留一个分类', $flashTarget, 'error');
                 redirectAdmin($flashTarget);
             }
-            $stmtCheck = $pdo->prepare('SELECT COUNT(*) FROM works WHERE category_id = :id');
-            $stmtCheck->execute([':id' => $id]);
-            if ((int) $stmtCheck->fetchColumn() > 0) {
+            $works = is_array($content['works'] ?? null) ? $content['works'] : [];
+            $used = false;
+            foreach ($works as $work) {
+                if ((int) ($work['category_id'] ?? 0) === $id) {
+                    $used = true;
+                    break;
+                }
+            }
+            if ($used) {
                 flash('该分类下有作品，无法删除', $flashTarget, 'error');
             } else {
-                $stmt = $pdo->prepare('DELETE FROM categories WHERE id = :id');
-                $stmt->execute([':id' => $id]);
+                $categories = array_values(array_filter($categories, static fn($cat): bool => is_array($cat) && (int) ($cat['id'] ?? 0) !== $id));
+                $content['categories'] = $categories;
+                saveSiteContent($content);
                 flash('分类已删除', $flashTarget);
                 addAuditLog('分类', '删除', '分类ID ' . $id);
             }
@@ -104,44 +177,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
+        $content = loadSiteContent();
+        $works = is_array($content['works'] ?? null) ? $content['works'] : [];
+        $workId = nextItemId($works);
         $now = date('c');
-        $stmt = $pdo->prepare(
-            'INSERT INTO works (
-                title, description, meta_text, created_time, cover_path, emphasized, title_font_size, title_font_weight, title_font_family,
-                title_color, title_italic, title_underline, modal_font_size, category_id, card_bg, sort_order, created_at, updated_at
-            ) VALUES (
-                :title, :description, :meta_text, :created_time, :cover_path, :emphasized, :title_font_size, :title_font_weight, :title_font_family,
-                :title_color, :title_italic, :title_underline, :modal_font_size, :category_id, :card_bg, :sort_order, :created_at, :updated_at
-            )'
-        );
-        $stmt->execute([
-            ':title' => $title,
-            ':description' => $description,
-            ':meta_text' => $metaText,
-            ':created_time' => $createdTime,
-            ':cover_path' => $coverPath,
-            ':emphasized' => $emphasized,
-            ':title_font_size' => $fontSize,
-            ':title_font_weight' => $fontWeight,
-            ':title_font_family' => $fontFamily === '' ? 'Arial, sans-serif' : $fontFamily,
-            ':title_color' => $titleColor,
-            ':title_italic' => $titleItalic,
-            ':title_underline' => $titleUnderline,
-            ':modal_font_size' => $modalFontSize,
-            ':category_id' => $categoryId,
-            ':card_bg' => $cardBg,
-            ':sort_order' => $sortOrder,
-            ':created_at' => $now,
-            ':updated_at' => $now,
-        ]);
-        $workId = (int) $pdo->lastInsertId();
+        $work = [
+            'id' => $workId,
+            'title' => $title,
+            'description' => $description,
+            'meta_text' => $metaText,
+            'created_time' => $createdTime,
+            'cover_path' => $coverPath,
+            'emphasized' => $emphasized,
+            'title_font_size' => $fontSize,
+            'title_font_weight' => $fontWeight,
+            'title_font_family' => $fontFamily === '' ? 'Arial, sans-serif' : $fontFamily,
+            'title_color' => $titleColor,
+            'title_italic' => $titleItalic,
+            'title_underline' => $titleUnderline,
+            'modal_font_size' => $modalFontSize,
+            'category_id' => $categoryId,
+            'card_bg' => $cardBg,
+            'sort_order' => $sortOrder,
+            'created_at' => $now,
+            'updated_at' => $now,
+            'media' => [],
+        ];
 
         if (isset($_FILES['media_files']) && is_array($_FILES['media_files']['name'] ?? null)) {
             $count = count($_FILES['media_files']['name']);
             $pos = 0;
-            $stmtMedia = $pdo->prepare(
-                'INSERT INTO work_media (work_id, media_path, media_type, position, created_at) VALUES (:work_id, :media_path, :media_type, :position, :created_at)'
-            );
+            $nextMediaId = nextMediaIdFromWorks($works);
             for ($i = 0; $i < $count; $i++) {
                 $file = [
                     'name' => $_FILES['media_files']['name'][$i] ?? '',
@@ -154,15 +220,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($saved === null) {
                     continue;
                 }
-                $stmtMedia->execute([
-                    ':work_id' => $workId,
-                    ':media_path' => $saved,
-                    ':media_type' => mediaTypeFromPath($saved),
-                    ':position' => $pos++,
-                    ':created_at' => $now,
-                ]);
+                $work['media'][] = [
+                    'id' => $nextMediaId++,
+                    'work_id' => $workId,
+                    'media_path' => $saved,
+                    'media_type' => mediaTypeFromPath($saved),
+                    'position' => $pos++,
+                    'created_at' => $now,
+                ];
             }
         }
+        $works[] = $work;
+        $content['works'] = array_values($works);
+        saveSiteContent($content);
 
         flash('作品已创建并同步到首页。cover_path=' . ($coverPath !== '' ? $coverPath : '(empty)'), $flashTarget);
         addAuditLog('作品', '创建', '作品：' . $title);
@@ -194,13 +264,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $titleUnderline = isset($_POST['title_underline']) ? 1 : 0;
         $cardBg = normalizeCardBg((string) ($_POST['card_bg'] ?? 'black'));
 
-        $work = $pdo->prepare('SELECT * FROM works WHERE id = :id');
-        $work->execute([':id' => $workId]);
-        $row = $work->fetch();
-        if (!$row) {
+        $content = loadSiteContent();
+        $works = is_array($content['works'] ?? null) ? $content['works'] : [];
+        $workIndex = findItemIndexById($works, $workId);
+        if ($workIndex === null) {
             flash('更新失败：作品不存在', $flashTarget, 'error');
             redirectAdmin($flashTarget);
         }
+        $row = $works[$workIndex];
 
         $coverPath = $row['cover_path'];
         $hasCropIntent = (int) ($_POST['cover_crop_apply'] ?? 0) === 1 || isset($_POST['cover_apply_submit']);
@@ -218,15 +289,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif ($hasCropIntent) {
             $cropSource = (string) $coverPath;
             if ($cropSource === '' || mediaTypeFromPath($cropSource) === 'video') {
-                $stmtFirstImage = $pdo->prepare(
-                    "SELECT media_path FROM work_media
-                     WHERE work_id = :id AND media_type = 'image'
-                     ORDER BY position ASC, id ASC
-                     LIMIT 1"
-                );
-                $stmtFirstImage->execute([':id' => $workId]);
-                $firstImage = $stmtFirstImage->fetchColumn();
-                $cropSource = $firstImage ? (string) $firstImage : '';
+                $cropSource = '';
+                $mediaList = is_array($row['media'] ?? null) ? $row['media'] : [];
+                usort($mediaList, static function (array $a, array $b): int {
+                    $posA = (int) ($a['position'] ?? 0);
+                    $posB = (int) ($b['position'] ?? 0);
+                    if ($posA !== $posB) {
+                        return $posA <=> $posB;
+                    }
+                    return ((int) ($a['id'] ?? 0)) <=> ((int) ($b['id'] ?? 0));
+                });
+                foreach ($mediaList as $media) {
+                    if ((string) ($media['media_type'] ?? '') === 'image') {
+                        $cropSource = (string) ($media['media_path'] ?? '');
+                        break;
+                    }
+                }
             }
             if ($cropSource === '') {
                 flash('当前作品没有可裁剪的图片资源。请先上传图片封面或至少一张图片详情媒体。', $flashTarget, 'error');
@@ -241,54 +319,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        $stmt = $pdo->prepare(
-            'UPDATE works SET
-                title = :title,
-                description = :description,
-                meta_text = :meta_text,
-                created_time = :created_time,
-                cover_path = :cover_path,
-                emphasized = :emphasized,
-                title_font_size = :title_font_size,
-                title_font_weight = :title_font_weight,
-                title_font_family = :title_font_family,
-                title_color = :title_color,
-                title_italic = :title_italic,
-                title_underline = :title_underline,
-                modal_font_size = :modal_font_size,
-                category_id = :category_id,
-                card_bg = :card_bg,
-                sort_order = :sort_order,
-                updated_at = :updated_at
-             WHERE id = :id'
-        );
-        $stmt->execute([
-            ':id' => $workId,
-            ':title' => $title,
-            ':description' => $description,
-            ':meta_text' => $metaText,
-            ':created_time' => $createdTime,
-            ':cover_path' => $coverPath,
-            ':emphasized' => $emphasized,
-            ':title_font_size' => $fontSize,
-            ':title_font_weight' => $fontWeight,
-            ':title_font_family' => $fontFamily === '' ? 'Arial, sans-serif' : $fontFamily,
-            ':title_color' => $titleColor,
-            ':title_italic' => $titleItalic,
-            ':title_underline' => $titleUnderline,
-            ':modal_font_size' => $modalFontSize,
-            ':category_id' => $categoryId,
-            ':card_bg' => $cardBg,
-            ':sort_order' => $sortOrder,
-            ':updated_at' => date('c'),
-        ]);
+        $works[$workIndex]['title'] = $title;
+        $works[$workIndex]['description'] = $description;
+        $works[$workIndex]['meta_text'] = $metaText;
+        $works[$workIndex]['created_time'] = $createdTime;
+        $works[$workIndex]['cover_path'] = $coverPath;
+        $works[$workIndex]['emphasized'] = $emphasized;
+        $works[$workIndex]['title_font_size'] = $fontSize;
+        $works[$workIndex]['title_font_weight'] = $fontWeight;
+        $works[$workIndex]['title_font_family'] = $fontFamily === '' ? 'Arial, sans-serif' : $fontFamily;
+        $works[$workIndex]['title_color'] = $titleColor;
+        $works[$workIndex]['title_italic'] = $titleItalic;
+        $works[$workIndex]['title_underline'] = $titleUnderline;
+        $works[$workIndex]['modal_font_size'] = $modalFontSize;
+        $works[$workIndex]['category_id'] = $categoryId;
+        $works[$workIndex]['card_bg'] = $cardBg;
+        $works[$workIndex]['sort_order'] = $sortOrder;
+        $works[$workIndex]['updated_at'] = date('c');
 
         if (isset($_FILES['media_files']) && is_array($_FILES['media_files']['name'] ?? null)) {
             $count = count($_FILES['media_files']['name']);
-            $start = (int) $pdo->query('SELECT COALESCE(MAX(position), -1) FROM work_media WHERE work_id = ' . $workId)->fetchColumn() + 1;
-            $stmtMedia = $pdo->prepare(
-                'INSERT INTO work_media (work_id, media_path, media_type, position, created_at) VALUES (:work_id, :media_path, :media_type, :position, :created_at)'
-            );
+            $mediaList = is_array($works[$workIndex]['media'] ?? null) ? $works[$workIndex]['media'] : [];
+            $maxPos = -1;
+            foreach ($mediaList as $media) {
+                $maxPos = max($maxPos, (int) ($media['position'] ?? -1));
+            }
+            $start = $maxPos + 1;
+            $nextMediaId = nextMediaIdFromWorks($works);
             for ($i = 0; $i < $count; $i++) {
                 $file = [
                     'name' => $_FILES['media_files']['name'][$i] ?? '',
@@ -301,15 +358,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($saved === null) {
                     continue;
                 }
-                $stmtMedia->execute([
-                    ':work_id' => $workId,
-                    ':media_path' => $saved,
-                    ':media_type' => mediaTypeFromPath($saved),
-                    ':position' => $start++,
-                    ':created_at' => date('c'),
-                ]);
+                $mediaList[] = [
+                    'id' => $nextMediaId++,
+                    'work_id' => $workId,
+                    'media_path' => $saved,
+                    'media_type' => mediaTypeFromPath($saved),
+                    'position' => $start++,
+                    'created_at' => date('c'),
+                ];
             }
+            $works[$workIndex]['media'] = array_values($mediaList);
         }
+        $content['works'] = array_values($works);
+        saveSiteContent($content);
 
         flash('作品已更新。cover_path=' . ($coverPath !== '' ? $coverPath : '(empty)'), $flashTarget);
         addAuditLog('作品', '更新', '作品ID ' . $workId . '：' . $title);
@@ -319,10 +380,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'delete_work') {
         $workId = (int) ($_POST['work_id'] ?? 0);
         if ($workId > 0) {
-            $stmt = $pdo->prepare('DELETE FROM work_media WHERE work_id = :id');
-            $stmt->execute([':id' => $workId]);
-            $stmt2 = $pdo->prepare('DELETE FROM works WHERE id = :id');
-            $stmt2->execute([':id' => $workId]);
+            $content = loadSiteContent();
+            $works = is_array($content['works'] ?? null) ? $content['works'] : [];
+            $works = array_values(array_filter($works, static fn($work): bool => is_array($work) && (int) ($work['id'] ?? 0) !== $workId));
+            $content['works'] = $works;
+            saveSiteContent($content);
             flash('作品已删除', $flashTarget);
             addAuditLog('作品', '删除', '作品ID ' . $workId);
         }
@@ -332,8 +394,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'delete_media') {
         $mediaId = (int) ($_POST['media_id'] ?? 0);
         if ($mediaId > 0) {
-            $stmt = $pdo->prepare('DELETE FROM work_media WHERE id = :id');
-            $stmt->execute([':id' => $mediaId]);
+            $content = loadSiteContent();
+            $works = is_array($content['works'] ?? null) ? $content['works'] : [];
+            foreach ($works as &$work) {
+                if (!is_array($work)) {
+                    continue;
+                }
+                $mediaList = is_array($work['media'] ?? null) ? $work['media'] : [];
+                $mediaList = array_values(array_filter($mediaList, static fn($media): bool => is_array($media) && (int) ($media['id'] ?? 0) !== $mediaId));
+                $work['media'] = $mediaList;
+            }
+            unset($work);
+            $content['works'] = array_values($works);
+            saveSiteContent($content);
             flash('详情媒体已删除', $flashTarget);
             addAuditLog('作品媒体', '删除', '媒体ID ' . $mediaId);
         }
@@ -343,8 +416,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'delete_banner_item') {
         $id = (int) ($_POST['banner_item_id'] ?? 0);
         if ($id > 0) {
-            $stmt = $pdo->prepare('DELETE FROM banner_items WHERE id = :id');
-            $stmt->execute([':id' => $id]);
+            $content = loadSiteContent();
+            $items = is_array($content['banner_items'] ?? null) ? $content['banner_items'] : [];
+            $items = array_values(array_filter($items, static fn($item): bool => is_array($item) && (int) ($item['id'] ?? 0) !== $id));
+            $content['banner_items'] = $items;
+            saveSiteContent($content);
             flash('Banner媒体已删除', $flashTarget);
             addAuditLog('Banner媒体', '删除', 'Banner媒体ID ' . $id);
         }
@@ -353,10 +429,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($action === 'add_banner_items') {
         if (isset($_FILES['banner_items']) && is_array($_FILES['banner_items']['name'] ?? null)) {
+            $content = loadSiteContent();
+            $items = is_array($content['banner_items'] ?? null) ? $content['banner_items'] : [];
             $count = count($_FILES['banner_items']['name']);
-            $existingCount = (int) $pdo->query('SELECT COUNT(*) FROM banner_items')->fetchColumn();
+            $existingCount = count($items);
             $pos = $existingCount + 1;
-            $stmtItem = $pdo->prepare('INSERT INTO banner_items (media_path, media_type, sort_order, created_at) VALUES (:media_path, :media_type, :sort_order, :created_at)');
+            $nextId = nextItemId($items);
             for ($i = 0; $i < $count; $i++) {
                 $file = [
                     'name' => $_FILES['banner_items']['name'][$i] ?? '',
@@ -369,13 +447,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($saved === null) {
                     continue;
                 }
-                $stmtItem->execute([
-                    ':media_path' => $saved,
-                    ':media_type' => mediaTypeFromPath($saved),
-                    ':sort_order' => $pos++,
-                    ':created_at' => date('c'),
-                ]);
+                $items[] = [
+                    'id' => $nextId++,
+                    'media_path' => $saved,
+                    'media_type' => mediaTypeFromPath($saved),
+                    'sort_order' => $pos++,
+                    'created_at' => date('c'),
+                ];
             }
+            $content['banner_items'] = array_values($items);
+            saveSiteContent($content);
             flash('漂浮媒体已新增', $flashTarget);
             addAuditLog('Banner媒体', '新增', '新增了漂浮媒体');
         }
@@ -403,10 +484,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = (int) ($_POST['banner_item_id'] ?? 0);
         $sortOrder = (int) ($_POST['sort_order'] ?? 0);
         if ($id > 0) {
-            $stmt = $pdo->prepare('SELECT * FROM banner_items WHERE id = :id');
-            $stmt->execute([':id' => $id]);
-            $row = $stmt->fetch();
-            if ($row) {
+            $content = loadSiteContent();
+            $items = is_array($content['banner_items'] ?? null) ? $content['banner_items'] : [];
+            $index = findItemIndexById($items, $id);
+            if ($index !== null) {
+                $row = $items[$index];
                 $mediaPath = $row['media_path'];
                 $mediaType = $row['media_type'];
                 $replaceAttempted = isset($_FILES['replace_file']) && (int) ($_FILES['replace_file']['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE;
@@ -421,13 +503,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         redirectAdmin($flashTarget);
                     }
                 }
-                $up = $pdo->prepare('UPDATE banner_items SET media_path = :media_path, media_type = :media_type, sort_order = :sort_order WHERE id = :id');
-                $up->execute([
-                    ':id' => $id,
-                    ':media_path' => $mediaPath,
-                    ':media_type' => $mediaType,
-                    ':sort_order' => $sortOrder,
-                ]);
+                $items[$index]['media_path'] = $mediaPath;
+                $items[$index]['media_type'] = $mediaType;
+                $items[$index]['sort_order'] = $sortOrder;
+                $content['banner_items'] = array_values($items);
+                saveSiteContent($content);
                 flash('Banner媒体已更新', $flashTarget);
                 addAuditLog('Banner媒体', '更新', 'Banner媒体ID ' . $id . ' 已更新');
             }
@@ -450,7 +530,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $lineHeight = 1.5;
         }
 
-        $current = $pdo->query('SELECT * FROM intro_content WHERE id = 1')->fetch();
+        $content = loadSiteContent();
+        $current = is_array($content['intro_content'] ?? null) ? $content['intro_content'] : [];
         $imagePath = $current['top_image_path'] ?? '';
         if (isset($_FILES['intro_top_image'])) {
             $saved = saveUpload($_FILES['intro_top_image'], 'intro', ALLOWED_IMAGE_EXT);
@@ -459,34 +540,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        $stmt = $pdo->prepare(
-            'UPDATE intro_content SET
-                col1_title = :col1_title,
-                col2_text = :col2_text,
-                col3_text = :col3_text,
-                top_image_path = :top_image_path,
-                font_size = :font_size,
-                font_weight = :font_weight,
-                font_family = :font_family,
-                color = :color,
-                italic = :italic,
-                underline = :underline,
-                line_height = :line_height
-             WHERE id = 1'
-        );
-        $stmt->execute([
-            ':col1_title' => $col1,
-            ':col2_text' => $col2,
-            ':col3_text' => $col3,
-            ':top_image_path' => $imagePath,
-            ':font_size' => $fontSize,
-            ':font_weight' => $fontWeight,
-            ':font_family' => $fontFamily === '' ? 'Arial, sans-serif' : $fontFamily,
-            ':color' => $color,
-            ':italic' => $italic,
-            ':underline' => $underline,
-            ':line_height' => $lineHeight,
-        ]);
+        $content['intro_content'] = [
+            'id' => 1,
+            'col1_title' => $col1,
+            'col2_text' => $col2,
+            'col3_text' => $col3,
+            'top_image_path' => $imagePath,
+            'font_size' => $fontSize,
+            'font_weight' => $fontWeight,
+            'font_family' => $fontFamily === '' ? 'Arial, sans-serif' : $fontFamily,
+            'color' => $color,
+            'italic' => $italic,
+            'underline' => $underline,
+            'line_height' => $lineHeight,
+        ];
+        saveSiteContent($content);
         flash('Introduction 已更新', $flashTarget);
         addAuditLog('Introduction', '更新', '三列内容与样式已保存');
         redirectAdmin($flashTarget);
@@ -533,15 +601,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $username = trim((string) ($_POST['new_username'] ?? ''));
         $password = (string) ($_POST['new_password'] ?? '');
         if ($username !== '' && $password !== '') {
-            $stmt = $pdo->prepare('UPDATE admins SET username = :u, password_hash = :p WHERE id = :id');
-            $stmt->execute([
-                ':u' => $username,
-                ':p' => password_hash($password, PASSWORD_DEFAULT),
-                ':id' => (int) $_SESSION['admin_id'],
-            ]);
-            $_SESSION['admin_username'] = $username;
-            flash('管理员账号密码已更新', $flashTarget);
-            addAuditLog('管理员', '更新', '管理员凭证已修改');
+            $ok = updateAdminCredentialsJson((int) ($_SESSION['admin_id'] ?? 0), $username, password_hash($password, PASSWORD_DEFAULT));
+            if ($ok) {
+                $_SESSION['admin_username'] = $username;
+                flash('管理员账号密码已更新', $flashTarget);
+                addAuditLog('管理员', '更新', '管理员凭证已修改');
+            } else {
+                flash('管理员用户名不可重复或当前会话无效', $flashTarget, 'error');
+            }
         } else {
             flash('管理员用户名和密码都不能为空', $flashTarget, 'error');
         }
@@ -551,7 +618,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $works = fetchWorksWithMedia();
 $categories = fetchCategories();
-$intro = $pdo->query('SELECT * FROM intro_content WHERE id = 1')->fetch() ?: [];
+$intro = fetchIntroContent();
 $bannerItems = fetchBannerItems();
 $logs = fetchAuditLogs(80);
 $flashData = flash();
@@ -673,10 +740,6 @@ function renderFlashAt(string $target, ?array $flashData): string
             <input type="text" name="title" required>
           </div>
           <div>
-            <label>创作时间（第三列）</label>
-            <input type="text" name="created_time" placeholder="Date: 2025">
-          </div>
-          <div>
             <label>排序值（大者优先）</label>
             <input type="number" name="sort_order" value="0">
           </div>
@@ -685,8 +748,12 @@ function renderFlashAt(string $target, ?array $flashData): string
             <textarea name="description"></textarea>
           </div>
           <div class="full">
-            <label>补充信息（第二列下方）</label>
-            <textarea name="meta_text"></textarea>
+            <label>创作时间（第三列，段落输入）</label>
+            <textarea name="created_time" placeholder="例如：Date: 2025&#10;April - June"></textarea>
+          </div>
+          <div class="full">
+            <label>补充信息（第三列）</label>
+            <textarea name="meta_text" placeholder="例如：Materials: ..."></textarea>
           </div>
           <div>
             <label>首页标题字号(px)</label>
@@ -697,8 +764,8 @@ function renderFlashAt(string $target, ?array $flashData): string
             <input type="number" name="modal_font_size" value="28" min="10" max="80">
           </div>
           <div>
-            <label>首页标题粗细(100-900)</label>
-            <input type="number" name="title_font_weight" value="600" min="100" max="900" step="100">
+            <label>首页标题粗细(0-900)</label>
+            <input type="number" name="title_font_weight" value="600" min="0" max="900" step="1">
           </div>
           <div>
             <label>首页标题字体</label>
@@ -996,10 +1063,6 @@ function renderFlashAt(string $target, ?array $flashData): string
                   <input type="text" name="title" value="<?= esc((string) $w['title']) ?>" required>
                 </div>
                 <div>
-                  <label>创作时间</label>
-                  <input type="text" name="created_time" value="<?= esc((string) $w['created_time']) ?>">
-                </div>
-                <div>
                   <label>排序值</label>
                   <input type="number" name="sort_order" value="<?= (int) $w['sort_order'] ?>">
                 </div>
@@ -1011,8 +1074,12 @@ function renderFlashAt(string $target, ?array $flashData): string
                   <textarea name="description"><?= esc((string) $w['description']) ?></textarea>
                 </div>
                 <div class="full">
-                  <label>补充信息</label>
-                  <textarea name="meta_text"><?= esc((string) $w['meta_text']) ?></textarea>
+                  <label>创作时间（第三列，段落输入）</label>
+                  <textarea name="created_time"><?= esc((string) ($w['created_time'] ?? '')) ?></textarea>
+                </div>
+                <div class="full">
+                  <label>补充信息（第三列）</label>
+                  <textarea name="meta_text"><?= esc((string) ($w['meta_text'] ?? '')) ?></textarea>
                 </div>
                 <div>
                   <label>字号</label>
@@ -1024,7 +1091,7 @@ function renderFlashAt(string $target, ?array $flashData): string
                 </div>
                 <div>
                   <label>粗细</label>
-                  <input type="number" name="title_font_weight" min="100" max="900" step="100" value="<?= (int) $w['title_font_weight'] ?>">
+                  <input type="number" name="title_font_weight" min="0" max="900" step="1" value="<?= (int) $w['title_font_weight'] ?>">
                 </div>
                 <div>
                   <label>字体</label>

@@ -127,17 +127,19 @@ $works = arrangeWorks(fetchWorksWithMedia($activeCategory > 0 ? $activeCategory 
 
   <div class="modal-layer" data-modal-layer>
     <div class="work-modal" data-modal>
+      <button class="modal-close" data-close type="button">×</button>
       <div class="modal-head">
         <div class="modal-col"><h3 data-m-title></h3></div>
         <div class="modal-col">
           <p data-m-desc></p>
+        </div>
+        <div class="modal-col">
+          <p data-m-time></p>
           <p style="margin-top:12px;" data-m-meta></p>
         </div>
-        <div class="modal-col"><p data-m-time></p></div>
       </div>
       <div class="modal-gallery" data-m-gallery></div>
     </div>
-    <button class="modal-close" data-close type="button">×</button>
   </div>
 
   <script src="/assets/app.js"></script>

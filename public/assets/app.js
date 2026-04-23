@@ -48,8 +48,8 @@
 
       modal.querySelector("[data-m-title]").textContent = title;
       modal.querySelector("[data-m-desc]").textContent = desc;
-      modal.querySelector("[data-m-meta]").textContent = meta;
       modal.querySelector("[data-m-time]").textContent = time;
+      modal.querySelector("[data-m-meta]").textContent = meta;
       modal.style.setProperty("--modal-font-size", `${modalSize}px`);
       if (modalBg === "white") {
         modal.style.setProperty("--modal-bg", "#ffffff");
@@ -58,7 +58,6 @@
         modal.style.setProperty("--modal-divider", "#b9b9b9");
         modal.style.setProperty("--modal-media-bg", "#f3f3f3");
         if (closeBtn) {
-          closeBtn.style.borderColor = "#111";
           closeBtn.style.color = "#111";
           closeBtn.style.background = "rgba(255,255,255,0.82)";
         }
@@ -69,7 +68,6 @@
         modal.style.setProperty("--modal-divider", "#777777");
         modal.style.setProperty("--modal-media-bg", "#111111");
         if (closeBtn) {
-          closeBtn.style.borderColor = "#fff";
           closeBtn.style.color = "#fff";
           closeBtn.style.background = "rgba(0,0,0,0.75)";
         }
@@ -119,73 +117,40 @@
   if (floatLayer) {
     const nodes = Array.from(floatLayer.querySelectorAll(".banner-float-item"));
 
-    function seeded(seed) {
-      const x = Math.sin(seed * 997.31 + 17.17) * 10000;
-      return x - Math.floor(x);
-    }
-
     function layoutItems() {
       const rect = floatLayer.getBoundingClientRect();
       const n = nodes.length;
       if (!n || rect.width < 20 || rect.height < 20) return;
 
-      const margin = 10;
-      const points = [];
-      const minBase = Math.max(84, Math.min(rect.width, rect.height) * 0.11); // 尺寸翻倍基准
+      const rows = Math.max(1, Math.round(Math.sqrt((n * rect.height) / rect.width)));
+      const maxCols = Math.ceil(n / rows);
+      const sizeByWidth = rect.width / (maxCols + 0.9);
+      const sizeByHeight = rect.height / (rows + 0.35);
+      const rawSize = Math.min(sizeByWidth, sizeByHeight) * 1.5;
+      const size = Math.max(64, Math.min(rawSize, rect.width / maxCols, rect.height / rows));
+      const gapY = rows > 0 ? Math.max(0, (rect.height - rows * size) / (rows + 1)) : 0;
 
-      nodes.forEach((node, i) => {
-        const seed = Number(node.dataset.seed || i + 1);
-        const size = minBase * (1 + seeded(seed + 5)); // 1x ~ 2x
-        let x = margin + seeded(seed + 11) * (rect.width - size - margin * 2);
-        let y = margin + seeded(seed + 19) * (rect.height - size - margin * 2);
-        points.push({ node, seed, size, x, y });
-      });
-
-      for (let t = 0; t < 130; t += 1) {
-        for (let i = 0; i < points.length; i += 1) {
-          for (let j = i + 1; j < points.length; j += 1) {
-            const a = points[i];
-            const b = points[j];
-            const ax = a.x + a.size / 2;
-            const ay = a.y + a.size / 2;
-            const bx = b.x + b.size / 2;
-            const by = b.y + b.size / 2;
-            let dx = ax - bx;
-            let dy = ay - by;
-            const dist = Math.hypot(dx, dy) || 0.001;
-            const minDist = (a.size + b.size) / 2 + 10;
-            if (dist < minDist) {
-              const push = (minDist - dist) * 0.5;
-              dx /= dist;
-              dy /= dist;
-              a.x += dx * push;
-              a.y += dy * push;
-              b.x -= dx * push;
-              b.y -= dy * push;
-            }
-          }
+      let cursor = 0;
+      for (let row = 0; row < rows; row += 1) {
+        const remaining = n - cursor;
+        const rowsLeft = rows - row;
+        const rowCount = Math.ceil(remaining / rowsLeft);
+        const gapX = Math.max(0, (rect.width - rowCount * size) / (rowCount + 1));
+        for (let col = 0; col < rowCount; col += 1) {
+          const node = nodes[cursor];
+          const x = gapX + col * (size + gapX);
+          const y = gapY + row * (size + gapY);
+          node.style.left = `${x}px`;
+          node.style.top = `${y}px`;
+          node.style.width = `${size}px`;
+          node.style.height = `${size}px`;
+          node.dataset.baseScale = "1";
+          node.dataset.hoverAmp = "0.16";
+          node.style.transform = "translate(0px,0px) scale(1)";
+          node.style.zIndex = String(2 + row);
+          cursor += 1;
         }
-        points.forEach((p) => {
-          const tx = rect.width * (0.5 + (seeded(p.seed + 23) - 0.5) * 0.5);
-          const ty = rect.height * (0.5 + (seeded(p.seed + 29) - 0.5) * 0.45);
-          p.x += (tx - (p.x + p.size / 2)) * 0.01;
-          p.y += (ty - (p.y + p.size / 2)) * 0.01;
-          p.x = Math.max(margin, Math.min(rect.width - p.size - margin, p.x));
-          p.y = Math.max(margin, Math.min(rect.height - p.size - margin, p.y));
-        });
       }
-
-      points.forEach((p, i) => {
-        p.node.style.left = `${p.x}px`;
-        p.node.style.top = `${p.y}px`;
-        p.node.style.width = `${p.size}px`;
-        p.node.style.height = `${p.size}px`;
-        const depth = 0.86 + seeded(p.seed + 31) * 0.32;
-        p.node.dataset.baseScale = String(depth);
-        p.node.dataset.hoverAmp = String(0.12 + seeded(p.seed + 41) * 0.18);
-        p.node.style.transform = `translate(0px,0px) scale(${depth})`;
-        p.node.style.zIndex = String(2 + Math.round((p.y / rect.height) * 8));
-      });
     }
 
     layoutItems();
