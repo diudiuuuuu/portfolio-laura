@@ -100,6 +100,7 @@ $works = arrangeWorks(fetchWorksWithMedia($activeCategory > 0 ? $activeCategory 
           data-description="<?= esc($w['description']) ?>"
           data-meta="<?= esc($w['meta_text']) ?>"
           data-time="<?= esc($w['created_time']) ?>"
+          data-title-weight="<?= (int) ($w['title_font_weight'] ?? 600) ?>"
           data-modal-size="<?= (int) $w['modal_font_size'] ?>"
           data-modal-bg="<?= esc($cardBg) ?>"
           data-media="<?= esc((string) $mediaJson) ?>"

@@ -330,7 +330,7 @@ a {
   margin: 0;
   white-space: pre-wrap;
   font-size: inherit;
-  font-weight: 500;
+  font-weight: var(--modal-copy-weight, 500);
 }
 
 .modal-col h3 {

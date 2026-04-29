@@ -37,6 +37,8 @@
       const desc = card.dataset.description || "";
       const meta = card.dataset.meta || "";
       const time = card.dataset.time || "";
+      const titleWeight = Math.max(1, Number(card.dataset.titleWeight || 600));
+      const boostedWeight = Math.min(900, Math.round(titleWeight + 100));
       const modalSize = Number(card.dataset.modalSize || 28);
       const modalBg = card.dataset.modalBg === "white" ? "white" : "black";
       let media = [];
@@ -47,10 +49,12 @@
       }
 
       modal.querySelector("[data-m-title]").textContent = title;
-      modal.querySelector("[data-m-desc]").textContent = desc;
+      const descEl = modal.querySelector("[data-m-desc]");
+      descEl.textContent = desc;
       modal.querySelector("[data-m-time]").textContent = time;
       modal.querySelector("[data-m-meta]").textContent = meta;
       modal.style.setProperty("--modal-font-size", `${modalSize}px`);
+      modal.style.setProperty("--modal-copy-weight", String(boostedWeight));
       if (modalBg === "white") {
         modal.style.setProperty("--modal-bg", "#ffffff");
         modal.style.setProperty("--modal-fg", "#111111");
@@ -81,6 +85,10 @@
         if (isVideo) {
           el.src = item.media_path;
           el.controls = true;
+          el.autoplay = true;
+          el.muted = true;
+          el.loop = true;
+          el.playsInline = true;
           el.preload = "metadata";
         } else {
           el.src = item.media_path;
@@ -117,40 +125,56 @@
   if (floatLayer) {
     const nodes = Array.from(floatLayer.querySelectorAll(".banner-float-item"));
 
+    function seededRand(seed) {
+      const v = Math.sin(seed * 12.9898 + 78.233) * 43758.5453;
+      return v - Math.floor(v);
+    }
+
     function layoutItems() {
       const rect = floatLayer.getBoundingClientRect();
       const n = nodes.length;
       if (!n || rect.width < 20 || rect.height < 20) return;
+      const third = rect.width / 3;
+      const leftStart = 0;
+      const leftEnd = third;
+      const rightStart = third * 2;
+      const rightEnd = rect.width;
+      const sideGap = Math.max(12, rect.width * 0.02);
+      const isNarrow = rect.width < 900;
+      const minSize = isNarrow ? Math.max(52, rect.height * 0.24) : Math.max(66, rect.height * 0.32);
+      const maxSize = isNarrow ? Math.max(88, rect.height * 0.46) : Math.max(120, rect.height * 0.62);
 
-      const rows = Math.max(1, Math.round(Math.sqrt((n * rect.height) / rect.width)));
-      const maxCols = Math.ceil(n / rows);
-      const sizeByWidth = rect.width / (maxCols + 0.9);
-      const sizeByHeight = rect.height / (rows + 0.35);
-      const rawSize = Math.min(sizeByWidth, sizeByHeight) * 1.5;
-      const size = Math.max(64, Math.min(rawSize, rect.width / maxCols, rect.height / rows));
-      const gapY = rows > 0 ? Math.max(0, (rect.height - rows * size) / (rows + 1)) : 0;
+      const order = nodes
+        .map((node, i) => ({
+          node,
+          i,
+          seed: Number(node.dataset.seed || i + 1),
+          rank: seededRand((Number(node.dataset.seed || i + 1) + 17.13) * 1.23)
+        }))
+        .sort((a, b) => a.rank - b.rank);
 
-      let cursor = 0;
-      for (let row = 0; row < rows; row += 1) {
-        const remaining = n - cursor;
-        const rowsLeft = rows - row;
-        const rowCount = Math.ceil(remaining / rowsLeft);
-        const gapX = Math.max(0, (rect.width - rowCount * size) / (rowCount + 1));
-        for (let col = 0; col < rowCount; col += 1) {
-          const node = nodes[cursor];
-          const x = gapX + col * (size + gapX);
-          const y = gapY + row * (size + gapY);
-          node.style.left = `${x}px`;
-          node.style.top = `${y}px`;
-          node.style.width = `${size}px`;
-          node.style.height = `${size}px`;
-          node.dataset.baseScale = "1";
-          node.dataset.hoverAmp = "0.16";
-          node.style.transform = "translate(0px,0px) scale(1)";
-          node.style.zIndex = String(2 + row);
-          cursor += 1;
-        }
-      }
+      order.forEach((entry, idx) => {
+        const { node, seed } = entry;
+        const rSize = seededRand(seed * 0.73 + 4.1);
+        const size = minSize + (maxSize - minSize) * rSize;
+        const side = idx % 2 === 0 ? "left" : "right";
+
+        const zoneStart = side === "left" ? leftStart + sideGap : rightStart + sideGap;
+        const zoneEnd = side === "left" ? leftEnd - sideGap : rightEnd - sideGap;
+        const usable = Math.max(1, zoneEnd - zoneStart - size);
+
+        const x = zoneStart + seededRand(seed * 1.11 + 9.7) * usable;
+        const y = seededRand(seed * 2.07 + 3.3) * Math.max(0, rect.height - size);
+
+        node.style.left = `${x}px`;
+        node.style.top = `${y}px`;
+        node.style.width = `${size}px`;
+        node.style.height = `${size}px`;
+        node.dataset.baseScale = (0.92 + seededRand(seed * 1.61 + 7.2) * 0.22).toFixed(3);
+        node.dataset.hoverAmp = (0.11 + seededRand(seed * 1.77 + 1.4) * 0.12).toFixed(3);
+        node.style.transform = `translate(0px,0px) scale(${node.dataset.baseScale})`;
+        node.style.zIndex = String(2 + Math.floor(seededRand(seed * 0.97 + 5.2) * 12));
+      });
     }
 
     layoutItems();

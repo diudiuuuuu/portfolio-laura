@@ -540,12 +540,8 @@ function mediaTypeFromPath(string $path): string
 function styleString(array $item): string
 {
     $parts = [];
-    $weight = (int) ($item['title_font_weight'] ?? 600);
-    if ($weight <= 0) {
-        $weight = 1;
-    }
     $parts[] = 'font-size:' . (int) ($item['title_font_size'] ?? 16) . 'px';
-    $parts[] = 'font-weight:' . $weight;
+    $parts[] = 'font-weight:500';
     $parts[] = 'font-family:' . ($item['title_font_family'] ?? 'Arial, sans-serif');
     $parts[] = 'color:' . normalizeColor((string) ($item['title_color'] ?? '#ffffff'));
     if ((int) ($item['title_italic'] ?? 0) === 1) {
@@ -560,8 +556,10 @@ function styleString(array $item): string
 function introStyleString(array $intro): string
 {
     $parts = [];
+    $introWeight = max(1, (int) ($intro['font_weight'] ?? 500));
+    $introWeight = min(900, $introWeight + 100);
     $parts[] = 'font-size:' . (int) ($intro['font_size'] ?? 24) . 'px';
-    $parts[] = 'font-weight:' . (int) ($intro['font_weight'] ?? 500);
+    $parts[] = 'font-weight:' . $introWeight;
     $parts[] = 'font-family:' . ($intro['font_family'] ?? 'Arial, sans-serif');
     $parts[] = 'color:' . normalizeColor((string) ($intro['color'] ?? '#ffffff'));
     if ((int) ($intro['italic'] ?? 0) === 1) {
