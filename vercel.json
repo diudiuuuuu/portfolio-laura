@@ -1,12 +1,15 @@
 {
   "version": 2,
+  "functions": {
+    "public/**/*.php": {
+      "includeFiles": "data/**",
+      "excludeFiles": "{public/uploads/**,uploads/**,**/*.mp4,**/*.mov,**/*.avi,**/*.mkv,**/*.webm,**/*.jpg,**/*.jpeg,**/*.png,**/*.gif}"
+    }
+  },
   "builds": [
     {
       "src": "public/**/*.php",
-      "use": "vercel-php@0.7.2",
-      "config": {
-        "excludeFiles": "{public/uploads/**,uploads/**}"
-      }
+      "use": "vercel-php@0.7.2"
     },
     {
       "src": "public/assets/**",
