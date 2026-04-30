@@ -399,23 +399,7 @@ function uploadFileToBlob(string $absolutePath, string $blobPathname, ?string $c
         return null;
     }
 
-    $fh = fopen($absolutePath, 'rb');
-    if ($fh === false) {
-        return null;
-    }
-    $size = filesize($absolutePath);
-    if ($size === false) {
-        fclose($fh);
-        return null;
-    }
-
     $url = 'https://blob.vercel-storage.com/' . ltrim($blobPathname, '/');
-    $ch = curl_init($url);
-    if ($ch === false) {
-        fclose($fh);
-        return null;
-    }
-
     $headers = [
         'authorization: Bearer ' . $token,
         'x-api-version: 7',
@@ -424,20 +408,56 @@ function uploadFileToBlob(string $absolutePath, string $blobPathname, ?string $c
         'x-content-disposition: inline',
     ];
 
-    curl_setopt_array($ch, [
-        CURLOPT_CUSTOMREQUEST => 'PUT',
-        CURLOPT_HTTPHEADER => $headers,
-        CURLOPT_INFILE => $fh,
-        CURLOPT_INFILESIZE => $size,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT => 120,
-        CURLOPT_FAILONERROR => false,
-    ]);
+    $response = false;
+    $status = 0;
 
-    $response = curl_exec($ch);
-    $status = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
-    curl_close($ch);
-    fclose($fh);
+    if (function_exists('curl_init')) {
+        $fh = fopen($absolutePath, 'rb');
+        if ($fh === false) {
+            return null;
+        }
+        $size = filesize($absolutePath);
+        if ($size === false) {
+            fclose($fh);
+            return null;
+        }
+        $ch = curl_init($url);
+        if ($ch === false) {
+            fclose($fh);
+            return null;
+        }
+        curl_setopt_array($ch, [
+            CURLOPT_CUSTOMREQUEST => 'PUT',
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_INFILE => $fh,
+            CURLOPT_INFILESIZE => $size,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 120,
+            CURLOPT_FAILONERROR => false,
+        ]);
+        $response = curl_exec($ch);
+        $status = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        curl_close($ch);
+        fclose($fh);
+    } else {
+        $body = @file_get_contents($absolutePath);
+        if ($body === false) {
+            return null;
+        }
+        $context = stream_context_create([
+            'http' => [
+                'method' => 'PUT',
+                'header' => implode("\r\n", $headers),
+                'content' => $body,
+                'ignore_errors' => true,
+                'timeout' => 120,
+            ],
+        ]);
+        $response = @file_get_contents($url, false, $context);
+        if (isset($http_response_header[0]) && preg_match('/\s(\d{3})\s/', (string) $http_response_header[0], $m)) {
+            $status = (int) $m[1];
+        }
+    }
 
     if ($response === false || $status < 200 || $status >= 300) {
         return null;
