@@ -22,6 +22,22 @@
 - `data/site-content.json`：站点数据（设置/分类/作品/媒体/简介/管理员/日志）
 - `public/uploads/*`：上传资源目录
 
+## Vercel Blob 同步（生产推荐）
+- 上传逻辑支持自动同步到 Blob：设置环境变量 `BLOB_READ_WRITE_TOKEN` 后，后台新上传的图/视频/音频会自动写入 Blob，并把 URL 存入数据文件。
+- 历史本地上传可一次性迁移：
+
+```bash
+cd /Users/diu/Desktop/portfolio-site
+export BLOB_READ_WRITE_TOKEN=你的token
+php scripts/migrate_uploads_to_blob.php
+```
+
+- 先预演不落盘：
+
+```bash
+php scripts/migrate_uploads_to_blob.php --dry-run
+```
+
 ## 本地启动
 当前代码为 `PHP + JSON`（无数据库依赖），需要本机有 PHP 8+。
 

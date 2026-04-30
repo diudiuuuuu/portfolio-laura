@@ -348,6 +348,115 @@ function normalizeColor(string $value): string
     return '#ffffff';
 }
 
+function blobUploadEnabled(): bool
+{
+    $token = trim((string) getenv('BLOB_READ_WRITE_TOKEN'));
+    return $token !== '';
+}
+
+function absolutePathFromPublicUploadPath(string $path): ?string
+{
+    if (!str_starts_with($path, '/uploads/')) {
+        return null;
+    }
+    $relative = substr($path, strlen('/uploads/'));
+    if ($relative === false || $relative === '' || str_contains($relative, '..')) {
+        return null;
+    }
+    $absolute = UPLOAD_BASE . '/' . $relative;
+    return is_file($absolute) ? $absolute : null;
+}
+
+function guessContentTypeFromExtension(string $path): string
+{
+    $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+    return match ($ext) {
+        'jpg', 'jpeg' => 'image/jpeg',
+        'png' => 'image/png',
+        'gif' => 'image/gif',
+        'webm' => 'video/webm',
+        'mp4' => 'video/mp4',
+        'mp3' => 'audio/mpeg',
+        default => 'application/octet-stream',
+    };
+}
+
+function uploadFileToBlob(string $absolutePath, string $blobPathname, ?string $contentType = null): ?string
+{
+    $token = trim((string) getenv('BLOB_READ_WRITE_TOKEN'));
+    if ($token === '' || !is_file($absolutePath)) {
+        return null;
+    }
+
+    $fh = fopen($absolutePath, 'rb');
+    if ($fh === false) {
+        return null;
+    }
+    $size = filesize($absolutePath);
+    if ($size === false) {
+        fclose($fh);
+        return null;
+    }
+
+    $url = 'https://blob.vercel-storage.com/' . ltrim($blobPathname, '/');
+    $ch = curl_init($url);
+    if ($ch === false) {
+        fclose($fh);
+        return null;
+    }
+
+    $headers = [
+        'authorization: Bearer ' . $token,
+        'x-api-version: 7',
+        'content-type: ' . ($contentType ?: 'application/octet-stream'),
+        'x-add-random-suffix: 0',
+        'x-content-disposition: inline',
+    ];
+
+    curl_setopt_array($ch, [
+        CURLOPT_CUSTOMREQUEST => 'PUT',
+        CURLOPT_HTTPHEADER => $headers,
+        CURLOPT_INFILE => $fh,
+        CURLOPT_INFILESIZE => $size,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 120,
+        CURLOPT_FAILONERROR => false,
+    ]);
+
+    $response = curl_exec($ch);
+    $status = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+    curl_close($ch);
+    fclose($fh);
+
+    if ($response === false || $status < 200 || $status >= 300) {
+        return null;
+    }
+
+    $decoded = json_decode((string) $response, true);
+    if (!is_array($decoded)) {
+        return null;
+    }
+    $url = (string) ($decoded['url'] ?? '');
+    return $url !== '' ? $url : null;
+}
+
+function syncPublicUploadPathToBlob(string $path): string
+{
+    if (!blobUploadEnabled()) {
+        return $path;
+    }
+    if (!str_starts_with($path, '/uploads/')) {
+        return $path;
+    }
+    $abs = absolutePathFromPublicUploadPath($path);
+    if ($abs === null) {
+        return $path;
+    }
+    $blobPath = ltrim($path, '/');
+    $uploaded = uploadFileToBlob($abs, $blobPath, guessContentTypeFromExtension($path));
+    return $uploaded ?? $path;
+}
+
 function saveUpload(array $file, string $targetDir, array $allowedExt): ?string
 {
     if (($file['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
@@ -529,6 +638,11 @@ function cloneUploadPath(string $sourcePath, string $targetDir): ?string
         return null;
     }
     return '/uploads/' . $targetDir . '/' . $safe;
+}
+
+function finalizeUploadedPath(string $path): string
+{
+    return syncPublicUploadPathToBlob($path);
 }
 
 function mediaTypeFromPath(string $path): string

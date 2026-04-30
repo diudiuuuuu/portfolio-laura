@@ -173,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_FILES['cover_file'])) {
             $saved = saveUpload($_FILES['cover_file'], 'covers', ALLOWED_MEDIA_EXT);
             if ($saved !== null) {
-                $coverPath = $coverPreprocessed ? $saved : applyCoverTransform($saved, $_POST);
+                $coverPath = finalizeUploadedPath($coverPreprocessed ? $saved : applyCoverTransform($saved, $_POST));
             }
         }
 
@@ -223,7 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $work['media'][] = [
                     'id' => $nextMediaId++,
                     'work_id' => $workId,
-                    'media_path' => $saved,
+                    'media_path' => finalizeUploadedPath($saved),
                     'media_type' => mediaTypeFromPath($saved),
                     'position' => $pos++,
                     'created_at' => $now,
@@ -280,7 +280,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($hasUploadedCover) {
             $saved = saveUpload($_FILES['cover_file'], 'covers', ALLOWED_MEDIA_EXT);
             if ($saved !== null) {
-                $coverPath = $coverPreprocessed ? $saved : applyCoverTransform($saved, $_POST);
+                $coverPath = finalizeUploadedPath($coverPreprocessed ? $saved : applyCoverTransform($saved, $_POST));
             } else {
                 $err = (int) ($_FILES['cover_file']['error'] ?? UPLOAD_ERR_NO_FILE);
                 flash('封面上传失败，错误码：' . $err, $flashTarget, 'error');
@@ -313,9 +313,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Always clone to a new cover path so crop result is persisted and cache-safe.
             $cloned = cloneUploadPath($cropSource, 'covers');
             if ($cloned !== null) {
-                $coverPath = applyCoverTransform($cloned, $_POST);
+                $coverPath = finalizeUploadedPath(applyCoverTransform($cloned, $_POST));
             } else {
-                $coverPath = applyCoverTransform($cropSource, $_POST);
+                $coverPath = finalizeUploadedPath(applyCoverTransform($cropSource, $_POST));
             }
         }
 
@@ -361,7 +361,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mediaList[] = [
                     'id' => $nextMediaId++,
                     'work_id' => $workId,
-                    'media_path' => $saved,
+                    'media_path' => finalizeUploadedPath($saved),
                     'media_type' => mediaTypeFromPath($saved),
                     'position' => $start++,
                     'created_at' => date('c'),
@@ -449,7 +449,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 $items[] = [
                     'id' => $nextId++,
-                    'media_path' => $saved,
+                    'media_path' => finalizeUploadedPath($saved),
                     'media_type' => mediaTypeFromPath($saved),
                     'sort_order' => $pos++,
                     'created_at' => date('c'),
@@ -468,7 +468,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_FILES['music_file'])) {
             $saved = saveUpload($_FILES['music_file'], 'banner', ALLOWED_AUDIO_EXT);
             if ($saved !== null) {
-                $musicCurrent = $saved;
+                $musicCurrent = finalizeUploadedPath($saved);
                 updateSetting('music_file', $musicCurrent);
                 flash('音乐上传成功', $flashTarget);
                 addAuditLog('顶部设置', '音乐上传', '音乐文件：' . $saved);
@@ -495,7 +495,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (isset($_FILES['replace_file'])) {
                     $saved = saveUpload($_FILES['replace_file'], 'banner', ALLOWED_MEDIA_EXT);
                     if ($saved !== null) {
-                        $mediaPath = $saved;
+                        $mediaPath = finalizeUploadedPath($saved);
                         $mediaType = mediaTypeFromPath($saved);
                     } elseif ($replaceAttempted) {
                         $err = (int) ($_FILES['replace_file']['error'] ?? UPLOAD_ERR_NO_FILE);
@@ -536,7 +536,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_FILES['intro_top_image'])) {
             $saved = saveUpload($_FILES['intro_top_image'], 'intro', ALLOWED_IMAGE_EXT);
             if ($saved !== null) {
-                $imagePath = $saved;
+                $imagePath = finalizeUploadedPath($saved);
             }
         }
 
@@ -569,7 +569,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_FILES['banner_overlay'])) {
             $saved = saveUpload($_FILES['banner_overlay'], 'banner', ['png']);
             if ($saved !== null) {
-                $current = $saved;
+                $current = finalizeUploadedPath($saved);
             }
         }
         updateSetting('banner_overlay', $current);
@@ -577,7 +577,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_FILES['banner_bg'])) {
             $saved = saveUpload($_FILES['banner_bg'], 'banner', ALLOWED_MEDIA_EXT);
             if ($saved !== null) {
-                $bgCurrent = $saved;
+                $bgCurrent = finalizeUploadedPath($saved);
             }
         }
         updateSetting('banner_bg', $bgCurrent);
@@ -586,7 +586,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_FILES['logo_image'])) {
             $saved = saveUpload($_FILES['logo_image'], 'banner', ALLOWED_IMAGE_EXT);
             if ($saved !== null) {
-                $logoCurrent = $saved;
+                $logoCurrent = finalizeUploadedPath($saved);
             }
         }
         updateSetting('logo_image', $logoCurrent);
