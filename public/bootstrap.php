@@ -380,6 +380,11 @@ function mediaPreviewPath(string $path, string $size = 'sm'): string
     if (!isImageExtension($ext)) {
         return $path;
     }
+    // Only use generated size variants for optimized webp masters.
+    // Legacy jpg/png assets migrated to Blob may not have _sm/_md/_lg files.
+    if ($ext !== 'webp') {
+        return $path;
+    }
     $base = substr($rawPath, 0, -strlen('.' . $ext));
     $candidate = $base . '_' . $size . '.webp';
     if (isset($parts['scheme']) || str_starts_with($rawPath, '/')) {
