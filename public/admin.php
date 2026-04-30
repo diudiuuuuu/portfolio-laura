@@ -1219,25 +1219,17 @@ function renderFlashAt(string $target, ?array $flashData): string
                           <img src="<?= esc((string) $m['media_path']) ?>" alt="media thumb" loading="lazy">
                         <?php endif; ?>
                       </a>
-                      <div class="admin-media-meta">
-                        <label class="admin-media-order-label">
-                          <span>顺序</span>
-                          <input
-                            type="number"
-                            name="media_position[<?= (int) $m['id'] ?>]"
-                            value="<?= (int) ($m['position'] ?? 0) ?>"
-                            min="0"
-                            step="1"
-                            style="width:72px;"
-                          >
-                        </label>
-                        <a
-                          class="admin-media-link"
-                          href="<?= esc((string) $m['media_path']) ?>"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        ><?= esc((string) $m['media_path']) ?></a>
-                      </div>
+                      <label class="admin-media-order-label">
+                        <span>顺序</span>
+                        <input
+                          type="number"
+                          name="media_position[<?= (int) $m['id'] ?>]"
+                          value="<?= (int) ($m['position'] ?? 0) ?>"
+                          min="0"
+                          step="1"
+                          style="width:72px;"
+                        >
+                      </label>
                       <div class="admin-media-actions">
                         <form method="post" onsubmit="return confirm('删除此条媒体？');">
                           <input type="hidden" name="action" value="delete_media">
@@ -1246,6 +1238,12 @@ function renderFlashAt(string $target, ?array $flashData): string
                           <button type="submit" class="btn-danger">删媒体</button>
                         </form>
                       </div>
+                      <a
+                        class="admin-media-link"
+                        href="<?= esc((string) $m['media_path']) ?>"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      ><?= esc((string) $m['media_path']) ?></a>
                     </div>
                   <?php endforeach; ?>
                 </div>
