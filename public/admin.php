@@ -369,6 +369,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             $works[$workIndex]['media'] = array_values($mediaList);
         }
+        $mediaList = is_array($works[$workIndex]['media'] ?? null) ? $works[$workIndex]['media'] : [];
+        $positionMap = is_array($_POST['media_position'] ?? null) ? $_POST['media_position'] : [];
+        if ($mediaList !== [] && $positionMap !== []) {
+            foreach ($mediaList as &$media) {
+                if (!is_array($media)) {
+                    continue;
+                }
+                $mid = (int) ($media['id'] ?? 0);
+                if ($mid > 0 && isset($positionMap[(string) $mid])) {
+                    $media['position'] = max(0, (int) $positionMap[(string) $mid]);
+                }
+            }
+            unset($media);
+            usort($mediaList, static function (array $a, array $b): int {
+                $posA = (int) ($a['position'] ?? 0);
+                $posB = (int) ($b['position'] ?? 0);
+                if ($posA !== $posB) {
+                    return $posA <=> $posB;
+                }
+                return ((int) ($a['id'] ?? 0)) <=> ((int) ($b['id'] ?? 0));
+            });
+            foreach ($mediaList as $idx => &$media) {
+                if (is_array($media)) {
+                    $media['position'] = $idx;
+                }
+            }
+            unset($media);
+            $works[$workIndex]['media'] = array_values($mediaList);
+        }
         $content['works'] = array_values($works);
         saveSiteContent($content);
 
@@ -1191,6 +1220,17 @@ function renderFlashAt(string $target, ?array $flashData): string
                             <img src="<?= esc((string) $m['media_path']) ?>" alt="media thumb">
                           <?php endif; ?>
                         </div>
+                        <label style="font-size:12px;color:#aaa;display:flex;align-items:center;gap:6px;">
+                          顺序
+                          <input
+                            type="number"
+                            name="media_position[<?= (int) $m['id'] ?>]"
+                            value="<?= (int) ($m['position'] ?? 0) ?>"
+                            min="0"
+                            step="1"
+                            style="width:72px;"
+                          >
+                        </label>
                         <span style="font-size:12px;color:#aaa;word-break:break-all;"><?= esc((string) $m['media_path']) ?></span>
                       </div>
                       <form method="post" onsubmit="return confirm('删除此条媒体？');">
