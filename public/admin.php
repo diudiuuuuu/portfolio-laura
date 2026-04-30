@@ -1213,13 +1213,13 @@ function renderFlashAt(string $target, ?array $flashData): string
                   <?php foreach ($w['media'] as $m): ?>
                     <div style="display:flex;gap:8px;align-items:center;justify-content:space-between;border-top:1px solid #2a2a2a;padding-top:6px;">
                       <div style="display:flex;gap:8px;align-items:center;">
-                        <div class="thumb-inline" style="width:120px;height:120px;">
+                        <a class="thumb-inline media-preview" href="<?= esc((string) $m['media_path']) ?>" target="_blank" rel="noopener noreferrer" title="点击查看原始媒体">
                           <?php if ($m['media_type'] === 'video'): ?>
-                            <video src="<?= esc((string) $m['media_path']) ?>" muted autoplay loop playsinline></video>
+                            <video src="<?= esc((string) $m['media_path']) ?>" muted autoplay loop playsinline preload="metadata"></video>
                           <?php else: ?>
-                            <img src="<?= esc((string) $m['media_path']) ?>" alt="media thumb">
+                            <img src="<?= esc((string) $m['media_path']) ?>" alt="media thumb" loading="lazy">
                           <?php endif; ?>
-                        </div>
+                        </a>
                         <label style="font-size:12px;color:#aaa;display:flex;align-items:center;gap:6px;">
                           顺序
                           <input

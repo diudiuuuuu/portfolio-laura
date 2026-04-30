@@ -517,6 +517,12 @@ button:hover {
   background: #000;
 }
 
+.thumb-inline.media-preview {
+  width: 180px;
+  height: 120px;
+  flex: 0 0 180px;
+}
+
 .flash {
   background: #163816;
   border: 1px solid #2e6a2e;
