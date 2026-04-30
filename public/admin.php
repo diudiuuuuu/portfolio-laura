@@ -1213,7 +1213,7 @@ function renderFlashAt(string $target, ?array $flashData): string
                   <?php foreach ($w['media'] as $m): ?>
                     <div style="display:flex;gap:8px;align-items:center;justify-content:space-between;border-top:1px solid #2a2a2a;padding-top:6px;">
                       <div style="display:flex;gap:8px;align-items:center;">
-                        <div class="thumb-inline" style="width:56px;height:56px;">
+                        <div class="thumb-inline" style="width:120px;height:120px;">
                           <?php if ($m['media_type'] === 'video'): ?>
                             <video src="<?= esc((string) $m['media_path']) ?>" muted autoplay loop playsinline></video>
                           <?php else: ?>
