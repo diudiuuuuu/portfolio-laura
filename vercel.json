@@ -1,25 +1,12 @@
 {
-  "version": 2,
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "functions": {
     "public/**/*.php": {
+      "runtime": "vercel-php@0.7.2",
       "includeFiles": "data/**",
       "excludeFiles": "{public/uploads/**,uploads/**,**/*.mp4,**/*.mov,**/*.avi,**/*.mkv,**/*.webm,**/*.jpg,**/*.jpeg,**/*.png,**/*.gif}"
     }
   },
-  "builds": [
-    {
-      "src": "public/**/*.php",
-      "use": "vercel-php@0.7.2"
-    },
-    {
-      "src": "public/assets/**",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "public/uploads/**",
-      "use": "@vercel/static"
-    }
-  ],
   "routes": [
     {
       "src": "/assets/(.*)",
