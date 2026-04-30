@@ -1,0 +1,4 @@
+public/uploads/**
+uploads/**
+.git/**
+node_modules/**

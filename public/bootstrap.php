@@ -42,7 +42,14 @@ function normalizePublicPath(string $path): string
     if ($path === '' || preg_match('#^(https?:)?//#i', $path)) {
         return $path;
     }
-    return str_starts_with($path, '/') ? $path : '/' . $path;
+    $normalized = str_starts_with($path, '/') ? $path : '/' . $path;
+    if (str_starts_with($normalized, '/uploads/')) {
+        $blobBase = rtrim(trim((string) getenv('BLOB_PUBLIC_BASE_URL')), '/');
+        if ($blobBase !== '') {
+            return $blobBase . $normalized;
+        }
+    }
+    return $normalized;
 }
 
 function loadSiteContent(): array
