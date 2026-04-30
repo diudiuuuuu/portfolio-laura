@@ -22,6 +22,10 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 
 function ensureUploadDirs(): void
 {
+    // Vercel serverless runtime is read-only; skip local directory creation there.
+    if (!is_writable(__DIR__)) {
+        return;
+    }
     $dirs = [
         UPLOAD_BASE,
         UPLOAD_BASE . '/covers',
