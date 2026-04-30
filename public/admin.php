@@ -1209,19 +1209,19 @@ function renderFlashAt(string $target, ?array $flashData): string
               </form>
 
               <?php if (!empty($w['media'])): ?>
-                <div style="margin-top:8px;display:grid;gap:6px;">
+                <div class="admin-media-list">
                   <?php foreach ($w['media'] as $m): ?>
-                    <div style="display:flex;gap:8px;align-items:center;justify-content:space-between;border-top:1px solid #2a2a2a;padding-top:6px;">
-                      <div style="display:flex;gap:8px;align-items:center;">
-                        <a class="thumb-inline media-preview" href="<?= esc((string) $m['media_path']) ?>" target="_blank" rel="noopener noreferrer" title="点击查看原始媒体">
-                          <?php if ($m['media_type'] === 'video'): ?>
-                            <video src="<?= esc((string) $m['media_path']) ?>" muted autoplay loop playsinline preload="metadata"></video>
-                          <?php else: ?>
-                            <img src="<?= esc((string) $m['media_path']) ?>" alt="media thumb" loading="lazy">
-                          <?php endif; ?>
-                        </a>
-                        <label style="font-size:12px;color:#aaa;display:flex;align-items:center;gap:6px;">
-                          顺序
+                    <div class="admin-media-row">
+                      <a class="thumb-inline media-preview" href="<?= esc((string) $m['media_path']) ?>" target="_blank" rel="noopener noreferrer" title="点击查看原始媒体">
+                        <?php if ($m['media_type'] === 'video'): ?>
+                          <video src="<?= esc((string) $m['media_path']) ?>" muted autoplay loop playsinline preload="metadata"></video>
+                        <?php else: ?>
+                          <img src="<?= esc((string) $m['media_path']) ?>" alt="media thumb" loading="lazy">
+                        <?php endif; ?>
+                      </a>
+                      <div class="admin-media-meta">
+                        <label class="admin-media-order-label">
+                          <span>顺序</span>
                           <input
                             type="number"
                             name="media_position[<?= (int) $m['id'] ?>]"
@@ -1231,14 +1231,21 @@ function renderFlashAt(string $target, ?array $flashData): string
                             style="width:72px;"
                           >
                         </label>
-                        <span style="font-size:12px;color:#aaa;word-break:break-all;"><?= esc((string) $m['media_path']) ?></span>
+                        <a
+                          class="admin-media-link"
+                          href="<?= esc((string) $m['media_path']) ?>"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        ><?= esc((string) $m['media_path']) ?></a>
                       </div>
-                      <form method="post" onsubmit="return confirm('删除此条媒体？');">
-                        <input type="hidden" name="action" value="delete_media">
-                        <input type="hidden" name="flash_target" value="<?= esc($workTarget) ?>">
-                        <input type="hidden" name="media_id" value="<?= (int) $m['id'] ?>">
-                        <button type="submit" class="btn-danger">删媒体</button>
-                      </form>
+                      <div class="admin-media-actions">
+                        <form method="post" onsubmit="return confirm('删除此条媒体？');">
+                          <input type="hidden" name="action" value="delete_media">
+                          <input type="hidden" name="flash_target" value="<?= esc($workTarget) ?>">
+                          <input type="hidden" name="media_id" value="<?= (int) $m['id'] ?>">
+                          <button type="submit" class="btn-danger">删媒体</button>
+                        </form>
+                      </div>
                     </div>
                   <?php endforeach; ?>
                 </div>
