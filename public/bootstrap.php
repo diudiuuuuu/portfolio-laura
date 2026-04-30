@@ -359,6 +359,97 @@ function normalizeColor(string $value): string
     return '#ffffff';
 }
 
+function isImageExtension(string $ext): bool
+{
+    return in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'], true);
+}
+
+function mediaPreviewPath(string $path, string $size = 'sm'): string
+{
+    $path = normalizePublicPath($path);
+    if ($path === '' || mediaTypeFromPath($path) === 'video') {
+        return $path;
+    }
+    $size = in_array($size, ['sm', 'md', 'lg'], true) ? $size : 'sm';
+    $parts = parse_url($path);
+    $rawPath = (string) ($parts['path'] ?? '');
+    if ($rawPath === '') {
+        return $path;
+    }
+    $ext = strtolower(pathinfo($rawPath, PATHINFO_EXTENSION));
+    if (!isImageExtension($ext)) {
+        return $path;
+    }
+    $base = substr($rawPath, 0, -strlen('.' . $ext));
+    $candidate = $base . '_' . $size . '.webp';
+    if (isset($parts['scheme']) || str_starts_with($rawPath, '/')) {
+        $prefix = '';
+        if (isset($parts['scheme'], $parts['host'])) {
+            $prefix = $parts['scheme'] . '://' . $parts['host'];
+        }
+        $q = isset($parts['query']) ? '?' . $parts['query'] : '';
+        return $prefix . $candidate . $q;
+    }
+    return $path;
+}
+
+function optimizeImageAndVariants(string $absolutePath): ?string
+{
+    if (!function_exists('imagecreatetruecolor') || !function_exists('imagewebp')) {
+        return null;
+    }
+    $raw = @file_get_contents($absolutePath);
+    if ($raw === false) {
+        return null;
+    }
+    $src = @imagecreatefromstring($raw);
+    if (!$src) {
+        return null;
+    }
+    $srcW = (int) imagesx($src);
+    $srcH = (int) imagesy($src);
+    if ($srcW < 1 || $srcH < 1) {
+        imagedestroy($src);
+        return null;
+    }
+
+    $maxW = 2000;
+    $scale = $srcW > $maxW ? ($maxW / $srcW) : 1.0;
+    $dstW = max(1, (int) round($srcW * $scale));
+    $dstH = max(1, (int) round($srcH * $scale));
+
+    $master = imagecreatetruecolor($dstW, $dstH);
+    imagealphablending($master, true);
+    imagesavealpha($master, true);
+    imagecopyresampled($master, $src, 0, 0, 0, 0, $dstW, $dstH, $srcW, $srcH);
+
+    $targetBase = preg_replace('/\.[^.]+$/', '', $absolutePath);
+    if (!is_string($targetBase) || $targetBase === '') {
+        imagedestroy($master);
+        imagedestroy($src);
+        return null;
+    }
+    $mainWebp = $targetBase . '.webp';
+    @imagewebp($master, $mainWebp, 78);
+
+    $variants = ['sm' => 600, 'md' => 1200, 'lg' => 2000];
+    foreach ($variants as $key => $maxVariantW) {
+        $ratio = min(1.0, $maxVariantW / $dstW);
+        $vw = max(1, (int) round($dstW * $ratio));
+        $vh = max(1, (int) round($dstH * $ratio));
+        $canvas = imagecreatetruecolor($vw, $vh);
+        imagealphablending($canvas, true);
+        imagesavealpha($canvas, true);
+        imagecopyresampled($canvas, $master, 0, 0, 0, 0, $vw, $vh, $dstW, $dstH);
+        @imagewebp($canvas, $targetBase . '_' . $key . '.webp', 76);
+        imagedestroy($canvas);
+    }
+
+    imagedestroy($master);
+    imagedestroy($src);
+    return $mainWebp;
+}
+
 function blobUploadEnabled(): bool
 {
     $token = trim((string) getenv('BLOB_READ_WRITE_TOKEN'));
@@ -519,6 +610,19 @@ function syncPublicUploadPathToBlob(string $path): string
     }
     $blobPath = ltrim($path, '/');
     $uploaded = uploadFileToBlob($abs, $blobPath, guessContentTypeFromExtension($path));
+    if ($uploaded !== null && mediaTypeFromPath($path) === 'image') {
+        foreach (['sm', 'md', 'lg'] as $k) {
+            $variantLocal = preg_replace('/\.[^.]+$/', '_' . $k . '.webp', $path);
+            if (!is_string($variantLocal)) {
+                continue;
+            }
+            $variantAbs = absolutePathFromPublicUploadPath($variantLocal);
+            if ($variantAbs === null) {
+                continue;
+            }
+            uploadFileToBlob($variantAbs, ltrim($variantLocal, '/'), 'image/webp');
+        }
+    }
     return $uploaded ?? $path;
 }
 
@@ -540,6 +644,13 @@ function saveUpload(array $file, string $targetDir, array $allowedExt): ?string
     $dest = $dirPath . '/' . $safe;
     if (!move_uploaded_file($file['tmp_name'], $dest)) {
         return null;
+    }
+    if (isImageExtension($ext)) {
+        $webp = optimizeImageAndVariants($dest);
+        if (is_string($webp) && is_file($webp)) {
+            @unlink($dest);
+            $safe = basename($webp);
+        }
     }
     return '/uploads/' . $targetDir . '/' . $safe;
 }

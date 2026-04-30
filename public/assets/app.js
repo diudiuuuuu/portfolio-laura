@@ -1,4 +1,37 @@
 (() => {
+  document.querySelectorAll("img:not([loading])").forEach((img) => {
+    if (!img.closest(".banner-bg-media")) img.loading = "lazy";
+  });
+
+  const deferredVideos = Array.from(document.querySelectorAll("video[data-defer-src]"));
+  if (deferredVideos.length) {
+    const activateVideo = (video) => {
+      if (!(video instanceof HTMLVideoElement)) return;
+      if (video.dataset.loaded === "1") return;
+      const src = video.dataset.deferSrc || "";
+      if (!src) return;
+      video.src = src;
+      video.dataset.loaded = "1";
+      const tryPlay = () => video.play().catch(() => {});
+      tryPlay();
+      video.addEventListener("mouseenter", tryPlay, { once: true });
+      video.addEventListener("touchstart", tryPlay, { once: true, passive: true });
+    };
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            activateVideo(entry.target);
+            io.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: "160px 0px" });
+      deferredVideos.forEach((v) => io.observe(v));
+    } else {
+      deferredVideos.forEach(activateVideo);
+    }
+  }
+
   const isWorksHome = Boolean(document.querySelector(".works-grid")) && !document.querySelector(".admin-wrap");
   if (isWorksHome) {
     document.body.classList.add("works-media-protect");

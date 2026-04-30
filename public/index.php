@@ -20,6 +20,12 @@ $catBorderColor = normalizeColor(setting('cat_border_color', '#111111'));
 $musicFile = setting('music_file', '');
 
 $works = arrangeWorks(fetchWorksWithMedia($activeCategory > 0 ? $activeCategory : null));
+$preloadImage = '';
+if ($bannerBg !== '' && mediaTypeFromPath($bannerBg) !== 'video') {
+    $preloadImage = mediaPreviewPath($bannerBg, 'lg');
+} elseif ($bannerOverlay !== '') {
+    $preloadImage = mediaPreviewPath($bannerOverlay, 'md');
+}
 ?>
 <!doctype html>
 <html lang="zh-CN">
@@ -28,22 +34,25 @@ $works = arrangeWorks(fetchWorksWithMedia($activeCategory > 0 ? $activeCategory 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?= esc($menuWorks) ?></title>
   <link rel="stylesheet" href="/assets/style.css">
+  <?php if ($preloadImage !== ''): ?>
+    <link rel="preload" as="image" href="<?= esc($preloadImage) ?>">
+  <?php endif; ?>
 </head>
 <body>
   <div class="site-wrap">
     <section class="banner" style="--banner-ratio: <?= esc((string) $bannerRatio) ?>;">
       <?php if ($bannerBg !== ''): ?>
         <?php if (mediaTypeFromPath($bannerBg) === 'video'): ?>
-          <video class="banner-bg-media" src="<?= esc($bannerBg) ?>" muted autoplay loop playsinline preload="metadata"></video>
+          <video class="banner-bg-media" data-defer-src="<?= esc($bannerBg) ?>" muted loop playsinline preload="none"></video>
         <?php else: ?>
-          <img class="banner-bg-media" src="<?= esc($bannerBg) ?>" alt="banner background">
+          <img class="banner-bg-media" src="<?= esc(mediaPreviewPath($bannerBg, 'lg')) ?>" alt="banner background" fetchpriority="high">
         <?php endif; ?>
       <?php endif; ?>
 
       <header class="top-nav banner-nav">
         <div class="logo">
           <?php if ($logoImage !== ''): ?>
-            <img src="<?= esc($logoImage) ?>" alt="logo" style="height:32px;width:auto;display:block;">
+            <img src="<?= esc(mediaPreviewPath($logoImage, 'sm')) ?>" alt="logo" style="height:32px;width:auto;display:block;" fetchpriority="high">
           <?php else: ?>
             <?= esc($logo) ?>
           <?php endif; ?>
@@ -58,15 +67,15 @@ $works = arrangeWorks(fetchWorksWithMedia($activeCategory > 0 ? $activeCategory 
         <?php foreach ($bannerItems as $item): ?>
           <div class="banner-float-item" data-seed="<?= (int) $item['id'] ?>">
             <?php if ($item['media_type'] === 'video'): ?>
-              <video src="<?= esc((string) $item['media_path']) ?>" muted autoplay loop playsinline preload="metadata"></video>
+              <video data-defer-src="<?= esc((string) $item['media_path']) ?>" muted loop playsinline preload="none"></video>
             <?php else: ?>
-              <img src="<?= esc((string) $item['media_path']) ?>" alt="banner item">
+              <img src="<?= esc(mediaPreviewPath((string) $item['media_path'], 'sm')) ?>" alt="banner item" loading="lazy">
             <?php endif; ?>
           </div>
         <?php endforeach; ?>
       </div>
       <?php if ($bannerOverlay !== ''): ?>
-        <div class="banner-top-image"><img src="<?= esc($bannerOverlay) ?>" alt="banner top png"></div>
+        <div class="banner-top-image"><img src="<?= esc(mediaPreviewPath($bannerOverlay, 'md')) ?>" alt="banner top png" loading="lazy"></div>
       <?php endif; ?>
       <div class="banner-categories" style="--cat-active-bg:<?= esc($catActiveBg) ?>;--cat-border:<?= esc($catBorderColor) ?>;">
         <a class="cat-pill <?= $activeCategory === 0 ? 'active' : '' ?>" href="/index.php">All</a>
@@ -88,6 +97,7 @@ $works = arrangeWorks(fetchWorksWithMedia($activeCategory > 0 ? $activeCategory 
           if ($coverDisplay !== '') {
               $coverDisplay .= (str_contains($coverDisplay, '?') ? '&' : '?') . 'v=' . rawurlencode((string) ($w['updated_at'] ?? ''));
           }
+          $coverThumb = $coverDisplay !== '' && !$isVideoThumb ? mediaPreviewPath($coverDisplay, 'sm') : $coverDisplay;
           $mediaJson = json_encode($w['media'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
           $style = styleString($w);
           $cardBg = normalizeCardBg((string) ($w['card_bg'] ?? 'black'));
@@ -107,9 +117,9 @@ $works = arrangeWorks(fetchWorksWithMedia($activeCategory > 0 ? $activeCategory 
         >
           <?php if ($cover !== ''): ?>
             <?php if ($isVideoThumb): ?>
-              <video class="work-media-thumb" src="<?= esc($coverDisplay) ?>" muted playsinline autoplay loop preload="metadata"></video>
+              <video class="work-media-thumb" data-defer-src="<?= esc($coverDisplay) ?>" muted playsinline preload="none"></video>
             <?php else: ?>
-              <img class="work-media-thumb" src="<?= esc($coverDisplay) ?>" alt="<?= esc($w['title']) ?>" loading="lazy">
+              <img class="work-media-thumb" src="<?= esc($coverThumb) ?>" alt="<?= esc($w['title']) ?>" loading="lazy">
             <?php endif; ?>
           <?php endif; ?>
           <div class="work-overlay"></div>

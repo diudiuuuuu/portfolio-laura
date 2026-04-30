@@ -23,7 +23,7 @@ $introStyle = introStyleString($intro);
     <header class="top-nav">
       <div class="logo">
         <?php if ($logoImage !== ''): ?>
-          <img src="<?= esc($logoImage) ?>" alt="logo" style="height:32px;width:auto;display:block;">
+          <img src="<?= esc(mediaPreviewPath($logoImage, 'sm')) ?>" alt="logo" style="height:32px;width:auto;display:block;">
         <?php else: ?>
           <?= esc($logo) ?>
         <?php endif; ?>
@@ -36,7 +36,7 @@ $introStyle = introStyleString($intro);
 
     <?php if (($intro['top_image_path'] ?? '') !== ''): ?>
       <div class="intro-top-global">
-        <img src="<?= esc($intro['top_image_path']) ?>" alt="intro top">
+        <img src="<?= esc(mediaPreviewPath((string) $intro['top_image_path'], 'md')) ?>" alt="intro top" loading="lazy">
       </div>
     <?php endif; ?>
 
