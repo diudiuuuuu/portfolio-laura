@@ -440,6 +440,40 @@ function uploadFileToBlob(string $absolutePath, string $blobPathname, ?string $c
         curl_close($ch);
         fclose($fh);
     } else {
+        $curlBin = trim((string) shell_exec('command -v curl 2>/dev/null'));
+        if ($curlBin !== '') {
+            $cmd = escapeshellarg($curlBin)
+                . ' -sS -X PUT '
+                . escapeshellarg($url)
+                . ' -H ' . escapeshellarg('authorization: Bearer ' . $token)
+                . ' -H ' . escapeshellarg('x-api-version: 7')
+                . ' -H ' . escapeshellarg('x-add-random-suffix: 0')
+                . ' -H ' . escapeshellarg('x-content-disposition: inline')
+                . ' -H ' . escapeshellarg('content-type: ' . ($contentType ?: 'application/octet-stream'))
+                . ' --data-binary @' . escapeshellarg($absolutePath)
+                . ' -w ' . escapeshellarg("\n__HTTP_STATUS__:%{http_code}");
+            $out = shell_exec($cmd);
+            if (is_string($out) && $out !== '') {
+                $marker = "\n__HTTP_STATUS__:";
+                $pos = strrpos($out, $marker);
+                if ($pos !== false) {
+                    $response = substr($out, 0, $pos);
+                    $statusRaw = substr($out, $pos + strlen($marker));
+                    $status = (int) trim($statusRaw);
+                }
+            }
+        }
+
+        if ($status >= 200 && $status < 300 && $response !== false) {
+            $decoded = json_decode((string) $response, true);
+            if (is_array($decoded)) {
+                $okUrl = (string) ($decoded['url'] ?? '');
+                if ($okUrl !== '') {
+                    return $okUrl;
+                }
+            }
+        }
+
         $body = @file_get_contents($absolutePath);
         if ($body === false) {
             return null;

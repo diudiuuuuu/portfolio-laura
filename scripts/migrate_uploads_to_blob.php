@@ -20,8 +20,9 @@ $uploadedCache = [];
 $changed = 0;
 $failed = 0;
 $visited = 0;
+$failedSamples = [];
 
-$walk = function (&$node) use (&$walk, &$uploadedCache, &$changed, &$failed, &$visited): void {
+$walk = function (&$node) use (&$walk, &$uploadedCache, &$changed, &$failed, &$visited, &$failedSamples): void {
     if (is_array($node)) {
         foreach ($node as &$value) {
             $walk($value);
@@ -50,6 +51,9 @@ $walk = function (&$node) use (&$walk, &$uploadedCache, &$changed, &$failed, &$v
     if ($abs === null) {
         $uploadedCache[$node] = '';
         $failed++;
+        if (count($failedSamples) < 8) {
+            $failedSamples[] = $node . ' (missing local file)';
+        }
         return;
     }
 
@@ -58,6 +62,9 @@ $walk = function (&$node) use (&$walk, &$uploadedCache, &$changed, &$failed, &$v
     if (!is_string($url) || $url === '') {
         $uploadedCache[$node] = '';
         $failed++;
+        if (count($failedSamples) < 8) {
+            $failedSamples[] = $node . ' (blob upload failed)';
+        }
         return;
     }
 
@@ -81,3 +88,9 @@ echo "Migration complete.\n";
 echo "Visited strings: {$visited}\n";
 echo "Updated paths: {$changed}\n";
 echo "Upload failures: {$failed}\n";
+if ($failedSamples !== []) {
+    echo "Failed samples:\n";
+    foreach ($failedSamples as $sample) {
+        echo " - {$sample}\n";
+    }
+}
