@@ -8,6 +8,15 @@
       "config": {
         "includeFiles": [
           "data/**"
+        ],
+        "excludeFiles": [
+          "public/uploads/**",
+          "uploads/**",
+          "**/*.mp4",
+          "**/*.mov",
+          "**/*.avi",
+          "**/*.mkv",
+          "**/*.webm"
         ]
       }
     },
