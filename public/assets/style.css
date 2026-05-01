@@ -533,12 +533,15 @@ button:hover {
   border-top: 1px solid #2a2a2a;
   padding-top: 8px;
   display: grid;
-  grid-template-columns: 190px 100px 96px;
+  grid-template-columns: 1fr;
   grid-template-areas:
-    "thumb order actions"
-    "thumb link link";
-  gap: 12px;
+    "thumb"
+    "order"
+    "actions"
+    "link";
+  gap: 8px;
   align-items: start;
+  min-width: 0;
 }
 
 .admin-media-order-label {
@@ -546,9 +549,10 @@ button:hover {
   margin: 0;
   font-size: 12px;
   color: #aaa;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 8px;
+  justify-content: flex-start;
 }
 
 .admin-media-link {
@@ -565,11 +569,14 @@ button:hover {
   grid-area: actions;
   display: flex;
   align-items: start;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .thumb-inline.media-preview {
   grid-area: thumb;
+  width: min(100%, 220px);
+  height: 140px;
+  flex: 0 0 auto;
 }
 
 .flash {
@@ -792,14 +799,6 @@ button:hover {
   }
   .modal-col h3 {
     font-size: 28px;
-  }
-  .admin-media-row {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "thumb"
-      "order"
-      "actions"
-      "link";
   }
   .thumb-inline.media-preview {
     width: min(100%, 220px);
