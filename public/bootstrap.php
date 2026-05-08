@@ -378,6 +378,11 @@ function mediaPreviewPath(string $path, string $size = 'sm'): string
     if ($rawPath === '') {
         return $path;
     }
+    // Production Blob/CDN URLs may not have generated size variants yet.
+    // Prefer the original asset for any absolute URL to avoid global image 404s.
+    if (isset($parts['scheme']) || isset($parts['host'])) {
+        return $path;
+    }
     $ext = strtolower(pathinfo($rawPath, PATHINFO_EXTENSION));
     if (!isImageExtension($ext)) {
         return $path;
