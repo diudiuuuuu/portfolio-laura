@@ -94,6 +94,7 @@ function loadSiteContent(): array
             'line_height' => 1.5,
         ],
         'works' => [],
+        'deleted_works_trash' => [],
         'admins' => [
             [
                 'id' => 1,
@@ -132,6 +133,7 @@ function loadSiteContent(): array
         is_array($decoded['intro_content'] ?? null) ? $decoded['intro_content'] : []
     );
     $content['works'] = is_array($decoded['works'] ?? null) ? array_values($decoded['works']) : [];
+    $content['deleted_works_trash'] = is_array($decoded['deleted_works_trash'] ?? null) ? array_values($decoded['deleted_works_trash']) : [];
     $content['admins'] = is_array($decoded['admins'] ?? null) && $decoded['admins'] !== [] ? array_values($decoded['admins']) : $defaults['admins'];
     $content['audit_logs'] = is_array($decoded['audit_logs'] ?? null) ? array_values($decoded['audit_logs']) : [];
 

@@ -192,23 +192,38 @@ a {
 .works-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--gap);
+  column-gap: var(--gap);
+  row-gap: 34px;
   grid-auto-flow: dense;
 }
 
 .work-card {
   position: relative;
-  aspect-ratio: 1 / 1;
   cursor: pointer;
+  overflow: visible;
+  background: transparent;
+}
+
+.work-media-wrap {
+  position: relative;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   background: #111;
 }
 
 .work-card.work-card-bg-black {
+  background: transparent;
+}
+
+.work-card.work-card-bg-black .work-media-wrap {
   background: #000;
 }
 
 .work-card.work-card-bg-white {
+  background: transparent;
+}
+
+.work-card.work-card-bg-white .work-media-wrap {
   background: #fff;
 }
 
@@ -235,22 +250,20 @@ a {
 }
 
 .work-title {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  margin: 0;
-  opacity: 0;
+  margin: 12px 0 0;
+  color: #b0b0b0 !important;
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  line-height: 1.45 !important;
+  letter-spacing: 0.005em;
+  opacity: 1;
   transition: opacity 0.2s ease;
-  max-width: calc(100% - 20px);
+  max-width: 100%;
   word-break: break-word;
 }
 
 .work-card:hover .work-overlay {
   background: rgba(0, 0, 0, 0.1);
-}
-
-.work-card:hover .work-title {
-  opacity: 1;
 }
 
 .work-card:hover .work-media-thumb {
@@ -735,6 +748,7 @@ button:hover {
 @media (max-width: 1199px) {
   .works-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: 30px;
   }
   .modal-head,
   .intro-layout,
@@ -761,6 +775,11 @@ button:hover {
   }
   .works-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 24px;
+  }
+  .work-title {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
   }
   .work-card.is-big {
     grid-column: span 2;

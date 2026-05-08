@@ -115,14 +115,16 @@ if ($bannerBg !== '' && mediaTypeFromPath($bannerBg) !== 'video') {
           data-modal-bg="<?= esc($cardBg) ?>"
           data-media="<?= esc((string) $mediaJson) ?>"
         >
-          <?php if ($cover !== ''): ?>
-            <?php if ($isVideoThumb): ?>
-              <video class="work-media-thumb" data-defer-src="<?= esc($coverDisplay) ?>" muted playsinline preload="none"></video>
-            <?php else: ?>
-              <img class="work-media-thumb" src="<?= esc($coverThumb) ?>" alt="<?= esc($w['title']) ?>" loading="lazy">
+          <div class="work-media-wrap">
+            <?php if ($cover !== ''): ?>
+              <?php if ($isVideoThumb): ?>
+                <video class="work-media-thumb" data-defer-src="<?= esc($coverDisplay) ?>" muted playsinline preload="none"></video>
+              <?php else: ?>
+                <img class="work-media-thumb" src="<?= esc($coverThumb) ?>" alt="<?= esc($w['title']) ?>" loading="lazy">
+              <?php endif; ?>
             <?php endif; ?>
-          <?php endif; ?>
-          <div class="work-overlay"></div>
+            <div class="work-overlay"></div>
+          </div>
           <h3 class="work-title" style="<?= esc($style) ?>"><?= esc($w['title']) ?></h3>
         </article>
       <?php endforeach; ?>

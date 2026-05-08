@@ -411,11 +411,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($workId > 0) {
             $content = loadSiteContent();
             $works = is_array($content['works'] ?? null) ? $content['works'] : [];
-            $works = array_values(array_filter($works, static fn($work): bool => is_array($work) && (int) ($work['id'] ?? 0) !== $workId));
+            $trash = is_array($content['deleted_works_trash'] ?? null) ? $content['deleted_works_trash'] : [];
+            foreach ($works as $idx => $work) {
+                if (!is_array($work) || (int) ($work['id'] ?? 0) !== $workId) {
+                    continue;
+                }
+                $work['_deleted_at'] = date('c');
+                array_unshift($trash, $work);
+                unset($works[$idx]);
+                break;
+            }
+            $trash = array_values(array_slice($trash, 0, 20));
+            $works = array_values($works);
             $content['works'] = $works;
+            $content['deleted_works_trash'] = $trash;
             saveSiteContent($content);
             flash('作品已删除', $flashTarget);
             addAuditLog('作品', '删除', '作品ID ' . $workId);
+        }
+        redirectAdmin($flashTarget);
+    }
+
+    if ($action === 'undo_delete_work') {
+        $content = loadSiteContent();
+        $trash = is_array($content['deleted_works_trash'] ?? null) ? $content['deleted_works_trash'] : [];
+        $works = is_array($content['works'] ?? null) ? $content['works'] : [];
+        $restored = array_shift($trash);
+        if (is_array($restored)) {
+            unset($restored['_deleted_at']);
+            $restoredId = (int) ($restored['id'] ?? 0);
+            $exists = false;
+            foreach ($works as $work) {
+                if (is_array($work) && (int) ($work['id'] ?? 0) === $restoredId) {
+                    $exists = true;
+                    break;
+                }
+            }
+            if (!$exists) {
+                $works[] = $restored;
+                $content['works'] = array_values($works);
+                $content['deleted_works_trash'] = array_values($trash);
+                saveSiteContent($content);
+                flash('已撤回最近一次删除的作品', $flashTarget);
+                addAuditLog('作品', '撤回删除', '作品ID ' . $restoredId);
+            } else {
+                flash('撤回失败：该作品已存在', $flashTarget, 'error');
+            }
+        } else {
+            flash('没有可撤回的已删除作品', $flashTarget, 'error');
         }
         redirectAdmin($flashTarget);
     }
@@ -651,6 +694,7 @@ $intro = fetchIntroContent();
 $bannerItems = fetchBannerItems();
 $logs = fetchAuditLogs(80);
 $flashData = flash();
+$deletedWorksTrash = is_array(loadSiteContent()['deleted_works_trash'] ?? null) ? loadSiteContent()['deleted_works_trash'] : [];
 
 function versionedMediaPath(string $path, string $versionSeed = ''): string
 {
@@ -1075,6 +1119,11 @@ function renderFlashAt(string $target, ?array $flashData): string
       <section class="admin-card" id="works-section" data-flash-target="works-section">
         <h2>已创建作品（编辑 / 删除）</h2>
         <?= renderFlashAt('works-section', $flashData) ?>
+        <form method="post" style="margin-bottom:12px;">
+          <input type="hidden" name="action" value="undo_delete_work">
+          <input type="hidden" name="flash_target" value="works-section">
+          <button type="submit" class="btn-ghost" <?= $deletedWorksTrash === [] ? 'disabled' : '' ?>>撤回最近一次删除</button>
+        </form>
         <div class="work-list">
           <?php foreach ($works as $w): ?>
             <?php $workTarget = 'work-' . (int) $w['id']; ?>
