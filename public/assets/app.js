@@ -1,4 +1,66 @@
 (() => {
+  function buildImageVariantPath(path, size = "md") {
+    if (!path) return "";
+    try {
+      const url = new URL(path, window.location.origin);
+      const lowerPath = url.pathname.toLowerCase();
+      if (!lowerPath.endsWith(".webp")) return path;
+      const base = url.pathname.slice(0, -5);
+      url.pathname = `${base}_${size}.webp`;
+      return url.toString();
+    } catch (_) {
+      return path;
+    }
+  }
+
+  function loadImageWithFallback(img, sources, timeoutMs = 5000) {
+    const unique = [...new Set((sources || []).filter(Boolean))];
+    if (!unique.length) return Promise.reject(new Error("no-image-source"));
+    let index = 0;
+    const attempt = () =>
+      new Promise((resolve, reject) => {
+        const src = unique[index];
+        let done = false;
+        const timer = window.setTimeout(() => {
+          if (done) return;
+          done = true;
+          reject(new Error("timeout"));
+        }, timeoutMs);
+
+        img.onload = () => {
+          if (done) return;
+          done = true;
+          window.clearTimeout(timer);
+          resolve(src);
+        };
+        img.onerror = () => {
+          if (done) return;
+          done = true;
+          window.clearTimeout(timer);
+          reject(new Error("error"));
+        };
+        img.src = src;
+      }).catch((err) => {
+        index += 1;
+        if (index >= unique.length) throw err;
+        return attempt();
+      });
+
+    return attempt();
+  }
+
+  async function runWithConcurrency(tasks, limit = 3) {
+    const queue = tasks.slice();
+    const workers = new Array(Math.max(1, Math.min(limit, queue.length))).fill(null).map(async () => {
+      while (queue.length) {
+        const fn = queue.shift();
+        if (!fn) continue;
+        await fn();
+      }
+    });
+    await Promise.all(workers);
+  }
+
   document.querySelectorAll("img:not([loading])").forEach((img) => {
     if (!img.closest(".banner-bg-media")) img.loading = "lazy";
   });
@@ -112,24 +174,67 @@
 
       const gallery = modal.querySelector("[data-m-gallery]");
       gallery.innerHTML = "";
-      media.forEach((item) => {
+      const imageTasks = [];
+      media.forEach((item, idx) => {
         const isVideo = item.media_type === "video";
+        const wrap = document.createElement("div");
+        wrap.className = "modal-media-item is-loading";
         const el = document.createElement(isVideo ? "video" : "img");
         if (isVideo) {
-          el.src = item.media_path;
+          el.dataset.deferSrc = item.media_path || "";
           el.controls = true;
-          el.autoplay = true;
+          el.autoplay = idx === 0;
           el.muted = true;
           el.loop = true;
           el.playsInline = true;
-          el.preload = "metadata";
+          el.preload = "none";
+          if (item.preview_path) {
+            el.poster = item.preview_path;
+          }
+          const activate = () => {
+            if (!el.dataset.deferSrc || el.dataset.loaded === "1") return;
+            el.src = el.dataset.deferSrc;
+            el.dataset.loaded = "1";
+            el.play().catch(() => {});
+            wrap.classList.remove("is-loading");
+            wrap.classList.add("is-loaded");
+          };
+          if (idx < 2) {
+            activate();
+          } else if ("IntersectionObserver" in window) {
+            const io = new IntersectionObserver((entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  activate();
+                  io.disconnect();
+                }
+              });
+            }, { root: gallery, rootMargin: "280px 0px" });
+            io.observe(wrap);
+          } else {
+            activate();
+          }
         } else {
-          el.src = item.media_path;
           el.alt = title;
-          el.loading = "lazy";
+          el.decoding = "async";
+          el.loading = idx < 4 ? "eager" : "lazy";
+          imageTasks.push(async () => {
+            const preview = item.preview_path || buildImageVariantPath(item.media_path || "", "md");
+            const full = item.media_path || "";
+            try {
+              await loadImageWithFallback(el, [preview, full], 5000);
+              wrap.classList.remove("is-loading");
+              wrap.classList.add("is-loaded");
+            } catch (_) {
+              wrap.classList.remove("is-loading");
+              wrap.classList.add("is-error");
+            }
+          });
         }
-        gallery.appendChild(el);
+        wrap.appendChild(el);
+        gallery.appendChild(wrap);
       });
+      runWithConcurrency(imageTasks, 3);
 
       layer.classList.add("open");
       document.body.style.overflow = "hidden";

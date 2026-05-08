@@ -98,7 +98,16 @@ if ($bannerBg !== '' && mediaTypeFromPath($bannerBg) !== 'video') {
               $coverDisplay .= (str_contains($coverDisplay, '?') ? '&' : '?') . 'v=' . rawurlencode((string) ($w['updated_at'] ?? ''));
           }
           $coverThumb = $coverDisplay !== '' && !$isVideoThumb ? mediaPreviewPath($coverDisplay, 'sm') : $coverDisplay;
-          $mediaJson = json_encode($w['media'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+          $modalMedia = array_map(static function (array $item): array {
+              $path = normalizePublicPath((string) ($item['media_path'] ?? ''));
+              $type = (string) ($item['media_type'] ?? mediaTypeFromPath($path));
+              return [
+                  'media_path' => $path,
+                  'media_type' => $type,
+                  'preview_path' => $type === 'video' ? '' : mediaPreviewPath($path, 'md'),
+              ];
+          }, array_values(array_filter($w['media'] ?? [], 'is_array')));
+          $mediaJson = json_encode($modalMedia, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
           $style = styleString($w);
           $cardBg = normalizeCardBg((string) ($w['card_bg'] ?? 'black'));
           $cardClass = 'work-card work-card-bg-' . $cardBg . (!empty($w['_is_big']) ? ' is-big' : '');

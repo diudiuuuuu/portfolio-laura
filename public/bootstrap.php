@@ -382,13 +382,14 @@ function mediaPreviewPath(string $path, string $size = 'sm'): string
     if (!isImageExtension($ext)) {
         return $path;
     }
-    // Only use generated size variants for optimized webp masters.
-    // Legacy jpg/png assets migrated to Blob may not have _sm/_md/_lg files.
-    if ($ext !== 'webp') {
-        return $path;
-    }
     $base = substr($rawPath, 0, -strlen('.' . $ext));
-    $candidate = $base . '_' . $size . '.webp';
+    $candidate = $base . '_' . $size . '.' . $ext;
+    if (!isset($parts['scheme']) && str_starts_with($rawPath, '/uploads/')) {
+        $localCandidate = absolutePathFromPublicUploadPath($candidate);
+        if ($localCandidate === null) {
+            return $path;
+        }
+    }
     if (isset($parts['scheme']) || str_starts_with($rawPath, '/')) {
         $prefix = '';
         if (isset($parts['scheme'], $parts['host'])) {
@@ -400,9 +401,44 @@ function mediaPreviewPath(string $path, string $size = 'sm'): string
     return $path;
 }
 
+function generateRasterVariantsWithSips(string $absolutePath): bool
+{
+    $sips = trim((string) shell_exec('command -v sips 2>/dev/null'));
+    if ($sips === '') {
+        return false;
+    }
+    $ext = strtolower(pathinfo($absolutePath, PATHINFO_EXTENSION));
+    if (!in_array($ext, ['jpg', 'jpeg', 'png', 'gif'], true)) {
+        return false;
+    }
+    $base = preg_replace('/\.[^.]+$/', '', $absolutePath);
+    if (!is_string($base) || $base === '') {
+        return false;
+    }
+
+    $targets = ['sm' => 600, 'md' => 1200, 'lg' => 2000];
+    $ok = true;
+    foreach ($targets as $k => $maxW) {
+        $dest = $base . '_' . $k . '.' . $ext;
+        $cmd = escapeshellarg($sips)
+            . ' -Z ' . (int) $maxW
+            . ' ' . escapeshellarg($absolutePath)
+            . ' --out ' . escapeshellarg($dest)
+            . ' >/dev/null 2>&1';
+        @shell_exec($cmd);
+        if (!is_file($dest)) {
+            $ok = false;
+        }
+    }
+    return $ok;
+}
+
 function optimizeImageAndVariants(string $absolutePath): ?string
 {
     if (!function_exists('imagecreatetruecolor') || !function_exists('imagewebp')) {
+        if (generateRasterVariantsWithSips($absolutePath)) {
+            return $absolutePath;
+        }
         return null;
     }
     $raw = @file_get_contents($absolutePath);
@@ -490,6 +526,11 @@ function guessContentTypeFromExtension(string $path): string
     };
 }
 
+function isGeneratedWebpVariantPath(string $path): bool
+{
+    return (bool) preg_match('/_(sm|md|lg)\.webp$/i', $path);
+}
+
 function uploadFileToBlob(string $absolutePath, string $blobPathname, ?string $contentType = null): ?string
 {
     $token = trim((string) getenv('BLOB_READ_WRITE_TOKEN'));
@@ -504,6 +545,7 @@ function uploadFileToBlob(string $absolutePath, string $blobPathname, ?string $c
         'content-type: ' . ($contentType ?: 'application/octet-stream'),
         'x-add-random-suffix: 0',
         'x-content-disposition: inline',
+        'x-cache-control-max-age: 31536000',
     ];
 
     $response = false;
@@ -547,6 +589,7 @@ function uploadFileToBlob(string $absolutePath, string $blobPathname, ?string $c
                 . ' -H ' . escapeshellarg('x-api-version: 7')
                 . ' -H ' . escapeshellarg('x-add-random-suffix: 0')
                 . ' -H ' . escapeshellarg('x-content-disposition: inline')
+                . ' -H ' . escapeshellarg('x-cache-control-max-age: 31536000')
                 . ' -H ' . escapeshellarg('content-type: ' . ($contentType ?: 'application/octet-stream'))
                 . ' --data-binary @' . escapeshellarg($absolutePath)
                 . ' -w ' . escapeshellarg("\n__HTTP_STATUS__:%{http_code}");
@@ -617,9 +660,10 @@ function syncPublicUploadPathToBlob(string $path): string
     }
     $blobPath = ltrim($path, '/');
     $uploaded = uploadFileToBlob($abs, $blobPath, guessContentTypeFromExtension($path));
-    if ($uploaded !== null && mediaTypeFromPath($path) === 'image') {
+    if ($uploaded !== null && mediaTypeFromPath($path) === 'image' && !isGeneratedWebpVariantPath($path)) {
+        $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
         foreach (['sm', 'md', 'lg'] as $k) {
-            $variantLocal = preg_replace('/\.[^.]+$/', '_' . $k . '.webp', $path);
+            $variantLocal = preg_replace('/\.[^.]+$/', '_' . $k . '.' . $ext, $path);
             if (!is_string($variantLocal)) {
                 continue;
             }
@@ -627,7 +671,7 @@ function syncPublicUploadPathToBlob(string $path): string
             if ($variantAbs === null) {
                 continue;
             }
-            uploadFileToBlob($variantAbs, ltrim($variantLocal, '/'), 'image/webp');
+            uploadFileToBlob($variantAbs, ltrim($variantLocal, '/'), guessContentTypeFromExtension($variantLocal));
         }
     }
     return $uploaded ?? $path;
@@ -643,7 +687,15 @@ function saveUpload(array $file, string $targetDir, array $allowedExt): ?string
     if (!in_array($ext, $allowedExt, true)) {
         return null;
     }
-    $safe = date('YmdHis') . '_' . bin2hex(random_bytes(5)) . '.' . $ext;
+    $hash = '';
+    $tmpPath = (string) ($file['tmp_name'] ?? '');
+    if ($tmpPath !== '' && is_file($tmpPath)) {
+        $hash = substr((string) sha1_file($tmpPath), 0, 10);
+    }
+    if ($hash === '') {
+        $hash = bin2hex(random_bytes(5));
+    }
+    $safe = date('YmdHis') . '_' . $hash . '_' . bin2hex(random_bytes(3)) . '.' . $ext;
     $dirPath = UPLOAD_BASE . '/' . $targetDir;
     if (!is_dir($dirPath)) {
         mkdir($dirPath, 0775, true);
@@ -653,6 +705,7 @@ function saveUpload(array $file, string $targetDir, array $allowedExt): ?string
         return null;
     }
     if (isImageExtension($ext)) {
+        // Always generate optimized webp + sm/md/lg variants for new image uploads.
         $webp = optimizeImageAndVariants($dest);
         if (is_string($webp) && is_file($webp)) {
             @unlink($dest);
@@ -815,7 +868,11 @@ function cloneUploadPath(string $sourcePath, string $targetDir): ?string
     if (!is_dir($dirPath)) {
         mkdir($dirPath, 0775, true);
     }
-    $safe = date('YmdHis') . '_' . bin2hex(random_bytes(5)) . '.' . $ext;
+    $hash = substr((string) sha1_file($srcAbs), 0, 10);
+    if ($hash === '') {
+        $hash = bin2hex(random_bytes(5));
+    }
+    $safe = date('YmdHis') . '_' . $hash . '_' . bin2hex(random_bytes(3)) . '.' . $ext;
     $dstAbs = $dirPath . '/' . $safe;
     if (!@copy($srcAbs, $dstAbs)) {
         return null;
