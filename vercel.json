@@ -23,12 +23,20 @@
     {
       "src": "public/assets/**",
       "use": "@vercel/static"
+    },
+    {
+      "src": "public/uploads/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/assets/(.*)",
       "dest": "/public/assets/$1"
+    },
+    {
+      "src": "/uploads/(.*)",
+      "dest": "/public/uploads/$1"
     },
     {
       "src": "/([A-Za-z0-9_-]+\\.php)",
@@ -42,6 +50,15 @@
   "headers": [
     {
       "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/uploads/(.*)",
       "headers": [
         {
           "key": "Cache-Control",

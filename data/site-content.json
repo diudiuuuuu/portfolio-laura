@@ -118,7 +118,7 @@
                 {
                     "id": 81,
                     "work_id": 1,
-                    "media_path": "/uploads/media/20260501063525_855b1d004a.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063525_855b1d004a.jpg",
                     "media_type": "image",
                     "position": 0,
                     "created_at": "2026-05-01T06:35:25+00:00"
@@ -126,7 +126,7 @@
                 {
                     "id": 82,
                     "work_id": 1,
-                    "media_path": "/uploads/media/20260501063525_6153473a5c.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063525_6153473a5c.jpg",
                     "media_type": "image",
                     "position": 1,
                     "created_at": "2026-05-01T06:35:25+00:00"
@@ -134,7 +134,7 @@
                 {
                     "id": 83,
                     "work_id": 1,
-                    "media_path": "/uploads/media/20260501063525_db7a3db97e.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063525_db7a3db97e.jpg",
                     "media_type": "image",
                     "position": 2,
                     "created_at": "2026-05-01T06:35:25+00:00"
@@ -147,7 +147,7 @@
             "description": "关于“物感”与“文字”的实验性对话。通过酸性设计 (Acid Graphic) 与后现代排版的结合，你将平凡的视觉符号转化为极具冲击力的文化标签。这组作品不仅展示了你对字体空间关系的极致驾驭，更体现了你对当下年轻群体社交情绪（如：自嘲、佛系、职场摸鱼）的精准捕捉。这种将“生活琐碎”点化为“高级视觉”的能力，能够显著提升影像产品的文化颗粒度，为品牌构建一种更具智力感与幽默感的“社交人格”，是品牌在高端化转型中不可或缺的审美溢价。",
             "meta_text": "排版的韵律化:把文字视作图形\r\n文化符号的解构:文本影像化’的探索",
             "created_time": "Date: 2024",
-            "cover_path": "/uploads/covers/20260508160817_4ea2bc8657.jpg",
+            "cover_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/covers/20260508160817_4ea2bc8657.jpg",
             "emphasized": 0,
             "title_font_size": 14,
             "title_font_weight": 10,
@@ -165,7 +165,7 @@
                 {
                     "id": 80,
                     "work_id": 13,
-                    "media_path": "/uploads/media/20260501063441_0e3718b3bc.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063441_0e3718b3bc.jpg",
                     "media_type": "image",
                     "position": 0,
                     "created_at": "2026-05-01T06:34:41+00:00"
@@ -227,7 +227,7 @@
                 {
                     "id": 65,
                     "work_id": 11,
-                    "media_path": "/uploads/media/20260501062940_fcaf0ad10b.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501062940_fcaf0ad10b.jpg",
                     "media_type": "image",
                     "position": 0,
                     "created_at": "2026-05-01T06:29:40+00:00"
@@ -235,7 +235,7 @@
                 {
                     "id": 66,
                     "work_id": 11,
-                    "media_path": "/uploads/media/20260501062940_6e40faf6c2.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501062940_6e40faf6c2.jpg",
                     "media_type": "image",
                     "position": 1,
                     "created_at": "2026-05-01T06:29:40+00:00"
@@ -243,7 +243,7 @@
                 {
                     "id": 67,
                     "work_id": 11,
-                    "media_path": "/uploads/media/20260501062940_113a58c30c.png",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501062940_113a58c30c.png",
                     "media_type": "image",
                     "position": 2,
                     "created_at": "2026-05-01T06:29:40+00:00"
@@ -251,7 +251,7 @@
                 {
                     "id": 91,
                     "work_id": 11,
-                    "media_path": "/uploads/media/20260501083359_24365b6b73.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501083359_24365b6b73.jpg",
                     "media_type": "image",
                     "position": 3,
                     "created_at": "2026-05-01T08:33:59+00:00"
@@ -259,7 +259,7 @@
                 {
                     "id": 92,
                     "work_id": 11,
-                    "media_path": "/uploads/media/20260501083359_7f5b158129.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501083359_7f5b158129.jpg",
                     "media_type": "image",
                     "position": 4,
                     "created_at": "2026-05-01T08:33:59+00:00"
@@ -267,7 +267,7 @@
                 {
                     "id": 102,
                     "work_id": 11,
-                    "media_path": "/uploads/media/20260508155731_6781ddb5f9.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155731_6781ddb5f9.jpg",
                     "media_type": "image",
                     "position": 5,
                     "created_at": "2026-05-08T15:57:31+00:00"
@@ -280,7 +280,7 @@
             "description": "本案的设计核心在于“将复杂的 AI 底层逻辑，包装成极简的社媒灵感库”。你成功地解决了一个行业痛点：当大多数 AI 工具还在比拼“指令（Prompt）”时，Fanzio 已经开始提供“结果（Validated Viral Content）\r\n\r\n从“提示词焦虑”到“爆款直达”的视觉革命\r\nFanzio.ai 的视觉体系是典型的“降维打击”：它通过沉浸式的深色模式 UI 与 Pinterest 式的瀑布流布图，将海量复杂的 AI 算力转化为直觉性的“灵感货架”。设计逻辑上，我们不再强调技术难点，而是构建了一个“数字化创意买手店”。通过对 OOTD、超现实、艺术画廊等社媒高频场景的分类视觉定义，本案将 AI 创作从“黑盒测试”转变为“确定性产出”。\r\n\r\n这种视觉语言不仅极大丰富了产品的品牌美学溢价，更通过“解决决策疲劳”的核心洞察，将用户的审美向往高效转化为订阅转化，让 Fanzio 成为社媒创作者的“创意外挂”。",
             "meta_text": "展示“高质量自定义结果”\r\n将“审美力”直接转化为“生产力”。",
             "created_time": "Date: 2026",
-            "cover_path": "/uploads/covers/20260508155657_db50cf61d5.jpg",
+            "cover_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/covers/20260508155657_db50cf61d5.jpg",
             "emphasized": 1,
             "title_font_size": 14,
             "title_font_weight": 10,
@@ -314,7 +314,7 @@
                 {
                     "id": 93,
                     "work_id": 10,
-                    "media_path": "/uploads/media/20260508155514_09f26c7425.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155514_09f26c7425.jpg",
                     "media_type": "image",
                     "position": 2,
                     "created_at": "2026-05-08T15:55:14+00:00"
@@ -322,7 +322,7 @@
                 {
                     "id": 94,
                     "work_id": 10,
-                    "media_path": "/uploads/media/20260508155514_7caa93db1d.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155514_7caa93db1d.jpg",
                     "media_type": "image",
                     "position": 3,
                     "created_at": "2026-05-08T15:55:14+00:00"
@@ -330,7 +330,7 @@
                 {
                     "id": 95,
                     "work_id": 10,
-                    "media_path": "/uploads/media/20260508155514_a15e830b0c.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155514_a15e830b0c.jpg",
                     "media_type": "image",
                     "position": 4,
                     "created_at": "2026-05-08T15:55:14+00:00"
@@ -338,7 +338,7 @@
                 {
                     "id": 96,
                     "work_id": 10,
-                    "media_path": "/uploads/media/20260508155514_cd10a1ebaf.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155514_cd10a1ebaf.jpg",
                     "media_type": "image",
                     "position": 5,
                     "created_at": "2026-05-08T15:55:14+00:00"
@@ -346,7 +346,7 @@
                 {
                     "id": 97,
                     "work_id": 10,
-                    "media_path": "/uploads/media/20260508155514_de35112fd5.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155514_de35112fd5.jpg",
                     "media_type": "image",
                     "position": 6,
                     "created_at": "2026-05-08T15:55:14+00:00"
@@ -377,7 +377,7 @@
                 {
                     "id": 68,
                     "work_id": 9,
-                    "media_path": "/uploads/media/20260501063135_21f0f484db.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063135_21f0f484db.jpg",
                     "media_type": "image",
                     "position": 0,
                     "created_at": "2026-05-01T06:31:35+00:00"
@@ -385,7 +385,7 @@
                 {
                     "id": 69,
                     "work_id": 9,
-                    "media_path": "/uploads/media/20260501063135_d3adf0dd3c.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063135_d3adf0dd3c.jpg",
                     "media_type": "image",
                     "position": 1,
                     "created_at": "2026-05-01T06:31:35+00:00"
@@ -393,7 +393,7 @@
                 {
                     "id": 70,
                     "work_id": 9,
-                    "media_path": "/uploads/media/20260501063142_22bae6347d.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063142_22bae6347d.jpg",
                     "media_type": "image",
                     "position": 2,
                     "created_at": "2026-05-01T06:31:42+00:00"
@@ -401,7 +401,7 @@
                 {
                     "id": 89,
                     "work_id": 9,
-                    "media_path": "/uploads/media/20260501082932_69943ea302.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501082932_69943ea302.jpg",
                     "media_type": "image",
                     "position": 3,
                     "created_at": "2026-05-01T08:29:32+00:00"
@@ -409,7 +409,7 @@
                 {
                     "id": 90,
                     "work_id": 9,
-                    "media_path": "/uploads/media/20260501082932_f49415b25d.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501082932_f49415b25d.jpg",
                     "media_type": "image",
                     "position": 4,
                     "created_at": "2026-05-01T08:29:32+00:00"
@@ -422,7 +422,7 @@
             "description": "相机图标”的解构与重塑，成功构建了一套具备高度辨识度且极具延展性的品牌视觉系统。设计核心在于将 AIGC 作为“创意乘法器”，通过 3D 渲染与多元材质探索（金属、玻璃、纤维、流体等），打破了传统扁平化 Logo 的维度限制，赋予品牌一种**“数字潮流艺术”**的生命力。无论是面向国际市场的 App Store 视觉，还是极具潮流感的线下周边延展，都体现了品牌从“拍照工具”向“生活方式品牌”进阶的野心，这种品牌溢价为用户建立了一种超越产品功能本身的情感链接。",
             "meta_text": "AIGC 驱动的创意多样性\r\n跨介质的审美一致性\r\n品牌风格探测器",
             "created_time": "Date: 2024",
-            "cover_path": "/uploads/covers/20260508155632_c47ea1d4b4.jpg",
+            "cover_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/covers/20260508155632_c47ea1d4b4.jpg",
             "emphasized": 0,
             "title_font_size": 14,
             "title_font_weight": 10,
@@ -440,7 +440,7 @@
                 {
                     "id": 98,
                     "work_id": 8,
-                    "media_path": "/uploads/media/20260508155553_16dbf82869.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155553_16dbf82869.jpg",
                     "media_type": "image",
                     "position": 2,
                     "created_at": "2026-05-08T15:55:53+00:00"
@@ -448,7 +448,7 @@
                 {
                     "id": 99,
                     "work_id": 8,
-                    "media_path": "/uploads/media/20260508155553_2b5f026b59.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155553_2b5f026b59.jpg",
                     "media_type": "image",
                     "position": 3,
                     "created_at": "2026-05-08T15:55:53+00:00"
@@ -456,7 +456,7 @@
                 {
                     "id": 100,
                     "work_id": 8,
-                    "media_path": "/uploads/media/20260508155553_df92ac5736.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155553_df92ac5736.jpg",
                     "media_type": "image",
                     "position": 4,
                     "created_at": "2026-05-08T15:55:53+00:00"
@@ -464,7 +464,7 @@
                 {
                     "id": 101,
                     "work_id": 8,
-                    "media_path": "/uploads/media/20260508155553_5051061943.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155553_5051061943.jpg",
                     "media_type": "image",
                     "position": 5,
                     "created_at": "2026-05-08T15:55:53+00:00"
@@ -495,7 +495,7 @@
                 {
                     "id": 84,
                     "work_id": 7,
-                    "media_path": "/uploads/media/20260501063653_6415b9048a.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063653_6415b9048a.jpg",
                     "media_type": "image",
                     "position": 0,
                     "created_at": "2026-05-01T06:36:53+00:00"
@@ -503,7 +503,7 @@
                 {
                     "id": 85,
                     "work_id": 7,
-                    "media_path": "/uploads/media/20260501063653_f1a60be25c.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063653_f1a60be25c.jpg",
                     "media_type": "image",
                     "position": 1,
                     "created_at": "2026-05-01T06:36:53+00:00"
@@ -511,7 +511,7 @@
                 {
                     "id": 86,
                     "work_id": 7,
-                    "media_path": "/uploads/media/20260501063653_b2133e2cbd.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063653_b2133e2cbd.jpg",
                     "media_type": "image",
                     "position": 2,
                     "created_at": "2026-05-01T06:36:53+00:00"
@@ -603,7 +603,7 @@
                 {
                     "id": 76,
                     "work_id": 3,
-                    "media_path": "/uploads/media/20260501063421_e57ceaf934.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063421_e57ceaf934.jpg",
                     "media_type": "image",
                     "position": 0,
                     "created_at": "2026-05-01T06:34:21+00:00"
@@ -611,7 +611,7 @@
                 {
                     "id": 77,
                     "work_id": 3,
-                    "media_path": "/uploads/media/20260501063421_6c77b0cc1a.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063421_6c77b0cc1a.jpg",
                     "media_type": "image",
                     "position": 1,
                     "created_at": "2026-05-01T06:34:21+00:00"
@@ -619,7 +619,7 @@
                 {
                     "id": 78,
                     "work_id": 3,
-                    "media_path": "/uploads/media/20260501063421_c0b4318612.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063421_c0b4318612.jpg",
                     "media_type": "image",
                     "position": 2,
                     "created_at": "2026-05-01T06:34:21+00:00"
@@ -627,7 +627,7 @@
                 {
                     "id": 79,
                     "work_id": 3,
-                    "media_path": "/uploads/media/20260501063421_384de68baf.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063421_384de68baf.jpg",
                     "media_type": "image",
                     "position": 3,
                     "created_at": "2026-05-01T06:34:21+00:00"
@@ -658,7 +658,7 @@
                 {
                     "id": 73,
                     "work_id": 2,
-                    "media_path": "/uploads/media/20260501063324_a293f55d37.png",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063324_a293f55d37.png",
                     "media_type": "image",
                     "position": 0,
                     "created_at": "2026-05-01T06:33:24+00:00"
@@ -666,7 +666,7 @@
                 {
                     "id": 74,
                     "work_id": 2,
-                    "media_path": "/uploads/media/20260501063324_6ac3a077f8.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063324_6ac3a077f8.jpg",
                     "media_type": "image",
                     "position": 1,
                     "created_at": "2026-05-01T06:33:24+00:00"
@@ -674,7 +674,7 @@
                 {
                     "id": 75,
                     "work_id": 2,
-                    "media_path": "/uploads/media/20260501063324_418b2ddb1e.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063324_418b2ddb1e.jpg",
                     "media_type": "image",
                     "position": 2,
                     "created_at": "2026-05-01T06:33:24+00:00"
@@ -682,7 +682,7 @@
                 {
                     "id": 104,
                     "work_id": 2,
-                    "media_path": "/uploads/media/20260508155822_ffefdedbd2.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155822_ffefdedbd2.jpg",
                     "media_type": "image",
                     "position": 3,
                     "created_at": "2026-05-08T15:58:22+00:00"
@@ -713,7 +713,7 @@
                 {
                     "id": 61,
                     "work_id": 5,
-                    "media_path": "/uploads/media/20260501062045_dcb6d9d700.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501062045_dcb6d9d700.jpg",
                     "media_type": "image",
                     "position": 0,
                     "created_at": "2026-05-01T06:20:45+00:00"
@@ -721,7 +721,7 @@
                 {
                     "id": 62,
                     "work_id": 5,
-                    "media_path": "/uploads/media/20260501062045_59f515a7a0.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501062045_59f515a7a0.jpg",
                     "media_type": "image",
                     "position": 1,
                     "created_at": "2026-05-01T06:20:45+00:00"
@@ -729,7 +729,7 @@
                 {
                     "id": 63,
                     "work_id": 5,
-                    "media_path": "/uploads/media/20260501062045_935daa7b1f.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501062045_935daa7b1f.jpg",
                     "media_type": "image",
                     "position": 2,
                     "created_at": "2026-05-01T06:20:45+00:00"
@@ -737,7 +737,7 @@
                 {
                     "id": 103,
                     "work_id": 5,
-                    "media_path": "/uploads/media/20260508155758_581347cdba.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155758_581347cdba.jpg",
                     "media_type": "image",
                     "position": 3,
                     "created_at": "2026-05-08T15:57:58+00:00"
@@ -745,7 +745,7 @@
                 {
                     "id": 108,
                     "work_id": 5,
-                    "media_path": "/uploads/media/20260508155932_90171fe4f7.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155932_90171fe4f7.jpg",
                     "media_type": "image",
                     "position": 4,
                     "created_at": "2026-05-08T15:59:32+00:00"
@@ -800,7 +800,7 @@
                 {
                     "id": 105,
                     "work_id": 14,
-                    "media_path": "/uploads/media/20260508155858_a6c569f687.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155858_a6c569f687.jpg",
                     "media_type": "image",
                     "position": 3,
                     "created_at": "2026-05-08T15:58:58+00:00"
@@ -808,7 +808,7 @@
                 {
                     "id": 106,
                     "work_id": 14,
-                    "media_path": "/uploads/media/20260508155858_25e603694e.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155858_25e603694e.jpg",
                     "media_type": "image",
                     "position": 4,
                     "created_at": "2026-05-08T15:58:58+00:00"
@@ -816,7 +816,7 @@
                 {
                     "id": 107,
                     "work_id": 14,
-                    "media_path": "/uploads/media/20260508155858_b846cf5efb.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155858_b846cf5efb.jpg",
                     "media_type": "image",
                     "position": 5,
                     "created_at": "2026-05-08T15:58:58+00:00"

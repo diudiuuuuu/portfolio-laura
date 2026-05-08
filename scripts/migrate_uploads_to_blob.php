@@ -57,8 +57,7 @@ $walk = function (&$node) use (&$walk, &$uploadedCache, &$changed, &$failed, &$v
         return;
     }
 
-    $blobPath = ltrim($node, '/');
-    $url = uploadFileToBlob($abs, $blobPath, guessContentTypeFromExtension($node));
+    $url = syncPublicUploadPathToBlob($node);
     if (!is_string($url) || $url === '') {
         $uploadedCache[$node] = '';
         $failed++;

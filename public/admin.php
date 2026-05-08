@@ -40,6 +40,28 @@ function nextMediaIdFromWorks(array $works): int
     return $max + 1;
 }
 
+function requestHasUploadedFiles(array $files): bool
+{
+    foreach ($files as $entry) {
+        if (!is_array($entry)) {
+            continue;
+        }
+        $error = $entry['error'] ?? null;
+        if (is_array($error)) {
+            foreach ($error as $nestedError) {
+                if ((int) $nestedError !== UPLOAD_ERR_NO_FILE) {
+                    return true;
+                }
+            }
+            continue;
+        }
+        if ((int) $error !== UPLOAD_ERR_NO_FILE) {
+            return true;
+        }
+    }
+    return false;
+}
+
 if (isPostTooLarge()) {
     $limit = (string) ini_get('post_max_size');
     flash('上传失败：提交内容超过服务器限制（当前 post_max_size=' . $limit . '）。请压缩文件或提高上传限制。', 'global', 'error');
@@ -49,6 +71,11 @@ if (isPostTooLarge()) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = (string) ($_POST['action'] ?? '');
     $flashTarget = postFlashTarget('global');
+
+    if (requestHasUploadedFiles($_FILES) && !blobUploadEnabled()) {
+        flash('上传已拦截：当前未配置 Vercel Blob 凭证。请先设置 BLOB_READ_WRITE_TOKEN 和 BLOB_PUBLIC_BASE_URL，避免文件只落在本地。', $flashTarget, 'error');
+        redirectAdmin($flashTarget);
+    }
 
     if ($action === 'create_category') {
         $name = trim((string) ($_POST['category_name'] ?? ''));
