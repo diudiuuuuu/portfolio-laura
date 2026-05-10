@@ -1,3 +1,4 @@
 public/uploads/**
 uploads/**
 .env.local
+.DS_Store
