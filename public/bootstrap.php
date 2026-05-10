@@ -48,9 +48,12 @@ function normalizePublicPath(string $path): string
     }
     $normalized = str_starts_with($path, '/') ? $path : '/' . $path;
     if (str_starts_with($normalized, '/uploads/')) {
-        $blobBase = rtrim(trim((string) getenv('BLOB_PUBLIC_BASE_URL')), '/');
-        if ($blobBase !== '') {
-            return $blobBase . $normalized;
+        $mediaBase = rtrim(trim((string) getenv('MEDIA_PUBLIC_BASE_URL')), '/');
+        if ($mediaBase === '') {
+            $mediaBase = rtrim(trim((string) getenv('BLOB_PUBLIC_BASE_URL')), '/');
+        }
+        if ($mediaBase !== '') {
+            return $mediaBase . $normalized;
         }
     }
     return $normalized;
@@ -105,13 +108,15 @@ function loadSiteContent(): array
         'audit_logs' => [],
     ];
 
-    $decoded = null;
+    $decoded = loadRemoteSiteContent();
     if (is_file(SITE_CONTENT_PATH)) {
         $raw = @file_get_contents(SITE_CONTENT_PATH);
         if ($raw !== false && $raw !== '') {
             $json = json_decode($raw, true);
             if (is_array($json)) {
-                $decoded = $json;
+                if (!is_array($decoded)) {
+                    $decoded = $json;
+                }
             }
         }
     }
@@ -148,6 +153,7 @@ function saveSiteContent(array $content): void
         throw new RuntimeException('Failed to encode site content.');
     }
     file_put_contents(SITE_CONTENT_PATH, $json);
+    syncSiteContentJsonToStorage();
     $GLOBALS['__site_content_cache'] = $content;
 }
 
@@ -366,6 +372,82 @@ function isImageExtension(string $ext): bool
     return in_array(strtolower($ext), ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif'], true);
 }
 
+function mediaPreviewMaxWidth(string $size): int
+{
+    return match ($size) {
+        'md' => 1200,
+        'lg' => 2000,
+        default => 600,
+    };
+}
+
+function buildUrlFromParts(array $parts, string $query): string
+{
+    $scheme = isset($parts['scheme']) ? $parts['scheme'] . '://' : '';
+    $auth = '';
+    if (isset($parts['user'])) {
+        $auth = $parts['user'];
+        if (isset($parts['pass'])) {
+            $auth .= ':' . $parts['pass'];
+        }
+        $auth .= '@';
+    }
+    $host = (string) ($parts['host'] ?? '');
+    $port = isset($parts['port']) ? ':' . (int) $parts['port'] : '';
+    $path = (string) ($parts['path'] ?? '');
+    $fragment = isset($parts['fragment']) ? '#' . $parts['fragment'] : '';
+    $queryPart = $query !== '' ? '?' . $query : '';
+    return $scheme . $auth . $host . $port . $path . $queryPart . $fragment;
+}
+
+function canUseOssImageProcess(array $parts, string $url): bool
+{
+    $enabled = strtolower(trim((string) getenv('OSS_IMAGE_PROCESS_ENABLED')));
+    if ($enabled === '0' || $enabled === 'false' || $enabled === 'off') {
+        return false;
+    }
+    $host = strtolower((string) ($parts['host'] ?? ''));
+    if ($host === '') {
+        return false;
+    }
+    if (str_contains($host, '.aliyuncs.com') || $host === 'aliyuncs.com') {
+        return true;
+    }
+    foreach (['MEDIA_PUBLIC_BASE_URL', 'OSS_PUBLIC_BASE_URL'] as $envKey) {
+        $base = trim((string) getenv($envKey));
+        if ($base === '') {
+            continue;
+        }
+        if (str_starts_with($url, rtrim($base, '/'))) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function appendOssImageProcess(string $url, string $size): string
+{
+    $parts = parse_url($url);
+    if (!is_array($parts) || !isset($parts['host'], $parts['scheme'])) {
+        return $url;
+    }
+    if (!canUseOssImageProcess($parts, $url)) {
+        return $url;
+    }
+    $existingQuery = (string) ($parts['query'] ?? '');
+    // Already has x-oss-process — skip.
+    if (str_contains($existingQuery, 'x-oss-process')) {
+        return $url;
+    }
+    $maxWidth = mediaPreviewMaxWidth($size);
+    $quality = $size === 'sm' ? 68 : ($size === 'md' ? 72 : 76);
+    // Keep slashes and commas unencoded so CDN caches the processed result correctly.
+    $processParam = 'image/auto-orient,1/resize,m_lfit,w_' . $maxWidth . '/quality,q_' . $quality . '/format,webp';
+    $sep = $existingQuery !== '' ? '&' : '';
+    $newQuery = $existingQuery . $sep . 'x-oss-process=' . $processParam;
+    return buildUrlFromParts($parts, $newQuery);
+}
+
 function mediaPreviewPath(string $path, string $size = 'sm'): string
 {
     $path = normalizePublicPath($path);
@@ -378,14 +460,14 @@ function mediaPreviewPath(string $path, string $size = 'sm'): string
     if ($rawPath === '') {
         return $path;
     }
-    // Production Blob/CDN URLs may not have generated size variants yet.
-    // Prefer the original asset for any absolute URL to avoid global image 404s.
-    if (isset($parts['scheme']) || isset($parts['host'])) {
-        return $path;
-    }
     $ext = strtolower(pathinfo($rawPath, PATHINFO_EXTENSION));
     if (!isImageExtension($ext)) {
         return $path;
+    }
+    // Production CDN/OSS URLs may not have local variant files.
+    // For absolute URLs, use OSS on-the-fly image processing instead of file suffix variants.
+    if (isset($parts['scheme']) || isset($parts['host'])) {
+        return appendOssImageProcess($path, $size);
     }
     $base = substr($rawPath, 0, -strlen('.' . $ext));
     $candidate = $base . '_' . $size . '.' . $ext;
@@ -504,6 +586,151 @@ function blobUploadEnabled(): bool
     return $token !== '';
 }
 
+function ossUploadEnabled(): bool
+{
+    $accessKeyId = trim((string) getenv('OSS_ACCESS_KEY_ID'));
+    $accessKeySecret = trim((string) getenv('OSS_ACCESS_KEY_SECRET'));
+    $bucket = trim((string) getenv('OSS_BUCKET'));
+    $region = trim((string) getenv('OSS_REGION'));
+    return $accessKeyId !== '' && $accessKeySecret !== '' && $bucket !== '' && $region !== '';
+}
+
+function storageUploadEnabled(): bool
+{
+    return ossUploadEnabled() || blobUploadEnabled();
+}
+
+function storageUploadProviderLabel(): string
+{
+    if (ossUploadEnabled()) {
+        return '阿里云 OSS';
+    }
+    if (blobUploadEnabled()) {
+        return 'Vercel Blob';
+    }
+    return '对象存储';
+}
+
+function ossEndpoint(): string
+{
+    $endpoint = trim((string) getenv('OSS_ENDPOINT'));
+    if ($endpoint !== '') {
+        return $endpoint;
+    }
+    $region = trim((string) getenv('OSS_REGION'));
+    return $region !== '' ? 'oss-' . $region . '.aliyuncs.com' : '';
+}
+
+function mediaPublicBaseUrl(): string
+{
+    $mediaBase = rtrim(trim((string) getenv('MEDIA_PUBLIC_BASE_URL')), '/');
+    if ($mediaBase !== '') {
+        return $mediaBase;
+    }
+    $ossBase = rtrim(trim((string) getenv('OSS_PUBLIC_BASE_URL')), '/');
+    if ($ossBase !== '') {
+        return $ossBase;
+    }
+    $blobBase = rtrim(trim((string) getenv('BLOB_PUBLIC_BASE_URL')), '/');
+    return $blobBase;
+}
+
+function siteContentObjectPath(): string
+{
+    $path = trim((string) getenv('SITE_CONTENT_OBJECT_PATH'));
+    if ($path === '') {
+        $path = 'data/site-content.json';
+    }
+    return ltrim($path, '/');
+}
+
+function siteContentPublicUrl(): string
+{
+    $explicit = trim((string) getenv('SITE_CONTENT_PUBLIC_URL'));
+    if ($explicit !== '') {
+        return $explicit;
+    }
+
+    if (ossUploadEnabled()) {
+        $bucket = trim((string) getenv('OSS_BUCKET'));
+        $endpoint = ossEndpoint();
+        if ($bucket !== '' && $endpoint !== '') {
+            return 'https://' . $bucket . '.' . $endpoint . '/' . siteContentObjectPath();
+        }
+    }
+
+    $blobBase = rtrim(trim((string) getenv('BLOB_PUBLIC_BASE_URL')), '/');
+    if ($blobBase !== '') {
+        return $blobBase . '/' . siteContentObjectPath();
+    }
+
+    return '';
+}
+
+function shouldUseRemoteSiteContent(): bool
+{
+    $value = strtolower(trim((string) getenv('SITE_CONTENT_REMOTE_ENABLED')));
+    if ($value === '') {
+        return siteContentPublicUrl() !== '';
+    }
+    return !in_array($value, ['0', 'false', 'off', 'no'], true);
+}
+
+function loadRemoteSiteContent(): ?array
+{
+    if (!shouldUseRemoteSiteContent()) {
+        return null;
+    }
+
+    $url = siteContentPublicUrl();
+    if ($url === '') {
+        return null;
+    }
+
+    $context = stream_context_create([
+        'http' => [
+            'timeout' => 8,
+            'ignore_errors' => true,
+        ],
+        'ssl' => [
+            'verify_peer' => true,
+            'verify_peer_name' => true,
+        ],
+    ]);
+    $raw = @file_get_contents($url, false, $context);
+    if ($raw === false || $raw === '') {
+        return null;
+    }
+
+    $json = json_decode($raw, true);
+    return is_array($json) ? $json : null;
+}
+
+function syncSiteContentJsonToStorage(): void
+{
+    if (!is_file(SITE_CONTENT_PATH)) {
+        return;
+    }
+
+    if (ossUploadEnabled()) {
+        uploadFileToOss(SITE_CONTENT_PATH, siteContentObjectPath(), 'application/json; charset=utf-8');
+        return;
+    }
+
+    if (blobUploadEnabled()) {
+        uploadFileToBlob(SITE_CONTENT_PATH, siteContentObjectPath(), 'application/json; charset=utf-8');
+    }
+}
+
+function mediaPublicUrlForUploadPath(string $path): string
+{
+    $base = mediaPublicBaseUrl();
+    if ($base === '' || !str_starts_with($path, '/uploads/')) {
+        return $path;
+    }
+    return $base . $path;
+}
+
 function absolutePathFromPublicUploadPath(string $path): ?string
 {
     if (!str_starts_with($path, '/uploads/')) {
@@ -515,6 +742,45 @@ function absolutePathFromPublicUploadPath(string $path): ?string
     }
     $absolute = UPLOAD_BASE . '/' . $relative;
     return is_file($absolute) ? $absolute : null;
+}
+
+function fallbackVariantPublicUploadPath(string $path, string $preferred = 'lg'): ?string
+{
+    if (!str_starts_with($path, '/uploads/') || mediaTypeFromPath($path) === 'video') {
+        return null;
+    }
+    $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+    if ($ext === '') {
+        return null;
+    }
+    $sizes = array_values(array_unique(array_merge([$preferred], ['lg', 'md', 'sm'])));
+    foreach ($sizes as $size) {
+        $candidate = preg_replace('/\.[^.]+$/', '_' . $size . '.' . $ext, $path);
+        if (!is_string($candidate)) {
+            continue;
+        }
+        if (absolutePathFromPublicUploadPath($candidate) !== null) {
+            return $candidate;
+        }
+    }
+    return null;
+}
+
+function absolutePathForUploadOrVariant(string $path, string $preferred = 'lg'): ?array
+{
+    $abs = absolutePathFromPublicUploadPath($path);
+    if ($abs !== null) {
+        return ['public_path' => $path, 'absolute_path' => $abs];
+    }
+    $fallbackPath = fallbackVariantPublicUploadPath($path, $preferred);
+    if ($fallbackPath === null) {
+        return null;
+    }
+    $fallbackAbs = absolutePathFromPublicUploadPath($fallbackPath);
+    if ($fallbackAbs === null) {
+        return null;
+    }
+    return ['public_path' => $fallbackPath, 'absolute_path' => $fallbackAbs];
 }
 
 function guessContentTypeFromExtension(string $path): string
@@ -651,6 +917,91 @@ function uploadFileToBlob(string $absolutePath, string $blobPathname, ?string $c
     return $url !== '' ? $url : null;
 }
 
+function uploadFileToOss(string $absolutePath, string $objectPathname, ?string $contentType = null): ?string
+{
+    $accessKeyId = trim((string) getenv('OSS_ACCESS_KEY_ID'));
+    $accessKeySecret = trim((string) getenv('OSS_ACCESS_KEY_SECRET'));
+    $bucket = trim((string) getenv('OSS_BUCKET'));
+    $endpoint = ossEndpoint();
+    if ($accessKeyId === '' || $accessKeySecret === '' || $bucket === '' || $endpoint === '' || !is_file($absolutePath)) {
+        return null;
+    }
+
+    $objectPathname = ltrim($objectPathname, '/');
+    $date = gmdate('D, d M Y H:i:s') . ' GMT';
+    $contentType = $contentType ?: 'application/octet-stream';
+    $cacheControl = trim((string) getenv('OSS_CACHE_CONTROL'));
+    if ($cacheControl === '') {
+        $cacheControl = 'public, max-age=31536000, immutable';
+    }
+    $canonicalHeaders = 'x-oss-storage-class:Standard';
+    $resource = '/' . $bucket . '/' . $objectPathname;
+    $stringToSign = "PUT\n\n{$contentType}\n{$date}\n{$canonicalHeaders}\n{$resource}";
+    $signature = base64_encode(hash_hmac('sha1', $stringToSign, $accessKeySecret, true));
+    $url = 'https://' . $bucket . '.' . $endpoint . '/' . str_replace('%2F', '/', rawurlencode($objectPathname));
+
+    $headers = [
+        'Date: ' . $date,
+        'Content-Type: ' . $contentType,
+        'Authorization: OSS ' . $accessKeyId . ':' . $signature,
+        'x-oss-storage-class: Standard',
+        'Cache-Control: ' . $cacheControl,
+    ];
+
+    $status = 0;
+    if (function_exists('curl_init')) {
+        $fh = fopen($absolutePath, 'rb');
+        if ($fh === false) {
+            return null;
+        }
+        $size = filesize($absolutePath);
+        if ($size === false) {
+            fclose($fh);
+            return null;
+        }
+        $ch = curl_init($url);
+        if ($ch === false) {
+            fclose($fh);
+            return null;
+        }
+        curl_setopt_array($ch, [
+            CURLOPT_CUSTOMREQUEST => 'PUT',
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_INFILE => $fh,
+            CURLOPT_INFILESIZE => $size,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 300,
+            CURLOPT_FAILONERROR => false,
+        ]);
+        curl_exec($ch);
+        $status = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        curl_close($ch);
+        fclose($fh);
+    } else {
+        $curlBin = trim((string) shell_exec('command -v curl 2>/dev/null'));
+        if ($curlBin === '') {
+            return null;
+        }
+        $cmd = escapeshellarg($curlBin)
+            . ' -sS -X PUT '
+            . escapeshellarg($url)
+            . ' -H ' . escapeshellarg('Date: ' . $date)
+            . ' -H ' . escapeshellarg('Content-Type: ' . $contentType)
+            . ' -H ' . escapeshellarg('Authorization: OSS ' . $accessKeyId . ':' . $signature)
+            . ' -H ' . escapeshellarg('x-oss-storage-class: Standard')
+            . ' -H ' . escapeshellarg('Cache-Control: ' . $cacheControl)
+            . ' --data-binary @' . escapeshellarg($absolutePath)
+            . ' -o /dev/null -w ' . escapeshellarg('%{http_code}');
+        $status = (int) trim((string) shell_exec($cmd));
+    }
+
+    if ($status < 200 || $status >= 300) {
+        return null;
+    }
+
+    return mediaPublicUrlForUploadPath('/' . $objectPathname);
+}
+
 function syncPublicUploadPathToBlob(string $path): string
 {
     if (!blobUploadEnabled()) {
@@ -659,10 +1010,11 @@ function syncPublicUploadPathToBlob(string $path): string
     if (!str_starts_with($path, '/uploads/')) {
         return $path;
     }
-    $abs = absolutePathFromPublicUploadPath($path);
-    if ($abs === null) {
+    $resolved = absolutePathForUploadOrVariant($path, 'lg');
+    if ($resolved === null) {
         return $path;
     }
+    $abs = (string) $resolved['absolute_path'];
     $blobPath = ltrim($path, '/');
     $uploaded = uploadFileToBlob($abs, $blobPath, guessContentTypeFromExtension($path));
     if ($uploaded !== null && mediaTypeFromPath($path) === 'image' && !isGeneratedWebpVariantPath($path)) {
@@ -680,6 +1032,41 @@ function syncPublicUploadPathToBlob(string $path): string
         }
     }
     return $uploaded ?? $path;
+}
+
+function syncPublicUploadPathToStorage(string $path): string
+{
+    if (!str_starts_with($path, '/uploads/')) {
+        return $path;
+    }
+
+    $resolved = absolutePathForUploadOrVariant($path, 'lg');
+    if ($resolved === null) {
+        return $path;
+    }
+    $abs = (string) $resolved['absolute_path'];
+
+    if (ossUploadEnabled()) {
+        $objectPath = ltrim($path, '/');
+        $uploaded = uploadFileToOss($abs, $objectPath, guessContentTypeFromExtension($path));
+        if ($uploaded !== null && mediaTypeFromPath($path) === 'image' && !isGeneratedWebpVariantPath($path)) {
+            $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+            foreach (['sm', 'md', 'lg'] as $k) {
+                $variantLocal = preg_replace('/\.[^.]+$/', '_' . $k . '.' . $ext, $path);
+                if (!is_string($variantLocal)) {
+                    continue;
+                }
+                $variantAbs = absolutePathFromPublicUploadPath($variantLocal);
+                if ($variantAbs === null) {
+                    continue;
+                }
+                uploadFileToOss($variantAbs, ltrim($variantLocal, '/'), guessContentTypeFromExtension($variantLocal));
+            }
+        }
+        return $uploaded ?? $path;
+    }
+
+    return syncPublicUploadPathToBlob($path);
 }
 
 function saveUpload(array $file, string $targetDir, array $allowedExt): ?string
@@ -715,6 +1102,11 @@ function saveUpload(array $file, string $targetDir, array $allowedExt): ?string
         if (is_string($webp) && is_file($webp)) {
             @unlink($dest);
             $safe = basename($webp);
+        } elseif (!is_file($dest)) {
+            $lgVariant = preg_replace('/\.[^.]+$/', '_lg.' . $ext, $dest);
+            if (is_string($lgVariant) && is_file($lgVariant)) {
+                @copy($lgVariant, $dest);
+            }
         }
     }
     return '/uploads/' . $targetDir . '/' . $safe;
@@ -887,7 +1279,7 @@ function cloneUploadPath(string $sourcePath, string $targetDir): ?string
 
 function finalizeUploadedPath(string $path): string
 {
-    return syncPublicUploadPathToBlob($path);
+    return syncPublicUploadPathToStorage($path);
 }
 
 function mediaTypeFromPath(string $path): string

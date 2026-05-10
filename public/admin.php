@@ -72,8 +72,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = (string) ($_POST['action'] ?? '');
     $flashTarget = postFlashTarget('global');
 
-    if (requestHasUploadedFiles($_FILES) && !blobUploadEnabled()) {
-        flash('上传已拦截：当前未配置 Vercel Blob 凭证。请先设置 BLOB_READ_WRITE_TOKEN 和 BLOB_PUBLIC_BASE_URL，避免文件只落在本地。', $flashTarget, 'error');
+    if (requestHasUploadedFiles($_FILES) && !storageUploadEnabled()) {
+        flash('上传已拦截：当前未配置对象存储凭证。请先配置阿里云 OSS 或 Vercel Blob，避免文件只落在本地。', $flashTarget, 'error');
         redirectAdmin($flashTarget);
     }
 
@@ -1154,12 +1154,13 @@ function renderFlashAt(string $target, ?array $flashData): string
         <div class="work-list">
           <?php foreach ($works as $w): ?>
             <?php $workTarget = 'work-' . (int) $w['id']; ?>
+            <?php $workFormId = 'work-form-' . (int) $w['id']; ?>
             <article class="work-list-item" id="<?= esc($workTarget) ?>" data-flash-target="<?= esc($workTarget) ?>">
               <?= renderFlashAt($workTarget, $flashData) ?>
               <div class="work-list-cover">
                 <?= renderMediaPreview((string) ($w['cover_path'] !== '' ? $w['cover_path'] : ($w['media'][0]['media_path'] ?? '')), (string) $w['title'], (string) ($w['updated_at'] ?? '')) ?>
               </div>
-              <form method="post" enctype="multipart/form-data" class="admin-form-grid">
+              <form method="post" enctype="multipart/form-data" class="admin-form-grid" id="<?= esc($workFormId) ?>">
                 <input type="hidden" name="action" value="update_work">
                 <input type="hidden" name="flash_target" value="<?= esc($workTarget) ?>">
                 <input type="hidden" name="work_id" value="<?= (int) $w['id'] ?>">
@@ -1285,25 +1286,33 @@ function renderFlashAt(string $target, ?array $flashData): string
               </form>
 
               <?php if (!empty($w['media'])): ?>
-                <div class="admin-media-list">
+                <div class="admin-media-list" data-media-sort-list>
                   <?php foreach ($w['media'] as $m): ?>
-                    <div class="admin-media-row">
-                      <a class="thumb-inline media-preview" href="<?= esc((string) $m['media_path']) ?>" target="_blank" rel="noopener noreferrer" title="点击查看原始媒体">
+                    <div class="admin-media-row" data-media-sort-item data-media-id="<?= (int) $m['id'] ?>">
+                      <div class="admin-media-drag" data-media-sort-handle draggable="true" title="拖动排序">
+                        <span aria-hidden="true">⋮⋮</span>
+                        <span>拖动排序</span>
+                      </div>
+                      <?php
+                        $mediaPath = (string) $m['media_path'];
+                        $mediaHref = $m['media_type'] === 'video' ? $mediaPath : mediaPreviewPath($mediaPath, 'lg');
+                        $mediaThumb = $m['media_type'] === 'video' ? $mediaPath : mediaPreviewPath($mediaPath, 'md');
+                      ?>
+                      <a class="thumb-inline media-preview" href="<?= esc($mediaHref) ?>" target="_blank" rel="noopener noreferrer" title="点击查看原始媒体">
                         <?php if ($m['media_type'] === 'video'): ?>
-                          <video src="<?= esc((string) $m['media_path']) ?>" muted autoplay loop playsinline preload="metadata"></video>
+                          <video src="<?= esc($mediaThumb) ?>" muted autoplay loop playsinline preload="metadata"></video>
                         <?php else: ?>
-                          <img src="<?= esc((string) $m['media_path']) ?>" alt="media thumb" loading="lazy">
+                          <img src="<?= esc($mediaThumb) ?>" alt="media thumb" loading="lazy">
                         <?php endif; ?>
                       </a>
                       <label class="admin-media-order-label">
-                        <span>顺序</span>
+                        <span>顺序 <strong data-media-sort-index></strong></span>
                         <input
-                          type="number"
+                          type="hidden"
                           name="media_position[<?= (int) $m['id'] ?>]"
                           value="<?= (int) ($m['position'] ?? 0) ?>"
-                          min="0"
-                          step="1"
-                          style="width:72px;"
+                          form="<?= esc($workFormId) ?>"
+                          data-media-sort-input
                         >
                       </label>
                       <div class="admin-media-actions">
@@ -1316,10 +1325,10 @@ function renderFlashAt(string $target, ?array $flashData): string
                       </div>
                       <a
                         class="admin-media-link"
-                        href="<?= esc((string) $m['media_path']) ?>"
+                        href="<?= esc($mediaHref) ?>"
                         target="_blank"
                         rel="noopener noreferrer"
-                      ><?= esc((string) $m['media_path']) ?></a>
+                      ><?= esc($mediaPath) ?></a>
                     </div>
                   <?php endforeach; ?>
                 </div>

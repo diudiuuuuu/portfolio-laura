@@ -36,7 +36,7 @@ $introStyle = introStyleString($intro);
 
     <?php if (($intro['top_image_path'] ?? '') !== ''): ?>
       <div class="intro-top-global">
-        <img src="<?= esc(mediaPreviewPath((string) $intro['top_image_path'], 'md')) ?>" alt="intro top" loading="lazy">
+        <img src="<?= esc(mediaPreviewPath((string) $intro['top_image_path'], 'md')) ?>" alt="intro top" loading="eager" fetchpriority="high" decoding="async">
       </div>
     <?php endif; ?>
 

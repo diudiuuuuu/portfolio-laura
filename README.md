@@ -38,8 +38,47 @@ php scripts/migrate_uploads_to_blob.php
 php scripts/migrate_uploads_to_blob.php --dry-run
 ```
 
+## 迁移到 OSS/CDN
+- 当前项目里的媒体资源主要保存在 `public/uploads/*`，数据引用记录在 `data/site-content.json`。
+- 如果你把媒体迁到阿里云 OSS 并绑定 CDN，推荐让 CDN 域名直接映射到 OSS 上的 `/uploads/*` 目录结构，这样迁移最简单。
+- 上传本地历史资源到 OSS 后，可以把数据文件里的旧域名批量替换成新的 CDN 域名：
+
+```bash
+cd /Users/diu/Desktop/portfolio-site
+php scripts/replace_media_urls.php \
+  --from=https://你的旧资源域名 \
+  --to=https://cdn.example.com \
+  --dry-run
+```
+
+- 确认无误后去掉 `--dry-run` 正式写入：
+
+```bash
+php scripts/replace_media_urls.php \
+  --from=https://你的旧资源域名 \
+  --to=https://cdn.example.com
+```
+
+- 如果数据里仍然是本地 `/uploads/...` 路径，也可以直接改写成 CDN 地址：
+
+```bash
+php scripts/replace_media_urls.php \
+  --to=https://cdn.example.com \
+  --rewrite-local-uploads
+```
+
+- 运行时也可以通过环境变量 `MEDIA_PUBLIC_BASE_URL` 为 `/uploads/...` 自动补上 CDN 域名。
+
 ## 本地启动
 当前代码为 `PHP + JSON`（无数据库依赖），需要本机有 PHP 8+。
+
+如果本地后台上传需要直接写入 OSS，先在项目根目录创建 `.env.local`，可参考：
+
+```bash
+cp .env.local.example .env.local
+```
+
+然后把里面的 OSS 参数替换成你的真实值。`scripts/start-local.sh` 会自动加载这个文件。
 
 ```bash
 cd /Users/diu/Desktop/portfolio-site

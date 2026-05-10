@@ -26,6 +26,21 @@ if ($bannerBg !== '' && mediaTypeFromPath($bannerBg) !== 'video') {
 } elseif ($bannerOverlay !== '') {
     $preloadImage = mediaPreviewPath($bannerOverlay, 'md');
 }
+
+// Collect first 4 non-video cover URLs for <link rel="preload"> in <head>.
+$preloadCovers = [];
+foreach ($works as $w) {
+    if (count($preloadCovers) >= 4) {
+        break;
+    }
+    $c = $w['cover_path'];
+    if ($c === '' && !empty($w['media'])) {
+        $c = $w['media'][0]['media_path'];
+    }
+    if ($c !== '' && mediaTypeFromPath($c) !== 'video') {
+        $preloadCovers[] = mediaPreviewPath($c, 'sm');
+    }
+}
 ?>
 <!doctype html>
 <html lang="zh-CN">
@@ -37,6 +52,9 @@ if ($bannerBg !== '' && mediaTypeFromPath($bannerBg) !== 'video') {
   <?php if ($preloadImage !== ''): ?>
     <link rel="preload" as="image" href="<?= esc($preloadImage) ?>">
   <?php endif; ?>
+  <?php foreach ($preloadCovers as $preloadCover): ?>
+    <link rel="preload" as="image" href="<?= esc($preloadCover) ?>">
+  <?php endforeach; ?>
 </head>
 <body>
   <div class="site-wrap">
@@ -64,12 +82,13 @@ if ($bannerBg !== '' && mediaTypeFromPath($bannerBg) !== 'video') {
       </header>
 
       <div class="banner-float-layer" data-banner-float>
-        <?php foreach ($bannerItems as $item): ?>
+        <?php foreach ($bannerItems as $idx => $item): ?>
           <div class="banner-float-item" data-seed="<?= (int) $item['id'] ?>">
             <?php if ($item['media_type'] === 'video'): ?>
               <video data-defer-src="<?= esc((string) $item['media_path']) ?>" muted loop playsinline preload="none"></video>
             <?php else: ?>
-              <img src="<?= esc(mediaPreviewPath((string) $item['media_path'], 'sm')) ?>" alt="banner item" loading="lazy">
+              <?php $bannerPriority = $idx < 2; ?>
+              <img src="<?= esc(mediaPreviewPath((string) $item['media_path'], 'sm')) ?>" alt="banner item" loading="<?= $bannerPriority ? 'eager' : 'lazy' ?>" fetchpriority="<?= $bannerPriority ? 'high' : 'auto' ?>" decoding="async">
             <?php endif; ?>
           </div>
         <?php endforeach; ?>
@@ -86,7 +105,7 @@ if ($bannerBg !== '' && mediaTypeFromPath($bannerBg) !== 'video') {
     </section>
 
     <section class="works-grid">
-      <?php foreach ($works as $w): ?>
+      <?php foreach ($works as $idx => $w): ?>
         <?php
           $cover = $w['cover_path'];
           if ($cover === '' && !empty($w['media'])) {
@@ -111,6 +130,7 @@ if ($bannerBg !== '' && mediaTypeFromPath($bannerBg) !== 'video') {
           $style = styleString($w);
           $cardBg = normalizeCardBg((string) ($w['card_bg'] ?? 'black'));
           $cardClass = 'work-card work-card-bg-' . $cardBg . (!empty($w['_is_big']) ? ' is-big' : '');
+          $cardPriority = $idx < 6;
         ?>
         <article
           class="<?= esc($cardClass) ?>"
@@ -129,7 +149,7 @@ if ($bannerBg !== '' && mediaTypeFromPath($bannerBg) !== 'video') {
               <?php if ($isVideoThumb): ?>
                 <video class="work-media-thumb" data-defer-src="<?= esc($coverDisplay) ?>" muted playsinline preload="none"></video>
               <?php else: ?>
-                <img class="work-media-thumb" src="<?= esc($coverThumb) ?>" alt="<?= esc($w['title']) ?>" loading="lazy">
+                <img class="work-media-thumb" src="<?= esc($coverThumb) ?>" alt="<?= esc($w['title']) ?>" loading="<?= $cardPriority ? 'eager' : 'lazy' ?>" fetchpriority="<?= $cardPriority ? 'high' : 'auto' ?>" decoding="async">
               <?php endif; ?>
             <?php endif; ?>
             <div class="work-overlay"></div>

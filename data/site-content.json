@@ -4,10 +4,10 @@
         "menu_works": "Works",
         "menu_intro": "Introduction",
         "banner_ratio": "2.6",
-        "banner_overlay": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/banner/20260429161021_077948d581.png",
-        "banner_bg": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/banner/20260429173014_5515588ea8.jpg",
-        "logo_image": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/banner/20260411094750_c1b97e4027.png",
-        "music_file": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/banner/20260421161021_711ac5bb31.mp3",
+        "banner_overlay": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/banner/20260429161021_077948d581.png",
+        "banner_bg": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/banner/20260429173014_5515588ea8.jpg",
+        "logo_image": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/banner/20260411094750_c1b97e4027.png",
+        "music_file": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/banner/20260421161021_711ac5bb31.mp3",
         "cat_active_bg": "#ffffff",
         "cat_border_color": "#111111"
     },
@@ -31,49 +31,49 @@
     "banner_items": [
         {
             "id": 17,
-            "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/banner/20260421160255_94ef1e1824.png",
+            "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/banner/20260421160255_94ef1e1824.png",
             "media_type": "image",
             "sort_order": 15,
             "created_at": "2026-04-21T16:02:55+00:00"
         },
         {
             "id": 15,
-            "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/banner/20260421160255_c802c777d3.png",
+            "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/banner/20260421160255_c802c777d3.png",
             "media_type": "image",
             "sort_order": 13,
             "created_at": "2026-04-21T16:02:55+00:00"
         },
         {
             "id": 14,
-            "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/banner/20260429175625_5e097ee756.png",
+            "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/banner/20260429175625_5e097ee756.png",
             "media_type": "image",
             "sort_order": 12,
             "created_at": "2026-04-21T16:02:55+00:00"
         },
         {
             "id": 12,
-            "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/banner/20260429175647_70b0c7ee21.png",
+            "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/banner/20260429175647_70b0c7ee21.png",
             "media_type": "image",
             "sort_order": 11,
             "created_at": "2026-04-21T16:01:52+00:00"
         },
         {
             "id": 10,
-            "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/banner/20260421160152_802a3cda57.png",
+            "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/banner/20260421160152_802a3cda57.png",
             "media_type": "image",
             "sort_order": 9,
             "created_at": "2026-04-21T16:01:52+00:00"
         },
         {
             "id": 9,
-            "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/banner/20260421160152_5ca6798597.png",
+            "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/banner/20260421160152_5ca6798597.png",
             "media_type": "image",
             "sort_order": 8,
             "created_at": "2026-04-21T16:01:52+00:00"
         },
         {
             "id": 8,
-            "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/banner/20260421160152_99bea9857f.png",
+            "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/banner/20260421160152_99bea9857f.png",
             "media_type": "image",
             "sort_order": 7,
             "created_at": "2026-04-21T16:01:52+00:00"
@@ -81,10 +81,10 @@
     ],
     "intro_content": {
         "id": 1,
-        "col1_title": "LAURA LIAN\r\n19950813\r\n15626418614\r\nly2359@yeah.net\r\nGUANGDONG SHANTOU",
-        "col2_text": "2021.5-2026.4（5）Meitu美图公司-美颜相机 资深视觉设计师\r\n核心增长与视觉策略：\r\n负责美颜相机产品首页资源位（Banner/弹窗/开屏等）设计。通过视觉策略驱动业务增长，达标率稳定在 85%以上，助力订阅转化持续保持年度 TOP1。\r\n品牌联名与新功能视觉推广\r\n主导美颜相机 80%品牌联名主题及AIGC新功能 的视觉策划与推广设计；制定风格规范及订阅活动H5设计。其中 50%以上视觉产出借助AI工具实践完成，确保高水准商业审美与前沿技术的深度结合。\r\nAIGC工作流构建与效能提升:\r\n搭建并优化AI提效工作流，涵盖 AI模特生产流、AI资源位视觉生成及视频/动态生成。通过沉淀复用性强的生产链条，\r\n显著提升团队物料产出规模与整体协作效率。\r\nAI产品化创新与战略思维: \r\n于美图MHC产品挑战赛中（唯一1人团队）获 前15强 (15/200)，实现完整产品 Fanzio.ai 落地。通过对社媒爆款图能力的分析拆解、分类与复刻生成流，深度运用模型能力探索视觉创新边界。\r\n\r\n2019.3-2021.5（2）Shopee-跨境业务 视觉设计师\r\n跨境业务 公众号推文、招商活动、日常线上直播、线下卖家大会/展会主视觉等物料设计\r\n部门新业务品牌和运营类创意设计、全年招商、媒体晚宴等大型活动主视觉等创意设计\r\n参与市场部营销创意探索，优化设计规范，提升品牌品质\r\n\r\nMay 2021 – April 2026 (5 Years) | Meitu, Inc. – BeautyCam | Senior Visual Designer\r\n**Core Growth & Visual Strategy:**\r\nResponsible for the visual design of key promotional placements (banners, pop-ups, splash screens, etc.) on the BeautyCam product homepage. Drove business growth through strategic visual design, maintaining a consistent goal-achievement rate of over 85% and contributing to the subscription conversion rate consistently ranking #1 annually.\r\n**Brand Collaborations & New Feature Visual Promotion:**\r\nLed the visual planning and promotional design for 80% of BeautyCam’s brand collaboration themes and new AIGC features. Established style guidelines and designed interactive H5 pages for subscription campaigns. Over 50% of visual deliverables were executed using AI tools, ensuring a deep integration of high-caliber commercial aesthetics with cutting-edge technology.\r\n**AIGC Workflow Construction & Efficiency Enhancement:**\r\nBuilt and optimized AI-driven efficiency workflows, encompassing AI model generation pipelines, AI-assisted visual creation for promotional placements, and video/motion graphic generation. By establishing reusable production pipelines, significantly increased the team's output volume of creative assets and enhanced overall collaboration efficiency.\r\n**AI Product Innovation & Strategic Thinking:**\r\nRanked in the Top 15 (15/200) in the Meitu MHC Product Challenge (as the sole member of a one-person team), successfully bringing the complete product *Fanzio.ai* to market. Explored the boundaries of visual innovation by deeply leveraging AI model capabilities—specifically through the analysis, deconstruction, categorization, and replication of visual generation workflows for viral social media imagery.\r\n**March 2019 – May 2021 (2 Years) | Shopee – Cross-Border Business | Visual Designer**\r\n**Cross-Border Business Assets:** Designed creative materials for official WeChat account posts, merchant recruitment campaigns, daily live streaming sessions, and key visuals for offline seller conferences and trade shows.\r\n**Departmental Branding & Operations:** Created visual designs for new business initiatives and operational campaigns within the department; designed key visuals for major annual events, including merchant recruitment drives and media gala dinners.\r\n**Marketing Creativity & Brand Standards:** Contributed to creative exploration within the Marketing Department, optimized design guidelines, and enhanced overall brand quality and consistency.",
+        "col1_title": "LAURA LIAN\r\n🎂19950813\r\n📱15626418614\r\n💬lylyly2359（vx）\r\n📮ly2359@yeah.net\r\n🗺️GUANGDONG SHANTOU",
+        "col2_text": "2021.5-2026.4（5）Meitu美图公司-美颜相机 资深视觉设计师\r\nAI产品化创新与战略思维: \r\n美图MHC产品挑战赛中（决赛唯一1人团队）获 前15强 (15/200)，实现完整产品 Fanzio.ai 落地。通过对AI社媒爆款图能力的分析拆解、分类与复刻AI创意玩法生成流，深度运用模型能力探索视觉创新边界。\r\n核心增长与视觉策略：\r\n负责美颜相机产品首页资源位（Banner/弹窗/开屏等）设计。通过视觉策略驱动业务增长，达标率稳定在 85%以上，资源位订阅转化持续保持年度TOP1。\r\n品牌联名与新功能视觉推广\r\n主导美颜相机 80%品牌联名主题及AIGC新功能 的视觉策划与推广设计；制定风格规范及订阅活动H5设计模版。其中 50%以上视觉产出借助AI工具实践完成，确保商业审美与前沿技术的深度结合。\r\nAIGC工作流构建与效能提升:\r\n搭建并优化AI提效工作流，涵盖 AI模特生产流、AI资源位视觉及视频/动态生成。通过沉淀复用性强的生产链条，\r\n显著提升团队物料产出规模与整体协作效率。\r\n\r\n2019.3-2021.5（2）Shopee-跨境业务 视觉设计师\r\n跨境业务 公众号推文、招商活动、日常线上直播、线下卖家大会/展会主视觉等物料设计\r\n部门新业务品牌和运营类创意设计、全年招商、媒体晚宴等大型活动主视觉等创意设计\r\n参与市场部营销创意探索，优化设计规范，提升品牌品质\r\n\r\nMay 2021 – April 2026 (5 Years) | Meitu, Inc. – BeautyCam | Senior Visual Designer\r\n**AI Product Innovation & Strategic Thinking:**\r\nRanked in the Top 15 (15/200) at the Meitu MHC Product Challenge—notably as the only solo team in the finals—successfully bringing the complete product, Fanzio.ai, to market. Achieved this by deconstructing, categorizing, and replicating the AI-driven creative workflows behind viral social media imagery, thereby leveraging advanced model capabilities to push the boundaries of visual innovation.\r\n**Core Growth & Visual Strategy:**\r\nResponsible for the design of key promotional placements (banners, pop-ups, splash screens, etc.) on the BeautyCam product homepage. Drove business growth through strategic visual design, maintaining a consistent goal-achievement rate of over 85%, while securing the #1 annual ranking for subscription conversion rates across all promotional placements.\r\n**Brand Collaborations & New Feature Visual Promotion:**\r\nLed the visual planning and promotional design for 80% of BeautyCam’s brand collaboration themes and new AIGC features; established style guidelines and created design templates for subscription-based H5 campaigns. Over 50% of visual deliverables were executed using AI tools, ensuring a deep integration of commercial aesthetics with cutting-edge technology.\r\n**AIGC Workflow Construction & Efficiency Enhancement:**\r\nBuilt and optimized AI-driven workflows to boost efficiency, encompassing the production of AI models as well as visual assets and dynamic content (videos/animations) for promotional placements. By establishing a robust, reusable production pipeline, significantly increased the team's output volume for creative assets and enhanced overall collaborative efficiency.\r\n\r\n**March 2019 – May 2021 (2 Years) | Shopee – Cross-Border Business | Visual Designer**\r\n**Cross-Border Business Assets:** Designed creative materials for official WeChat account posts, merchant recruitment campaigns, daily live streaming sessions, and key visuals for offline seller conferences and trade shows.\r\n**Departmental Branding & Operations:** Created visual designs for new business initiatives and operational campaigns within the department; designed key visuals for major annual events, including merchant recruitment drives and media gala dinners.\r\n**Marketing Creativity & Brand Standards:** Contributed to creative exploration within the Marketing Department, optimized design guidelines, and enhanced overall brand quality and consistency.",
         "col3_text": "AI in Practice：\r\nvibecoding（0-1 web）\r\ncursor/codex/google ai studio\r\nnano/seedream/keling/seedance\r\n\r\nSoftware Skills：\r\nfigma/adobe(ps ai ae)\r\n3D:blender/C4D\r\n\r\nLanguage: \r\nCET-6",
-        "top_image_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/intro/20260429180624_69bd5b537c.jpg",
+        "top_image_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/intro/20260429180624_69bd5b537c.jpg",
         "font_size": 14,
         "font_weight": 100,
         "font_family": "Arial, sans-serif",
@@ -96,21 +96,21 @@
     "works": [
         {
             "id": 1,
-            "title": "韩系风格",
+            "title": "韩系/原生感",
             "description": "以“数字桌面”与“社论网格”重塑高价值审美建模\r\n\r\n在社交审美从“数字整容”转向**「Effortless Chic（不费力的时髦）」与「Clean Girl（净感女孩）」的趋势下，本项目通过一套系统化的平面设计策略**（Digital Desktop & Editorial Grid），将韩系清透的蓝白冷调、复古胶片的硬核质感以及原生证件照的极致肌理深度整合。精准还原了韩系氧气感少女、复古胶片叙事以及发丝级原生妆感的视觉内核。色彩策略上，利用高明度冷调与中性色系的博弈，不仅提升了整体画面的“审美溢价”，更直观展示了算法对肤质优化的高级感。",
             "meta_text": "该系列凭借极佳的审美共鸣与专业感背书，成为美颜相机订阅转化率最高的模块，实现了商业价值与美学调性的双向突破。",
             "created_time": "Date: 2026",
-            "cover_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/covers/20260423164401_7dd4522499.jpg",
+            "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260423164401_7dd4522499.jpg",
             "emphasized": 0,
             "title_font_size": 14,
             "title_font_weight": 30,
             "title_font_family": "Arial, sans-serif",
             "title_color": "#ffffff",
             "title_italic": 0,
-            "title_underline": 1,
+            "title_underline": 0,
             "sort_order": 0,
             "created_at": "2026-04-11T08:40:52+00:00",
-            "updated_at": "2026-05-01T06:36:15+00:00",
+            "updated_at": "2026-05-10T16:43:13+00:00",
             "modal_font_size": 14,
             "category_id": 1,
             "card_bg": "white",
@@ -118,7 +118,7 @@
                 {
                     "id": 81,
                     "work_id": 1,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063525_855b1d004a.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063525_855b1d004a.jpg",
                     "media_type": "image",
                     "position": 0,
                     "created_at": "2026-05-01T06:35:25+00:00"
@@ -126,7 +126,7 @@
                 {
                     "id": 82,
                     "work_id": 1,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063525_6153473a5c.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063525_6153473a5c.jpg",
                     "media_type": "image",
                     "position": 1,
                     "created_at": "2026-05-01T06:35:25+00:00"
@@ -134,7 +134,7 @@
                 {
                     "id": 83,
                     "work_id": 1,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063525_db7a3db97e.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063525_db7a3db97e.jpg",
                     "media_type": "image",
                     "position": 2,
                     "created_at": "2026-05-01T06:35:25+00:00"
@@ -147,17 +147,17 @@
             "description": "关于“物感”与“文字”的实验性对话。通过酸性设计 (Acid Graphic) 与后现代排版的结合，你将平凡的视觉符号转化为极具冲击力的文化标签。这组作品不仅展示了你对字体空间关系的极致驾驭，更体现了你对当下年轻群体社交情绪（如：自嘲、佛系、职场摸鱼）的精准捕捉。这种将“生活琐碎”点化为“高级视觉”的能力，能够显著提升影像产品的文化颗粒度，为品牌构建一种更具智力感与幽默感的“社交人格”，是品牌在高端化转型中不可或缺的审美溢价。",
             "meta_text": "排版的韵律化:把文字视作图形\r\n文化符号的解构:文本影像化’的探索",
             "created_time": "Date: 2024",
-            "cover_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/covers/20260508160817_4ea2bc8657.jpg",
+            "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260508160817_4ea2bc8657.jpg",
             "emphasized": 0,
             "title_font_size": 14,
             "title_font_weight": 10,
             "title_font_family": "Arial, sans-serif",
             "title_color": "#ffffff",
             "title_italic": 0,
-            "title_underline": 1,
+            "title_underline": 0,
             "sort_order": -5,
             "created_at": "2026-04-22T17:11:20+00:00",
-            "updated_at": "2026-05-08T16:08:25+00:00",
+            "updated_at": "2026-05-10T16:36:30+00:00",
             "modal_font_size": 14,
             "category_id": 3,
             "card_bg": "white",
@@ -165,7 +165,7 @@
                 {
                     "id": 80,
                     "work_id": 13,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063441_0e3718b3bc.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063441_0e3718b3bc.jpg",
                     "media_type": "image",
                     "position": 0,
                     "created_at": "2026-05-01T06:34:41+00:00"
@@ -186,9 +186,9 @@
             "title_color": "#ffffff",
             "title_italic": 0,
             "title_underline": 0,
-            "sort_order": 8,
+            "sort_order": 0,
             "created_at": "2026-04-22T17:08:21+00:00",
-            "updated_at": "2026-05-08T15:59:53+00:00",
+            "updated_at": "2026-05-10T16:34:35+00:00",
             "modal_font_size": 14,
             "category_id": 3,
             "card_bg": "black",
@@ -196,7 +196,7 @@
                 {
                     "id": 46,
                     "work_id": 12,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260422170821_58ffe31025.mp4",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260422170821_58ffe31025.mp4",
                     "media_type": "video",
                     "position": 0,
                     "created_at": "2026-04-22T17:08:21+00:00"
@@ -205,11 +205,11 @@
         },
         {
             "id": 11,
-            "title": "AI纹身/AI美甲/AI一键出片",
-            "description": "这一组设计的核心在于“把AI功能变酷”。\r\nAI摄影师：我采用了「数字化档案」等的平面语言，通过网格、坐标和极简的排版把AI摄影师这些复杂的功能，包装成了一种具有“科技严谨感”的专业服务。\r\nAI纹身/AI美甲： 在视觉传达上，我特意拉开了“专业感”与“娱乐感”的平衡。利用干练的文字说明和高保真的效果图，向用户展示AI不仅能改变照片，还能精准模拟真实的质感（如指甲的光泽、纹身与皮肤的贴合）。",
+            "title": "AI纹身/AI美甲/AI玩法",
+            "description": "这一组设计的核心在于“把AI功能变酷”。\r\nAI摄影师：我采用了「数字化档案」等的平面语言，通过网格、坐标和极简的排版把AI摄影师这些复杂的功能，包装成了一种具有“科技严谨感”的专业服务。\r\nAI纹身/AI美甲： 在视觉传达上，我特意拉开了“专业感”与“娱乐感”的平衡。利用干练的文字说明和高保真的效果图，向用户展示AI不仅能改变照片，还能精准模拟真实的质感（如指甲的光泽、纹身与皮肤的贴合）。\r\n\r\n将复杂的 AI 功能（如视频转场、实时动漫画）包装得“轻盈且有趣”：\r\n\r\n利用 Windows 95 系统的界面隐喻，将“AI 换装”这种复杂的计算过程趣味化，让用户在一种拆礼物般的怀旧体验中完成功能尝试。\r\n\r\n多文化符号的驾驭： 面对不同的 AI 风格，我建立了多套视觉视觉范式——从波普艺术的色彩碰撞到哥特风格的排版克制。这证明了我具备在保持品牌调性的同时，针对不同垂直审美社群进行精准化视觉营销的能力。",
             "meta_text": "实验室档案感\r\n强调“真实模拟“\r\n低成本地探索无限的审美可能",
             "created_time": "Date: 2026",
-            "cover_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/covers/20260423164340_50d0975723.jpg",
+            "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260423164340_50d0975723.jpg",
             "emphasized": 0,
             "title_font_size": 14,
             "title_font_weight": 10,
@@ -217,9 +217,9 @@
             "title_color": "#ffffff",
             "title_italic": 0,
             "title_underline": 0,
-            "sort_order": 0,
+            "sort_order": 4,
             "created_at": "2026-04-22T17:02:37+00:00",
-            "updated_at": "2026-05-08T16:08:57+00:00",
+            "updated_at": "2026-05-10T16:58:05+00:00",
             "modal_font_size": 14,
             "category_id": 1,
             "card_bg": "black",
@@ -227,7 +227,7 @@
                 {
                     "id": 65,
                     "work_id": 11,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501062940_fcaf0ad10b.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501062940_fcaf0ad10b.jpg",
                     "media_type": "image",
                     "position": 0,
                     "created_at": "2026-05-01T06:29:40+00:00"
@@ -235,7 +235,7 @@
                 {
                     "id": 66,
                     "work_id": 11,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501062940_6e40faf6c2.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501062940_6e40faf6c2.jpg",
                     "media_type": "image",
                     "position": 1,
                     "created_at": "2026-05-01T06:29:40+00:00"
@@ -243,34 +243,34 @@
                 {
                     "id": 67,
                     "work_id": 11,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501062940_113a58c30c.png",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501062940_113a58c30c.png",
                     "media_type": "image",
                     "position": 2,
                     "created_at": "2026-05-01T06:29:40+00:00"
                 },
                 {
-                    "id": 91,
+                    "id": 112,
                     "work_id": 11,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501083359_24365b6b73.jpg",
+                    "media_path": "/uploads/media/20260510163045_36be29afdb_e70006.jpg",
                     "media_type": "image",
                     "position": 3,
-                    "created_at": "2026-05-01T08:33:59+00:00"
+                    "created_at": "2026-05-10T16:30:46+00:00"
                 },
                 {
-                    "id": 92,
+                    "id": 91,
                     "work_id": 11,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501083359_7f5b158129.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501083359_24365b6b73.jpg",
                     "media_type": "image",
                     "position": 4,
                     "created_at": "2026-05-01T08:33:59+00:00"
                 },
                 {
-                    "id": 102,
+                    "id": 92,
                     "work_id": 11,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155731_6781ddb5f9.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501083359_7f5b158129.jpg",
                     "media_type": "image",
                     "position": 5,
-                    "created_at": "2026-05-08T15:57:31+00:00"
+                    "created_at": "2026-05-01T08:33:59+00:00"
                 }
             ]
         },
@@ -280,7 +280,7 @@
             "description": "本案的设计核心在于“将复杂的 AI 底层逻辑，包装成极简的社媒灵感库”。你成功地解决了一个行业痛点：当大多数 AI 工具还在比拼“指令（Prompt）”时，Fanzio 已经开始提供“结果（Validated Viral Content）\r\n\r\n从“提示词焦虑”到“爆款直达”的视觉革命\r\nFanzio.ai 的视觉体系是典型的“降维打击”：它通过沉浸式的深色模式 UI 与 Pinterest 式的瀑布流布图，将海量复杂的 AI 算力转化为直觉性的“灵感货架”。设计逻辑上，我们不再强调技术难点，而是构建了一个“数字化创意买手店”。通过对 OOTD、超现实、艺术画廊等社媒高频场景的分类视觉定义，本案将 AI 创作从“黑盒测试”转变为“确定性产出”。\r\n\r\n这种视觉语言不仅极大丰富了产品的品牌美学溢价，更通过“解决决策疲劳”的核心洞察，将用户的审美向往高效转化为订阅转化，让 Fanzio 成为社媒创作者的“创意外挂”。",
             "meta_text": "展示“高质量自定义结果”\r\n将“审美力”直接转化为“生产力”。",
             "created_time": "Date: 2026",
-            "cover_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/covers/20260508155657_db50cf61d5.jpg",
+            "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260508155657_db50cf61d5.jpg",
             "emphasized": 1,
             "title_font_size": 14,
             "title_font_weight": 10,
@@ -290,7 +290,7 @@
             "title_underline": 0,
             "sort_order": 0,
             "created_at": "2026-04-22T16:59:35+00:00",
-            "updated_at": "2026-05-08T15:56:58+00:00",
+            "updated_at": "2026-05-10T16:31:11+00:00",
             "modal_font_size": 14,
             "category_id": 2,
             "card_bg": "black",
@@ -298,7 +298,7 @@
                 {
                     "id": 57,
                     "work_id": 10,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260429171747_b89699192d.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260429171747_b89699192d.jpg",
                     "media_type": "image",
                     "position": 0,
                     "created_at": "2026-04-29T17:17:47+00:00"
@@ -306,7 +306,7 @@
                 {
                     "id": 58,
                     "work_id": 10,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260429171747_629a7371ac.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260429171747_629a7371ac.jpg",
                     "media_type": "image",
                     "position": 1,
                     "created_at": "2026-04-29T17:17:47+00:00"
@@ -314,7 +314,7 @@
                 {
                     "id": 93,
                     "work_id": 10,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155514_09f26c7425.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155514_09f26c7425.jpg",
                     "media_type": "image",
                     "position": 2,
                     "created_at": "2026-05-08T15:55:14+00:00"
@@ -322,7 +322,7 @@
                 {
                     "id": 94,
                     "work_id": 10,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155514_7caa93db1d.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155514_7caa93db1d.jpg",
                     "media_type": "image",
                     "position": 3,
                     "created_at": "2026-05-08T15:55:14+00:00"
@@ -330,7 +330,7 @@
                 {
                     "id": 95,
                     "work_id": 10,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155514_a15e830b0c.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155514_a15e830b0c.jpg",
                     "media_type": "image",
                     "position": 4,
                     "created_at": "2026-05-08T15:55:14+00:00"
@@ -338,7 +338,7 @@
                 {
                     "id": 96,
                     "work_id": 10,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155514_cd10a1ebaf.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155514_cd10a1ebaf.jpg",
                     "media_type": "image",
                     "position": 5,
                     "created_at": "2026-05-08T15:55:14+00:00"
@@ -346,10 +346,26 @@
                 {
                     "id": 97,
                     "work_id": 10,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155514_de35112fd5.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155514_de35112fd5.jpg",
                     "media_type": "image",
                     "position": 6,
                     "created_at": "2026-05-08T15:55:14+00:00"
+                },
+                {
+                    "id": 113,
+                    "work_id": 10,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260510163111_cb8fee86e7_3fe94d.mp4",
+                    "media_type": "video",
+                    "position": 7,
+                    "created_at": "2026-05-10T16:31:15+00:00"
+                },
+                {
+                    "id": 114,
+                    "work_id": 10,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260510163115_8ae442c301_eb384c.mp4",
+                    "media_type": "video",
+                    "position": 8,
+                    "created_at": "2026-05-10T16:31:17+00:00"
                 }
             ]
         },
@@ -359,7 +375,7 @@
             "description": "项目定位： 美颜相机品牌跨界营销 (Co-branding) 与核心节点专题视觉全案。\r\n\r\n设计策略： 本系列旨在通过“品牌资产深度解构”与“场景化叙事”，将美颜相机的影像技术能力与不同维度（潮流、情感、大众化）的品牌语境进行视觉缝合。通过建立多模态一致的视觉秩序，不仅实现了品牌心智的跨圈层渗透，更利用设计心理学逻辑优化了从“视觉曝光”到“UGC 产生与保存”的商业全链路转化。\r\n\r\n相机图标”的解构与重塑，成功构建了一套具备高度辨识度且极具延展性的品牌视觉系统。设计核心在于将 AIGC 作为“创意乘法器”，通过 3D 渲染与多元材质探索（金属、玻璃、纤维、流体等），打破了传统扁平化 Logo 的维度限制，赋予品牌一种**“数字潮流艺术”**的生命力。无论是面向国际市场的 App Store 视觉，还是极具潮流感的线下周边延展，都体现了品牌从“拍照工具”向“生活方式品牌”进阶的野心，这种品牌溢价为用户建立了一种超越产品功能本身的情感链接。",
             "meta_text": "AIGC 驱动的创意多样性\r\n跨介质的审美一致性\r\n品牌风格探测器\r\n\r\n潮流先锋案 (Innersect)\r\n情感营销案 (520 自恋项目)\r\n国民 IP 联动案 (蜜雪冰城)",
             "created_time": "Date: 2024",
-            "cover_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/covers/20260423164313_2f5fdcc27b.jpg",
+            "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260423164313_2f5fdcc27b.jpg",
             "emphasized": 0,
             "title_font_size": 14,
             "title_font_weight": 50,
@@ -367,62 +383,78 @@
             "title_color": "#ffffff",
             "title_italic": 0,
             "title_underline": 0,
-            "sort_order": 0,
+            "sort_order": 3,
             "created_at": "2026-04-22T16:53:18+00:00",
-            "updated_at": "2026-05-08T16:08:53+00:00",
+            "updated_at": "2026-05-10T17:07:49+00:00",
             "modal_font_size": 14,
             "category_id": 1,
             "card_bg": "black",
             "media": [
                 {
-                    "id": 68,
-                    "work_id": 9,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063135_21f0f484db.jpg",
-                    "media_type": "image",
-                    "position": 0,
-                    "created_at": "2026-05-01T06:31:35+00:00"
-                },
-                {
-                    "id": 69,
-                    "work_id": 9,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063135_d3adf0dd3c.jpg",
-                    "media_type": "image",
-                    "position": 1,
-                    "created_at": "2026-05-01T06:31:35+00:00"
-                },
-                {
-                    "id": 70,
-                    "work_id": 9,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063142_22bae6347d.jpg",
-                    "media_type": "image",
-                    "position": 2,
-                    "created_at": "2026-05-01T06:31:42+00:00"
-                },
-                {
                     "id": 89,
                     "work_id": 9,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501082932_69943ea302.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501082932_69943ea302.jpg",
                     "media_type": "image",
-                    "position": 3,
+                    "position": 0,
                     "created_at": "2026-05-01T08:29:32+00:00"
                 },
                 {
                     "id": 90,
                     "work_id": 9,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501082932_f49415b25d.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501082932_f49415b25d.jpg",
+                    "media_type": "image",
+                    "position": 1,
+                    "created_at": "2026-05-01T08:29:32+00:00"
+                },
+                {
+                    "id": 68,
+                    "work_id": 9,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063135_21f0f484db.jpg",
+                    "media_type": "image",
+                    "position": 2,
+                    "created_at": "2026-05-01T06:31:35+00:00"
+                },
+                {
+                    "id": 118,
+                    "work_id": 9,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260510165949_c1ee6b7fc8_6e86f7.mp4",
+                    "media_type": "video",
+                    "position": 3,
+                    "created_at": "2026-05-10T16:59:55+00:00"
+                },
+                {
+                    "id": 69,
+                    "work_id": 9,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063135_d3adf0dd3c.jpg",
                     "media_type": "image",
                     "position": 4,
-                    "created_at": "2026-05-01T08:29:32+00:00"
+                    "created_at": "2026-05-01T06:31:35+00:00"
+                },
+                {
+                    "id": 110,
+                    "work_id": 9,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260510161512_a8e3845c7e_3911ee.mp4",
+                    "media_type": "video",
+                    "position": 5,
+                    "created_at": "2026-05-10T16:15:16+00:00"
+                },
+                {
+                    "id": 70,
+                    "work_id": 9,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063142_22bae6347d.jpg",
+                    "media_type": "image",
+                    "position": 6,
+                    "created_at": "2026-05-01T06:31:42+00:00"
                 }
             ]
         },
         {
             "id": 8,
-            "title": "品牌相关",
-            "description": "相机图标”的解构与重塑，成功构建了一套具备高度辨识度且极具延展性的品牌视觉系统。设计核心在于将 AIGC 作为“创意乘法器”，通过 3D 渲染与多元材质探索（金属、玻璃、纤维、流体等），打破了传统扁平化 Logo 的维度限制，赋予品牌一种**“数字潮流艺术”**的生命力。无论是面向国际市场的 App Store 视觉，还是极具潮流感的线下周边延展，都体现了品牌从“拍照工具”向“生活方式品牌”进阶的野心，这种品牌溢价为用户建立了一种超越产品功能本身的情感链接。",
-            "meta_text": "AIGC 驱动的创意多样性\r\n跨介质的审美一致性\r\n品牌风格探测器",
+            "title": "POCKET模式",
+            "description": "POCKET模式（redesign）",
+            "meta_text": "",
             "created_time": "Date: 2024",
-            "cover_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/covers/20260508155632_c47ea1d4b4.jpg",
+            "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260508155632_c47ea1d4b4.jpg",
             "emphasized": 0,
             "title_font_size": 14,
             "title_font_weight": 10,
@@ -432,7 +464,7 @@
             "title_underline": 0,
             "sort_order": 0,
             "created_at": "2026-04-22T16:29:33+00:00",
-            "updated_at": "2026-05-08T15:56:32+00:00",
+            "updated_at": "2026-05-10T16:42:09+00:00",
             "modal_font_size": 14,
             "category_id": 1,
             "card_bg": "black",
@@ -440,44 +472,44 @@
                 {
                     "id": 98,
                     "work_id": 8,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155553_16dbf82869.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155553_16dbf82869.jpg",
                     "media_type": "image",
-                    "position": 2,
+                    "position": 0,
                     "created_at": "2026-05-08T15:55:53+00:00"
                 },
                 {
                     "id": 99,
                     "work_id": 8,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155553_2b5f026b59.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155553_2b5f026b59.jpg",
                     "media_type": "image",
-                    "position": 3,
+                    "position": 1,
                     "created_at": "2026-05-08T15:55:53+00:00"
                 },
                 {
                     "id": 100,
                     "work_id": 8,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155553_df92ac5736.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155553_df92ac5736.jpg",
                     "media_type": "image",
-                    "position": 4,
+                    "position": 2,
                     "created_at": "2026-05-08T15:55:53+00:00"
                 },
                 {
                     "id": 101,
                     "work_id": 8,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155553_5051061943.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155553_5051061943.jpg",
                     "media_type": "image",
-                    "position": 5,
+                    "position": 3,
                     "created_at": "2026-05-08T15:55:53+00:00"
                 }
             ]
         },
         {
             "id": 7,
-            "title": "会员订阅与增长",
+            "title": "会员订阅/增长",
             "description": "「强社交关联」与「高保真 3D 叙事」，重新定义了工具类产品的会员促活逻辑。设计不再仅仅是信息的罗列，而是构建了一个充满诱惑力的“虚拟礼赠场景”。从“闺蜜双人年卡”的粉色社交梦境，到“元旦专享”的剧场仪式感，你利用高饱和度的色彩心理学与极致的材质细节（如丝绒、金属、流体 C4D），赋予了会员权益极高的视觉含金量",
             "meta_text": "通过信封、礼盒等元素包装“年卡”，\r\n让用户产生“在买礼物而非买功能”的错觉。",
             "created_time": "Date: 2026",
-            "cover_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/covers/20260429162914_6481288bcc.jpg",
+            "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260429162914_6481288bcc.jpg",
             "emphasized": 0,
             "title_font_size": 14,
             "title_font_weight": 10,
@@ -487,7 +519,7 @@
             "title_underline": 0,
             "sort_order": 0,
             "created_at": "2026-04-22T16:28:38+00:00",
-            "updated_at": "2026-05-01T06:38:00+00:00",
+            "updated_at": "2026-05-10T16:42:52+00:00",
             "modal_font_size": 14,
             "category_id": 1,
             "card_bg": "black",
@@ -495,7 +527,7 @@
                 {
                     "id": 84,
                     "work_id": 7,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063653_6415b9048a.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063653_6415b9048a.jpg",
                     "media_type": "image",
                     "position": 0,
                     "created_at": "2026-05-01T06:36:53+00:00"
@@ -503,7 +535,7 @@
                 {
                     "id": 85,
                     "work_id": 7,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063653_f1a60be25c.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063653_f1a60be25c.jpg",
                     "media_type": "image",
                     "position": 1,
                     "created_at": "2026-05-01T06:36:53+00:00"
@@ -511,7 +543,7 @@
                 {
                     "id": 86,
                     "work_id": 7,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063653_b2133e2cbd.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063653_b2133e2cbd.jpg",
                     "media_type": "image",
                     "position": 2,
                     "created_at": "2026-05-01T06:36:53+00:00"
@@ -520,11 +552,11 @@
         },
         {
             "id": 6,
-            "title": "数字秩序与混沌的联觉实验",
+            "title": "3D/混合材质",
             "description": "听觉视觉化”与“物理动能美学”的深度探索。将抽象的节奏转译为金属几何、流体丝带与发光环形的碰撞。强烈的 Neo-Acid (新酸性设计) 与未来主义色彩。",
             "meta_text": "动能叙事： 物体在空间中的“流向“\r\n技术品牌化：“实验室风格”的视觉",
             "created_time": "Date: 2025",
-            "cover_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/covers/20260422153842_bd37d79b40.mp4",
+            "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260422153842_bd37d79b40.mp4",
             "emphasized": 0,
             "title_font_size": 14,
             "title_font_weight": 10,
@@ -532,9 +564,9 @@
             "title_color": "#ffffff",
             "title_italic": 0,
             "title_underline": 0,
-            "sort_order": 10,
+            "sort_order": 0,
             "created_at": "2026-04-11T09:03:58+00:00",
-            "updated_at": "2026-04-29T17:50:15+00:00",
+            "updated_at": "2026-05-10T16:42:36+00:00",
             "modal_font_size": 14,
             "category_id": 3,
             "card_bg": "black",
@@ -542,28 +574,306 @@
                 {
                     "id": 54,
                     "work_id": 6,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260422171621_a61855bde4.mp4",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260422171621_a61855bde4.mp4",
                     "media_type": "video",
-                    "position": 1,
+                    "position": 0,
                     "created_at": "2026-04-22T17:16:21+00:00"
                 },
                 {
                     "id": 55,
                     "work_id": 6,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260422171634_a685284675.png",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260422171634_a685284675.png",
                     "media_type": "image",
-                    "position": 2,
+                    "position": 1,
                     "created_at": "2026-04-22T17:16:34+00:00"
+                },
+                {
+                    "id": 111,
+                    "work_id": 6,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260510162544_a9d8bbabb0_1932e5.mp4",
+                    "media_type": "video",
+                    "position": 2,
+                    "created_at": "2026-05-10T16:25:47+00:00"
                 }
             ]
         },
+        {
+            "id": 3,
+            "title": "滤镜/妆容/场景",
+            "description": "从“美颜工具”向“生活叙事媒介”的心智迭代\r\n在碎片化的社交时代，用户对影像 App 的需求转向对特定生活场景（Life Scenarios）与细腻情绪（Emotional Resonance）的表达。本项目聚焦于将「甜酷、清冷、城市纪实、户外探索」等高热度生活方式。设计策略上，我通过「社论式排版」与「情境化配色」，将原本抽象的滤镜参数转化为具有故事感的视觉语言，使用户在记录生活的同时，完成自我社交人格的塑造。\r\n高频社交场景触发的订阅增长引擎\r\n该系列设计精准踩中了 Citywalk 与户外露营等社交红利，通过赋予画面极高的“氛围溢价”，将产品功能深度链接至用户的日常高光时刻。“场景即功能，情绪即转化”",
+            "meta_text": "生活场景与情绪美学\r\n将影像技术转化为\r\n“生活方式的视觉提案",
+            "created_time": "Date: 2024",
+            "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260423164417_9535a58c9d.jpg",
+            "emphasized": 0,
+            "title_font_size": 14,
+            "title_font_weight": 10,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "sort_order": 5,
+            "created_at": "2026-04-11T09:02:43+00:00",
+            "updated_at": "2026-05-10T16:57:36+00:00",
+            "modal_font_size": 14,
+            "category_id": 1,
+            "card_bg": "black",
+            "media": [
+                {
+                    "id": 76,
+                    "work_id": 3,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063421_e57ceaf934.jpg",
+                    "media_type": "image",
+                    "position": 0,
+                    "created_at": "2026-05-01T06:34:21+00:00"
+                },
+                {
+                    "id": 77,
+                    "work_id": 3,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063421_6c77b0cc1a.jpg",
+                    "media_type": "image",
+                    "position": 1,
+                    "created_at": "2026-05-01T06:34:21+00:00"
+                },
+                {
+                    "id": 79,
+                    "work_id": 3,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063421_384de68baf.jpg",
+                    "media_type": "image",
+                    "position": 2,
+                    "created_at": "2026-05-01T06:34:21+00:00"
+                },
+                {
+                    "id": 78,
+                    "work_id": 3,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063421_c0b4318612.jpg",
+                    "media_type": "image",
+                    "position": 3,
+                    "created_at": "2026-05-01T06:34:21+00:00"
+                },
+                {
+                    "id": 117,
+                    "work_id": 3,
+                    "media_path": "/uploads/media/20260510164428_33eb8f9f4d_a0db9a.jpg",
+                    "media_type": "image",
+                    "position": 4,
+                    "created_at": "2026-05-10T16:44:29+00:00"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "title": "苹果模式/LIVE/夜拍",
+            "description": "针对“苹果模式”功能，构建一套具备专业摄影感与数字时代呼吸感的视觉识别系统，通过美学高溢价降低用户付费阻碍，驱动会员订阅转化。\r\n\r\n场景化叙事驱动 (Scene-driven Narratives)：\r\n不单纯展示效果图，而是构建了“春日踏青”、“Live图实拍”、“万圣节夜拍”等高频社交场景。通过「场景+功能+情绪」的三位一体，将“电子反光板”、“夜拍补光”等底层硬核 AI 技术，转译为直观的、有温度的生活方式提案",
+            "meta_text": "动态视觉节奏\r\n模拟了 Vlog 的剪辑律动，\r\n极大地增强了视觉的叙事互动性",
+            "created_time": "Date: 2025",
+            "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260422162644_2b24748822.png",
+            "emphasized": 0,
+            "title_font_size": 14,
+            "title_font_weight": 10,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "sort_order": 6,
+            "created_at": "2026-04-11T08:45:30+00:00",
+            "updated_at": "2026-05-10T16:26:21+00:00",
+            "modal_font_size": 14,
+            "category_id": 1,
+            "card_bg": "black",
+            "media": [
+                {
+                    "id": 73,
+                    "work_id": 2,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063324_a293f55d37.png",
+                    "media_type": "image",
+                    "position": 0,
+                    "created_at": "2026-05-01T06:33:24+00:00"
+                },
+                {
+                    "id": 74,
+                    "work_id": 2,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063324_6ac3a077f8.jpg",
+                    "media_type": "image",
+                    "position": 1,
+                    "created_at": "2026-05-01T06:33:24+00:00"
+                },
+                {
+                    "id": 75,
+                    "work_id": 2,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063324_418b2ddb1e.jpg",
+                    "media_type": "image",
+                    "position": 2,
+                    "created_at": "2026-05-01T06:33:24+00:00"
+                },
+                {
+                    "id": 104,
+                    "work_id": 2,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155822_ffefdedbd2.jpg",
+                    "media_type": "image",
+                    "position": 3,
+                    "created_at": "2026-05-08T15:58:22+00:00"
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "title": "胶片/微单/滤镜",
+            "description": "在后移动摄影时代，用户对美颜的诉求已从单一的肤质磨皮转向对**“影像载体”与“光学质感”的追溯。本项目通过“硬件仿真的设计策略，将复杂的影像模式转化为用户可感知的复古相机图标、拍立得实物堆叠、以及专业相机的排版说明书。\r\n该系列视觉成功捕捉了“胶片复兴”与“CCD回潮”的流行红利，将原本抽象的影像参数具象化为极具收藏价值的“视觉资产”。这种“所见即所得”的硬核视觉呈现，直接驱动了该板块成为全站日活（DAU）最高及拉新最稳健的模式之一，真正实现了以美学设计驱动业务硬增长。",
+            "meta_text": "复古拟物化（Skeuomorphism）\r\n模拟相机的信任契约",
+            "created_time": "Date: 2025",
+            "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260423165910_25b1319ff3.jpg",
+            "emphasized": 0,
+            "title_font_size": 14,
+            "title_font_weight": 10,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "sort_order": 7,
+            "created_at": "2026-04-11T09:03:33+00:00",
+            "updated_at": "2026-05-10T16:57:20+00:00",
+            "modal_font_size": 14,
+            "category_id": 1,
+            "card_bg": "black",
+            "media": [
+                {
+                    "id": 61,
+                    "work_id": 5,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501062045_dcb6d9d700.jpg",
+                    "media_type": "image",
+                    "position": 0,
+                    "created_at": "2026-05-01T06:20:45+00:00"
+                },
+                {
+                    "id": 63,
+                    "work_id": 5,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501062045_935daa7b1f.jpg",
+                    "media_type": "image",
+                    "position": 1,
+                    "created_at": "2026-05-01T06:20:45+00:00"
+                },
+                {
+                    "id": 103,
+                    "work_id": 5,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155758_581347cdba.jpg",
+                    "media_type": "image",
+                    "position": 2,
+                    "created_at": "2026-05-08T15:57:58+00:00"
+                },
+                {
+                    "id": 62,
+                    "work_id": 5,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501062045_59f515a7a0.jpg",
+                    "media_type": "image",
+                    "position": 3,
+                    "created_at": "2026-05-01T06:20:45+00:00"
+                },
+                {
+                    "id": 108,
+                    "work_id": 5,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155932_90171fe4f7.jpg",
+                    "media_type": "image",
+                    "position": 4,
+                    "created_at": "2026-05-08T15:59:32+00:00"
+                }
+            ]
+        },
+        {
+            "id": 14,
+            "title": "LIVE+模式",
+            "description": "LIVE+ 专为现场演变而生的摄影模式。\r\nIn-Scene（我在现场） 完美平衡人像与暗部，记录与热爱的同框瞬间；Spotlight（追光特写） 突破长焦局限，算法级压制强光，瞬时锁定偶像神颜；Vision（全场幻境） 掌控超广角动态范围，重现舞美视觉震撼。\r\n\r\n采用高饱和荧光色与深邃黑形成极端对比，象征现场的能量爆发与光影张力。极简粗犷的字体排版与不对称布局，打破传统摄影 App 的沉闷，赋予照片“艺术收藏”的仪式感，让每一张直出都像一张独一无二的演出门票。",
+            "meta_text": "霓虹撞色与黑底的搭配精准捕捉Livehouse 和演唱会的躁动感。",
+            "created_time": "Date: 2026",
+            "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260429172244_10f5b6d112.jpg",
+            "emphasized": 0,
+            "title_font_size": 14,
+            "title_font_weight": 7,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "modal_font_size": 14,
+            "category_id": 3,
+            "card_bg": "black",
+            "sort_order": 2,
+            "created_at": "2026-04-29T16:36:10+00:00",
+            "updated_at": "2026-05-10T16:33:40+00:00",
+            "media": [
+                {
+                    "id": 56,
+                    "work_id": 14,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260429170803_762947f89c.mp4",
+                    "media_type": "video",
+                    "position": 0,
+                    "created_at": "2026-04-29T17:08:03+00:00"
+                },
+                {
+                    "id": 59,
+                    "work_id": 14,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260429172856_a0975d753b.mp4",
+                    "media_type": "video",
+                    "position": 1,
+                    "created_at": "2026-04-29T17:28:56+00:00"
+                },
+                {
+                    "id": 116,
+                    "work_id": 14,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260510163236_1f20641f0a_33d41d.mp4",
+                    "media_type": "video",
+                    "position": 2,
+                    "created_at": "2026-05-10T16:32:39+00:00"
+                },
+                {
+                    "id": 60,
+                    "work_id": 14,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260429172903_38c66c3c59.mp4",
+                    "media_type": "video",
+                    "position": 3,
+                    "created_at": "2026-04-29T17:29:03+00:00"
+                },
+                {
+                    "id": 115,
+                    "work_id": 14,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260510163232_25a32e5912_8994a1.mp4",
+                    "media_type": "video",
+                    "position": 4,
+                    "created_at": "2026-05-10T16:32:36+00:00"
+                },
+                {
+                    "id": 105,
+                    "work_id": 14,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155858_a6c569f687.jpg",
+                    "media_type": "image",
+                    "position": 5,
+                    "created_at": "2026-05-08T15:58:58+00:00"
+                },
+                {
+                    "id": 106,
+                    "work_id": 14,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155858_25e603694e.jpg",
+                    "media_type": "image",
+                    "position": 6,
+                    "created_at": "2026-05-08T15:58:58+00:00"
+                },
+                {
+                    "id": 107,
+                    "work_id": 14,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155858_b846cf5efb.jpg",
+                    "media_type": "image",
+                    "position": 7,
+                    "created_at": "2026-05-08T15:58:58+00:00"
+                }
+            ]
+        }
+    ],
+    "deleted_works_trash": [
         {
             "id": 4,
             "title": "AI玩法特效",
             "description": "将复杂的 AI 功能（如视频转场、实时动漫画）包装得“轻盈且有趣”：\r\n\r\n利用 Windows 95 系统的界面隐喻，将“AI 换装”这种复杂的计算过程趣味化，让用户在一种拆礼物般的怀旧体验中完成功能尝试。\r\n\r\n多文化符号的驾驭： 面对不同的 AI 风格，我建立了多套视觉视觉范式——从波普艺术的色彩碰撞到哥特风格的排版克制。这证明了我具备在保持品牌调性的同时，针对不同垂直审美社群进行精准化视觉营销的能力。",
             "meta_text": "精准切中用户对于“虚拟分身（Avatar）”与“身份切换”的渴望\r\n极其跳跃的对比色（如荧光绿/亮蓝/正红）与不规则的排版，在信息流中形成强力的视觉停顿点",
             "created_time": "Date: 2025",
-            "cover_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/covers/20260422162105_2f76c32b3f.jpg",
+            "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260422162105_2f76c32b3f.jpg",
             "emphasized": 0,
             "title_font_size": 14,
             "title_font_weight": 10,
@@ -577,254 +887,10 @@
             "modal_font_size": 14,
             "category_id": 1,
             "card_bg": "black",
-            "media": []
-        },
-        {
-            "id": 3,
-            "title": "滤镜/妆容/场景",
-            "description": "从“美颜工具”向“生活叙事媒介”的心智迭代\r\n在碎片化的社交时代，用户对影像 App 的需求转向对特定生活场景（Life Scenarios）与细腻情绪（Emotional Resonance）的表达。本项目聚焦于将「甜酷、清冷、城市纪实、户外探索」等高热度生活方式。设计策略上，我通过「社论式排版」与「情境化配色」，将原本抽象的滤镜参数转化为具有故事感的视觉语言，使用户在记录生活的同时，完成自我社交人格的塑造。\r\n高频社交场景触发的订阅增长引擎\r\n该系列设计精准踩中了 Citywalk 与户外露营等社交红利，通过赋予画面极高的“氛围溢价”，将产品功能深度链接至用户的日常高光时刻。“场景即功能，情绪即转化”",
-            "meta_text": "生活场景与情绪美学\r\n将影像技术转化为\r\n“生活方式的视觉提案",
-            "created_time": "Date: 2024",
-            "cover_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/covers/20260423164417_9535a58c9d.jpg",
-            "emphasized": 0,
-            "title_font_size": 14,
-            "title_font_weight": 10,
-            "title_font_family": "Arial, sans-serif",
-            "title_color": "#ffffff",
-            "title_italic": 0,
-            "title_underline": 0,
-            "sort_order": 0,
-            "created_at": "2026-04-11T09:02:43+00:00",
-            "updated_at": "2026-05-08T16:08:42+00:00",
-            "modal_font_size": 14,
-            "category_id": 1,
-            "card_bg": "black",
-            "media": [
-                {
-                    "id": 76,
-                    "work_id": 3,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063421_e57ceaf934.jpg",
-                    "media_type": "image",
-                    "position": 0,
-                    "created_at": "2026-05-01T06:34:21+00:00"
-                },
-                {
-                    "id": 77,
-                    "work_id": 3,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063421_6c77b0cc1a.jpg",
-                    "media_type": "image",
-                    "position": 1,
-                    "created_at": "2026-05-01T06:34:21+00:00"
-                },
-                {
-                    "id": 78,
-                    "work_id": 3,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063421_c0b4318612.jpg",
-                    "media_type": "image",
-                    "position": 2,
-                    "created_at": "2026-05-01T06:34:21+00:00"
-                },
-                {
-                    "id": 79,
-                    "work_id": 3,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063421_384de68baf.jpg",
-                    "media_type": "image",
-                    "position": 3,
-                    "created_at": "2026-05-01T06:34:21+00:00"
-                }
-            ]
-        },
-        {
-            "id": 2,
-            "title": "苹果模式/LIVE/夜拍",
-            "description": "针对“苹果模式”功能，构建一套具备专业摄影感与数字时代呼吸感的视觉识别系统，通过美学高溢价降低用户付费阻碍，驱动会员订阅转化。\r\n\r\n场景化叙事驱动 (Scene-driven Narratives)：\r\n不单纯展示效果图，而是构建了“春日踏青”、“Live图实拍”、“万圣节夜拍”等高频社交场景。通过「场景+功能+情绪」的三位一体，将“电子反光板”、“夜拍补光”等底层硬核 AI 技术，转译为直观的、有温度的生活方式提案",
-            "meta_text": "动态视觉节奏\r\n模拟了 Vlog 的剪辑律动，\r\n极大地增强了视觉的叙事互动性",
-            "created_time": "Date: 2025",
-            "cover_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/covers/20260422162644_2b24748822.png",
-            "emphasized": 0,
-            "title_font_size": 14,
-            "title_font_weight": 10,
-            "title_font_family": "Arial, sans-serif",
-            "title_color": "#ffffff",
-            "title_italic": 0,
-            "title_underline": 0,
-            "sort_order": 0,
-            "created_at": "2026-04-11T08:45:30+00:00",
-            "updated_at": "2026-05-08T16:08:46+00:00",
-            "modal_font_size": 14,
-            "category_id": 1,
-            "card_bg": "black",
-            "media": [
-                {
-                    "id": 73,
-                    "work_id": 2,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063324_a293f55d37.png",
-                    "media_type": "image",
-                    "position": 0,
-                    "created_at": "2026-05-01T06:33:24+00:00"
-                },
-                {
-                    "id": 74,
-                    "work_id": 2,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063324_6ac3a077f8.jpg",
-                    "media_type": "image",
-                    "position": 1,
-                    "created_at": "2026-05-01T06:33:24+00:00"
-                },
-                {
-                    "id": 75,
-                    "work_id": 2,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501063324_418b2ddb1e.jpg",
-                    "media_type": "image",
-                    "position": 2,
-                    "created_at": "2026-05-01T06:33:24+00:00"
-                },
-                {
-                    "id": 104,
-                    "work_id": 2,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155822_ffefdedbd2.jpg",
-                    "media_type": "image",
-                    "position": 3,
-                    "created_at": "2026-05-08T15:58:22+00:00"
-                }
-            ]
-        },
-        {
-            "id": 5,
-            "title": "胶片/微单/滤镜",
-            "description": "在后移动摄影时代，用户对美颜的诉求已从单一的肤质磨皮转向对**“影像载体”与“光学质感”的追溯。本项目通过“硬件仿真的设计策略，将复杂的影像模式转化为用户可感知的复古相机图标、拍立得实物堆叠、以及专业相机的排版说明书。\r\n该系列视觉成功捕捉了“胶片复兴”与“CCD回潮”的流行红利，将原本抽象的影像参数具象化为极具收藏价值的“视觉资产”。这种“所见即所得”的硬核视觉呈现，直接驱动了该板块成为全站日活（DAU）最高及拉新最稳健的模式之一，真正实现了以美学设计驱动业务硬增长。",
-            "meta_text": "复古拟物化（Skeuomorphism）\r\n模拟相机的信任契约",
-            "created_time": "Date: 2025",
-            "cover_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/covers/20260423165910_25b1319ff3.jpg",
-            "emphasized": 0,
-            "title_font_size": 14,
-            "title_font_weight": 10,
-            "title_font_family": "Arial, sans-serif",
-            "title_color": "#ffffff",
-            "title_italic": 0,
-            "title_underline": 0,
-            "sort_order": 7,
-            "created_at": "2026-04-11T09:03:33+00:00",
-            "updated_at": "2026-05-08T16:04:51+00:00",
-            "modal_font_size": 14,
-            "category_id": 1,
-            "card_bg": "black",
-            "media": [
-                {
-                    "id": 61,
-                    "work_id": 5,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501062045_dcb6d9d700.jpg",
-                    "media_type": "image",
-                    "position": 0,
-                    "created_at": "2026-05-01T06:20:45+00:00"
-                },
-                {
-                    "id": 62,
-                    "work_id": 5,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501062045_59f515a7a0.jpg",
-                    "media_type": "image",
-                    "position": 1,
-                    "created_at": "2026-05-01T06:20:45+00:00"
-                },
-                {
-                    "id": 63,
-                    "work_id": 5,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260501062045_935daa7b1f.jpg",
-                    "media_type": "image",
-                    "position": 2,
-                    "created_at": "2026-05-01T06:20:45+00:00"
-                },
-                {
-                    "id": 103,
-                    "work_id": 5,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155758_581347cdba.jpg",
-                    "media_type": "image",
-                    "position": 3,
-                    "created_at": "2026-05-08T15:57:58+00:00"
-                },
-                {
-                    "id": 108,
-                    "work_id": 5,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155932_90171fe4f7.jpg",
-                    "media_type": "image",
-                    "position": 4,
-                    "created_at": "2026-05-08T15:59:32+00:00"
-                }
-            ]
-        },
-        {
-            "id": 14,
-            "title": "LIVE+模式",
-            "description": "LIVE+ 专为现场演变而生的摄影模式。\r\nIn-Scene（我在现场） 完美平衡人像与暗部，记录与热爱的同框瞬间；Spotlight（追光特写） 突破长焦局限，算法级压制强光，瞬时锁定偶像神颜；Vision（全场幻境） 掌控超广角动态范围，重现舞美视觉震撼。\r\n\r\n\r\n视觉设计致敬独立画报（Zine）与摇滚海报文化。\r\n采用高饱和荧光色与深邃黑形成极端对比，象征现场的能量爆发与光影张力。极简粗犷的字体排版与不对称布局，打破传统摄影 App 的沉闷，赋予照片“艺术收藏”的仪式感，让每一张直出都像一张独一无二的演出门票。",
-            "meta_text": "霓虹撞色与黑底的搭配精准捕捉Livehouse 和演唱会的躁动感。",
-            "created_time": "Date: 2026",
-            "cover_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/covers/20260429172244_10f5b6d112.jpg",
-            "emphasized": 0,
-            "title_font_size": 14,
-            "title_font_weight": 7,
-            "title_font_family": "Arial, sans-serif",
-            "title_color": "#ffffff",
-            "title_italic": 0,
-            "title_underline": 0,
-            "modal_font_size": 14,
-            "category_id": 3,
-            "card_bg": "black",
-            "sort_order": 9,
-            "created_at": "2026-04-29T16:36:10+00:00",
-            "updated_at": "2026-05-08T15:59:59+00:00",
-            "media": [
-                {
-                    "id": 56,
-                    "work_id": 14,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260429170803_762947f89c.mp4",
-                    "media_type": "video",
-                    "position": 0,
-                    "created_at": "2026-04-29T17:08:03+00:00"
-                },
-                {
-                    "id": 59,
-                    "work_id": 14,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260429172856_a0975d753b.mp4",
-                    "media_type": "video",
-                    "position": 1,
-                    "created_at": "2026-04-29T17:28:56+00:00"
-                },
-                {
-                    "id": 60,
-                    "work_id": 14,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260429172903_38c66c3c59.mp4",
-                    "media_type": "video",
-                    "position": 2,
-                    "created_at": "2026-04-29T17:29:03+00:00"
-                },
-                {
-                    "id": 105,
-                    "work_id": 14,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155858_a6c569f687.jpg",
-                    "media_type": "image",
-                    "position": 3,
-                    "created_at": "2026-05-08T15:58:58+00:00"
-                },
-                {
-                    "id": 106,
-                    "work_id": 14,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155858_25e603694e.jpg",
-                    "media_type": "image",
-                    "position": 4,
-                    "created_at": "2026-05-08T15:58:58+00:00"
-                },
-                {
-                    "id": 107,
-                    "work_id": 14,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260508155858_b846cf5efb.jpg",
-                    "media_type": "image",
-                    "position": 5,
-                    "created_at": "2026-05-08T15:58:58+00:00"
-                }
-            ]
+            "media": [],
+            "_deleted_at": "2026-05-10T16:38:15+00:00"
         }
     ],
-    "deleted_works_trash": [],
     "admins": [
         {
             "id": 1,
@@ -2197,6 +2263,293 @@
             "action": "更新",
             "detail": "作品ID 11：AI纹身/AI美甲/AI一键出片",
             "created_at": "2026-05-08T16:08:57+00:00"
+        },
+        {
+            "id": 196,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 9：品牌相关/联名活动",
+            "created_at": "2026-05-10T15:49:44+00:00"
+        },
+        {
+            "id": 197,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 9：品牌相关/联名活动",
+            "created_at": "2026-05-10T15:50:18+00:00"
+        },
+        {
+            "id": 198,
+            "section": "作品媒体",
+            "action": "删除",
+            "detail": "媒体ID 109",
+            "created_at": "2026-05-10T15:51:36+00:00"
+        },
+        {
+            "id": 199,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 9：品牌相关/联名活动",
+            "created_at": "2026-05-10T16:15:09+00:00"
+        },
+        {
+            "id": 200,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 9：品牌相关/联名活动",
+            "created_at": "2026-05-10T16:15:18+00:00"
+        },
+        {
+            "id": 201,
+            "section": "作品媒体",
+            "action": "删除",
+            "detail": "媒体ID 109",
+            "created_at": "2026-05-10T16:15:45+00:00"
+        },
+        {
+            "id": 202,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 9：品牌相关/联名活动",
+            "created_at": "2026-05-10T16:16:17+00:00"
+        },
+        {
+            "id": 203,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 9：品牌相关/联名活动",
+            "created_at": "2026-05-10T16:16:24+00:00"
+        },
+        {
+            "id": 204,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 6：数字秩序与混沌的联觉实验",
+            "created_at": "2026-05-10T16:25:49+00:00"
+        },
+        {
+            "id": 205,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 2：苹果模式/LIVE/夜拍",
+            "created_at": "2026-05-10T16:26:23+00:00"
+        },
+        {
+            "id": 206,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 3：滤镜/妆容/场景",
+            "created_at": "2026-05-10T16:26:46+00:00"
+        },
+        {
+            "id": 207,
+            "section": "作品媒体",
+            "action": "删除",
+            "detail": "媒体ID 102",
+            "created_at": "2026-05-10T16:28:06+00:00"
+        },
+        {
+            "id": 208,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 11：AI纹身/AI美甲/AI玩法",
+            "created_at": "2026-05-10T16:29:27+00:00"
+        },
+        {
+            "id": 209,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 11：AI纹身/AI美甲/AI玩法",
+            "created_at": "2026-05-10T16:30:01+00:00"
+        },
+        {
+            "id": 210,
+            "section": "作品媒体",
+            "action": "删除",
+            "detail": "媒体ID 112",
+            "created_at": "2026-05-10T16:30:33+00:00"
+        },
+        {
+            "id": 211,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 11：AI纹身/AI美甲/AI玩法",
+            "created_at": "2026-05-10T16:30:48+00:00"
+        },
+        {
+            "id": 212,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 10：FANZIO.AI",
+            "created_at": "2026-05-10T16:31:20+00:00"
+        },
+        {
+            "id": 213,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 14：LIVE+模式",
+            "created_at": "2026-05-10T16:32:43+00:00"
+        },
+        {
+            "id": 214,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 14：LIVE+模式",
+            "created_at": "2026-05-10T16:33:46+00:00"
+        },
+        {
+            "id": 215,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 12：AI场景生成",
+            "created_at": "2026-05-10T16:34:39+00:00"
+        },
+        {
+            "id": 216,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 9：品牌相关/联名活动",
+            "created_at": "2026-05-10T16:35:15+00:00"
+        },
+        {
+            "id": 217,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 11：AI纹身/AI美甲/AI玩法",
+            "created_at": "2026-05-10T16:36:02+00:00"
+        },
+        {
+            "id": 218,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 13：混排实验",
+            "created_at": "2026-05-10T16:36:34+00:00"
+        },
+        {
+            "id": 219,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 1：韩系风格",
+            "created_at": "2026-05-10T16:36:41+00:00"
+        },
+        {
+            "id": 220,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 1：韩系风格",
+            "created_at": "2026-05-10T16:36:50+00:00"
+        },
+        {
+            "id": 221,
+            "section": "作品",
+            "action": "删除",
+            "detail": "作品ID 4",
+            "created_at": "2026-05-10T16:38:21+00:00"
+        },
+        {
+            "id": 222,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 8：POCKET模式",
+            "created_at": "2026-05-10T16:41:15+00:00"
+        },
+        {
+            "id": 223,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 8：POCKET模式",
+            "created_at": "2026-05-10T16:41:27+00:00"
+        },
+        {
+            "id": 224,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 8：POCKET模式",
+            "created_at": "2026-05-10T16:42:11+00:00"
+        },
+        {
+            "id": 225,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 6：3D/混合材质",
+            "created_at": "2026-05-10T16:42:37+00:00"
+        },
+        {
+            "id": 226,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 7：会员订阅/增长",
+            "created_at": "2026-05-10T16:42:56+00:00"
+        },
+        {
+            "id": 227,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 1：韩系/原生感",
+            "created_at": "2026-05-10T16:43:15+00:00"
+        },
+        {
+            "id": 228,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 3：滤镜/妆容/场景",
+            "created_at": "2026-05-10T16:44:31+00:00"
+        },
+        {
+            "id": 229,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 3：滤镜/妆容/场景",
+            "created_at": "2026-05-10T16:56:49+00:00"
+        },
+        {
+            "id": 230,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 5：胶片/微单/滤镜",
+            "created_at": "2026-05-10T16:57:24+00:00"
+        },
+        {
+            "id": 231,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 3：滤镜/妆容/场景",
+            "created_at": "2026-05-10T16:57:39+00:00"
+        },
+        {
+            "id": 232,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 11：AI纹身/AI美甲/AI玩法",
+            "created_at": "2026-05-10T16:58:07+00:00"
+        },
+        {
+            "id": 233,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 9：品牌相关/联名活动",
+            "created_at": "2026-05-10T16:59:59+00:00"
+        },
+        {
+            "id": 234,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 9：品牌相关/联名活动",
+            "created_at": "2026-05-10T17:01:48+00:00"
+        },
+        {
+            "id": 235,
+            "section": "Introduction",
+            "action": "更新",
+            "detail": "三列内容与样式已保存",
+            "created_at": "2026-05-10T17:05:48+00:00"
+        },
+        {
+            "id": 236,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 9：品牌相关/联名活动",
+            "created_at": "2026-05-10T17:07:51+00:00"
         }
     ]
 }
