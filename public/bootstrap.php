@@ -646,22 +646,37 @@ function siteContentObjectPath(): string
 
 function siteContentPublicUrl(): string
 {
+    $objectPath = siteContentObjectPath();
+    $mediaBase = rtrim(trim((string) getenv('MEDIA_PUBLIC_BASE_URL')), '/');
     $explicit = trim((string) getenv('SITE_CONTENT_PUBLIC_URL'));
     if ($explicit !== '') {
+        $explicitHost = strtolower((string) (parse_url($explicit, PHP_URL_HOST) ?: ''));
+        if ($mediaBase !== '' && (str_contains($explicitHost, '.aliyuncs.com') || $explicitHost === 'aliyuncs.com')) {
+            return $mediaBase . '/' . $objectPath;
+        }
         return $explicit;
+    }
+
+    if ($mediaBase !== '') {
+        return $mediaBase . '/' . $objectPath;
+    }
+
+    $ossBase = rtrim(trim((string) getenv('OSS_PUBLIC_BASE_URL')), '/');
+    if ($ossBase !== '') {
+        return $ossBase . '/' . $objectPath;
     }
 
     if (ossUploadEnabled()) {
         $bucket = trim((string) getenv('OSS_BUCKET'));
         $endpoint = ossEndpoint();
         if ($bucket !== '' && $endpoint !== '') {
-            return 'https://' . $bucket . '.' . $endpoint . '/' . siteContentObjectPath();
+            return 'https://' . $bucket . '.' . $endpoint . '/' . $objectPath;
         }
     }
 
     $blobBase = rtrim(trim((string) getenv('BLOB_PUBLIC_BASE_URL')), '/');
     if ($blobBase !== '') {
-        return $blobBase . '/' . siteContentObjectPath();
+        return $blobBase . '/' . $objectPath;
     }
 
     return '';
@@ -697,7 +712,19 @@ function loadRemoteSiteContent(): ?array
             'verify_peer_name' => true,
         ],
     ]);
-    $raw = @file_get_contents($url, false, $context);
+    $version = is_file(SITE_CONTENT_PATH) ? (string) filemtime(SITE_CONTENT_PATH) : (string) time();
+    $fetchUrl = $url . (str_contains($url, '?') ? '&' : '?') . 'site_content_v=' . rawurlencode($version);
+    $raw = @file_get_contents($fetchUrl, false, $context);
+    if (($raw === false || $raw === '') && str_starts_with($fetchUrl, 'https://cdn.lauralian.cn/')) {
+        // The CDN serves this JSON, but its HTTPS certificate may not validate in PHP.
+        // Server-side fetch can safely fall back to HTTP until the CDN certificate is fixed.
+        $raw = @file_get_contents('http://' . substr($fetchUrl, strlen('https://')), false, stream_context_create([
+            'http' => [
+                'timeout' => 8,
+                'ignore_errors' => true,
+            ],
+        ]));
+    }
     if ($raw === false || $raw === '') {
         return null;
     }
@@ -713,7 +740,12 @@ function syncSiteContentJsonToStorage(): void
     }
 
     if (ossUploadEnabled()) {
-        uploadFileToOss(SITE_CONTENT_PATH, siteContentObjectPath(), 'application/json; charset=utf-8');
+        uploadFileToOss(
+            SITE_CONTENT_PATH,
+            siteContentObjectPath(),
+            'application/json; charset=utf-8',
+            'no-cache, no-store, must-revalidate'
+        );
         return;
     }
 
@@ -917,7 +949,7 @@ function uploadFileToBlob(string $absolutePath, string $blobPathname, ?string $c
     return $url !== '' ? $url : null;
 }
 
-function uploadFileToOss(string $absolutePath, string $objectPathname, ?string $contentType = null): ?string
+function uploadFileToOss(string $absolutePath, string $objectPathname, ?string $contentType = null, ?string $cacheControlOverride = null): ?string
 {
     $accessKeyId = trim((string) getenv('OSS_ACCESS_KEY_ID'));
     $accessKeySecret = trim((string) getenv('OSS_ACCESS_KEY_SECRET'));
@@ -930,7 +962,7 @@ function uploadFileToOss(string $absolutePath, string $objectPathname, ?string $
     $objectPathname = ltrim($objectPathname, '/');
     $date = gmdate('D, d M Y H:i:s') . ' GMT';
     $contentType = $contentType ?: 'application/octet-stream';
-    $cacheControl = trim((string) getenv('OSS_CACHE_CONTROL'));
+    $cacheControl = trim((string) ($cacheControlOverride ?? getenv('OSS_CACHE_CONTROL')));
     if ($cacheControl === '') {
         $cacheControl = 'public, max-age=31536000, immutable';
     }
