@@ -941,7 +941,12 @@ function renderFlashAt(string $target, ?array $flashData): string
           </div>
           <div class="full">
             <label>作品详情媒体（多选，按选择顺序展示，统一宽度）</label>
-            <input type="file" name="media_files[]" multiple accept=".mp4,.gif,.png,.jpg,.jpeg,.webm">
+            <div class="admin-file-picker" data-file-picker>
+              <input class="admin-file-picker-input" id="create-media-files" type="file" name="media_files[]" multiple accept=".mp4,.gif,.png,.jpg,.jpeg,.webm" data-file-input>
+              <button type="button" class="btn-ghost" data-file-trigger>选择详情媒体</button>
+              <label class="btn-ghost admin-file-picker-label" for="create-media-files">打开系统文件选择器</label>
+              <span class="admin-file-picker-status" data-file-status>未选择文件</span>
+            </div>
           </div>
           <div class="full">
             <button type="submit">创建并同步到首页</button>
@@ -1272,7 +1277,12 @@ function renderFlashAt(string $target, ?array $flashData): string
                 </div>
                 <div class="full">
                   <label>追加详情媒体（多选）</label>
-                  <input type="file" name="media_files[]" multiple accept=".mp4,.gif,.png,.jpg,.jpeg,.webm">
+                  <div class="admin-file-picker" data-file-picker>
+                    <input class="admin-file-picker-input" id="<?= esc($workFormId) ?>-media-files" type="file" name="media_files[]" multiple accept=".mp4,.gif,.png,.jpg,.jpeg,.webm" data-file-input>
+                    <button type="button" class="btn-ghost" data-file-trigger>选择详情媒体</button>
+                    <label class="btn-ghost admin-file-picker-label" for="<?= esc($workFormId) ?>-media-files">打开系统文件选择器</label>
+                    <span class="admin-file-picker-status" data-file-status>未选择文件</span>
+                  </div>
                 </div>
                 <div class="full" style="display:flex;gap:8px;flex-wrap:wrap;">
                   <button type="submit">保存作品</button>

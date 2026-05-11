@@ -186,9 +186,9 @@
             "title_color": "#ffffff",
             "title_italic": 0,
             "title_underline": 0,
-            "sort_order": 0,
+            "sort_order": -1,
             "created_at": "2026-04-22T17:08:21+00:00",
-            "updated_at": "2026-05-10T16:34:35+00:00",
+            "updated_at": "2026-05-11T18:15:47+00:00",
             "modal_font_size": 14,
             "category_id": 3,
             "card_bg": "black",
@@ -251,7 +251,7 @@
                 {
                     "id": 112,
                     "work_id": 11,
-                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260510163045_36be29afdb_e70006.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260510163045_36be29afdb_e70006.jpg",
                     "media_type": "image",
                     "position": 3,
                     "created_at": "2026-05-10T16:30:46+00:00"
@@ -375,7 +375,7 @@
             "description": "项目定位： 美颜相机品牌跨界营销 (Co-branding) 与核心节点专题视觉全案。\r\n\r\n设计策略： 本系列旨在通过“品牌资产深度解构”与“场景化叙事”，将美颜相机的影像技术能力与不同维度（潮流、情感、大众化）的品牌语境进行视觉缝合。通过建立多模态一致的视觉秩序，不仅实现了品牌心智的跨圈层渗透，更利用设计心理学逻辑优化了从“视觉曝光”到“UGC 产生与保存”的商业全链路转化。\r\n\r\n相机图标”的解构与重塑，成功构建了一套具备高度辨识度且极具延展性的品牌视觉系统。设计核心在于将 AIGC 作为“创意乘法器”，通过 3D 渲染与多元材质探索（金属、玻璃、纤维、流体等），打破了传统扁平化 Logo 的维度限制，赋予品牌一种**“数字潮流艺术”**的生命力。无论是面向国际市场的 App Store 视觉，还是极具潮流感的线下周边延展，都体现了品牌从“拍照工具”向“生活方式品牌”进阶的野心，这种品牌溢价为用户建立了一种超越产品功能本身的情感链接。",
             "meta_text": "AIGC 驱动的创意多样性\r\n跨介质的审美一致性\r\n品牌风格探测器\r\n\r\n潮流先锋案 (Innersect)\r\n情感营销案 (520 自恋项目)\r\n国民 IP 联动案 (蜜雪冰城)",
             "created_time": "Date: 2024",
-            "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260423164313_2f5fdcc27b.jpg",
+            "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260511181407_030f0b88f8_14e463.jpg",
             "emphasized": 0,
             "title_font_size": 14,
             "title_font_weight": 50,
@@ -385,7 +385,7 @@
             "title_underline": 0,
             "sort_order": 3,
             "created_at": "2026-04-22T16:53:18+00:00",
-            "updated_at": "2026-05-10T17:07:49+00:00",
+            "updated_at": "2026-05-11T18:14:17+00:00",
             "modal_font_size": 14,
             "category_id": 1,
             "card_bg": "black",
@@ -423,27 +423,35 @@
                     "created_at": "2026-05-10T16:59:55+00:00"
                 },
                 {
-                    "id": 69,
-                    "work_id": 9,
-                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063135_d3adf0dd3c.jpg",
-                    "media_type": "image",
-                    "position": 4,
-                    "created_at": "2026-05-01T06:31:35+00:00"
-                },
-                {
                     "id": 110,
                     "work_id": 9,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260510161512_a8e3845c7e_3911ee.mp4",
                     "media_type": "video",
-                    "position": 5,
+                    "position": 4,
                     "created_at": "2026-05-10T16:15:16+00:00"
+                },
+                {
+                    "id": 69,
+                    "work_id": 9,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063135_d3adf0dd3c.jpg",
+                    "media_type": "image",
+                    "position": 5,
+                    "created_at": "2026-05-01T06:31:35+00:00"
+                },
+                {
+                    "id": 119,
+                    "work_id": 9,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260511180047_3bda8ecfd1_3a9129.jpg",
+                    "media_type": "image",
+                    "position": 6,
+                    "created_at": "2026-05-11T18:00:58+00:00"
                 },
                 {
                     "id": 70,
                     "work_id": 9,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063142_22bae6347d.jpg",
                     "media_type": "image",
-                    "position": 6,
+                    "position": 7,
                     "created_at": "2026-05-01T06:31:42+00:00"
                 }
             ]
@@ -451,9 +459,9 @@
         {
             "id": 8,
             "title": "POCKET模式",
-            "description": "POCKET模式（redesign）",
+            "description": "POCKET模式\r\n+redesign",
             "meta_text": "",
-            "created_time": "Date: 2024",
+            "created_time": "Date: 2025",
             "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260508155632_c47ea1d4b4.jpg",
             "emphasized": 0,
             "title_font_size": 14,
@@ -462,35 +470,43 @@
             "title_color": "#ffffff",
             "title_italic": 0,
             "title_underline": 0,
-            "sort_order": 0,
+            "sort_order": 8,
             "created_at": "2026-04-22T16:29:33+00:00",
-            "updated_at": "2026-05-10T16:42:09+00:00",
+            "updated_at": "2026-05-11T18:11:48+00:00",
             "modal_font_size": 14,
             "category_id": 1,
             "card_bg": "black",
             "media": [
                 {
+                    "id": 100,
+                    "work_id": 8,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155553_df92ac5736.jpg",
+                    "media_type": "image",
+                    "position": 0,
+                    "created_at": "2026-05-08T15:55:53+00:00"
+                },
+                {
                     "id": 98,
                     "work_id": 8,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155553_16dbf82869.jpg",
                     "media_type": "image",
-                    "position": 0,
+                    "position": 1,
                     "created_at": "2026-05-08T15:55:53+00:00"
+                },
+                {
+                    "id": 121,
+                    "work_id": 8,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260511180229_d50e956704_38be42.mp4",
+                    "media_type": "video",
+                    "position": 2,
+                    "created_at": "2026-05-11T18:02:33+00:00"
                 },
                 {
                     "id": 99,
                     "work_id": 8,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155553_2b5f026b59.jpg",
                     "media_type": "image",
-                    "position": 1,
-                    "created_at": "2026-05-08T15:55:53+00:00"
-                },
-                {
-                    "id": 100,
-                    "work_id": 8,
-                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155553_df92ac5736.jpg",
-                    "media_type": "image",
-                    "position": 2,
+                    "position": 3,
                     "created_at": "2026-05-08T15:55:53+00:00"
                 },
                 {
@@ -498,8 +514,24 @@
                     "work_id": 8,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155553_5051061943.jpg",
                     "media_type": "image",
-                    "position": 3,
+                    "position": 4,
                     "created_at": "2026-05-08T15:55:53+00:00"
+                },
+                {
+                    "id": 120,
+                    "work_id": 8,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260511180221_2b7800c372_1d70b5.jpg",
+                    "media_type": "image",
+                    "position": 5,
+                    "created_at": "2026-05-11T18:02:29+00:00"
+                },
+                {
+                    "id": 122,
+                    "work_id": 8,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260511180233_d306ce25e2_dd8c60.mp4",
+                    "media_type": "video",
+                    "position": 6,
+                    "created_at": "2026-05-11T18:02:36+00:00"
                 }
             ]
         },
@@ -653,7 +685,7 @@
                 {
                     "id": 117,
                     "work_id": 3,
-                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260510164428_33eb8f9f4d_a0db9a.jpg",
+                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260510164428_33eb8f9f4d_a0db9a.jpg",
                     "media_type": "image",
                     "position": 4,
                     "created_at": "2026-05-10T16:44:29+00:00"
@@ -795,9 +827,9 @@
             "modal_font_size": 14,
             "category_id": 3,
             "card_bg": "black",
-            "sort_order": 2,
+            "sort_order": 7,
             "created_at": "2026-04-29T16:36:10+00:00",
-            "updated_at": "2026-05-10T16:33:40+00:00",
+            "updated_at": "2026-05-11T18:05:29+00:00",
             "media": [
                 {
                     "id": 56,
@@ -824,11 +856,19 @@
                     "created_at": "2026-05-10T16:32:39+00:00"
                 },
                 {
+                    "id": 123,
+                    "work_id": 14,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260511180458_467e3fb46c_b35580.mp4",
+                    "media_type": "video",
+                    "position": 3,
+                    "created_at": "2026-05-11T18:05:01+00:00"
+                },
+                {
                     "id": 60,
                     "work_id": 14,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260429172903_38c66c3c59.mp4",
                     "media_type": "video",
-                    "position": 3,
+                    "position": 4,
                     "created_at": "2026-04-29T17:29:03+00:00"
                 },
                 {
@@ -836,7 +876,7 @@
                     "work_id": 14,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260510163232_25a32e5912_8994a1.mp4",
                     "media_type": "video",
-                    "position": 4,
+                    "position": 5,
                     "created_at": "2026-05-10T16:32:36+00:00"
                 },
                 {
@@ -844,7 +884,7 @@
                     "work_id": 14,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155858_a6c569f687.jpg",
                     "media_type": "image",
-                    "position": 5,
+                    "position": 6,
                     "created_at": "2026-05-08T15:58:58+00:00"
                 },
                 {
@@ -852,7 +892,7 @@
                     "work_id": 14,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155858_25e603694e.jpg",
                     "media_type": "image",
-                    "position": 6,
+                    "position": 7,
                     "created_at": "2026-05-08T15:58:58+00:00"
                 },
                 {
@@ -860,7 +900,7 @@
                     "work_id": 14,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155858_b846cf5efb.jpg",
                     "media_type": "image",
-                    "position": 7,
+                    "position": 8,
                     "created_at": "2026-05-08T15:58:58+00:00"
                 }
             ]
@@ -2550,6 +2590,97 @@
             "action": "更新",
             "detail": "作品ID 9：品牌相关/联名活动",
             "created_at": "2026-05-10T17:07:51+00:00"
+        },
+        {
+            "id": 237,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 9：品牌相关/联名活动",
+            "created_at": "2026-05-11T17:37:32+00:00"
+        },
+        {
+            "id": 238,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 9：品牌相关/联名活动",
+            "created_at": "2026-05-11T18:01:00+00:00"
+        },
+        {
+            "id": 239,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 9：品牌相关/联名活动",
+            "created_at": "2026-05-11T18:01:17+00:00"
+        },
+        {
+            "id": 240,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 9：品牌相关/联名活动",
+            "created_at": "2026-05-11T18:01:31+00:00"
+        },
+        {
+            "id": 241,
+            "section": "作品媒体",
+            "action": "删除",
+            "detail": "媒体ID 120",
+            "created_at": "2026-05-11T18:01:48+00:00"
+        },
+        {
+            "id": 242,
+            "section": "作品媒体",
+            "action": "删除",
+            "detail": "媒体ID 121",
+            "created_at": "2026-05-11T18:01:54+00:00"
+        },
+        {
+            "id": 243,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 8：POCKET模式",
+            "created_at": "2026-05-11T18:02:38+00:00"
+        },
+        {
+            "id": 244,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 8：POCKET模式",
+            "created_at": "2026-05-11T18:04:07+00:00"
+        },
+        {
+            "id": 245,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 14：LIVE+模式",
+            "created_at": "2026-05-11T18:05:04+00:00"
+        },
+        {
+            "id": 246,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 14：LIVE+模式",
+            "created_at": "2026-05-11T18:05:32+00:00"
+        },
+        {
+            "id": 247,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 8：POCKET模式",
+            "created_at": "2026-05-11T18:11:50+00:00"
+        },
+        {
+            "id": 248,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 9：品牌相关/联名活动",
+            "created_at": "2026-05-11T18:14:19+00:00"
+        },
+        {
+            "id": 249,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 12：AI场景生成",
+            "created_at": "2026-05-11T18:15:49+00:00"
         }
     ]
 }

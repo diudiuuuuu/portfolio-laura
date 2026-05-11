@@ -721,6 +721,31 @@
     });
   }
 
+  document.querySelectorAll("[data-file-picker]").forEach((picker) => {
+    const input = picker.querySelector("[data-file-input]");
+    const trigger = picker.querySelector("[data-file-trigger]");
+    const status = picker.querySelector("[data-file-status]");
+    if (!(input instanceof HTMLInputElement) || !(trigger instanceof HTMLButtonElement)) return;
+
+    const syncStatus = () => {
+      const count = input.files?.length || 0;
+      if (!status) return;
+      if (count <= 0) {
+        status.textContent = "未选择文件";
+      } else if (count === 1) {
+        status.textContent = input.files?.[0]?.name || "已选择 1 个文件";
+      } else {
+        status.textContent = `已选择 ${count} 个文件`;
+      }
+    };
+
+    trigger.addEventListener("click", () => {
+      input.click();
+    });
+    input.addEventListener("change", syncStatus);
+    syncStatus();
+  });
+
   if (document.querySelector(".admin-wrap")) {
     const sortableLists = Array.from(document.querySelectorAll("[data-media-sort-list]"));
 
