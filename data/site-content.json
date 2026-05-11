@@ -251,7 +251,7 @@
                 {
                     "id": 112,
                     "work_id": 11,
-                    "media_path": "/uploads/media/20260510163045_36be29afdb_e70006.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260510163045_36be29afdb_e70006.jpg",
                     "media_type": "image",
                     "position": 3,
                     "created_at": "2026-05-10T16:30:46+00:00"
@@ -653,7 +653,7 @@
                 {
                     "id": 117,
                     "work_id": 3,
-                    "media_path": "/uploads/media/20260510164428_33eb8f9f4d_a0db9a.jpg",
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260510164428_33eb8f9f4d_a0db9a.jpg",
                     "media_type": "image",
                     "position": 4,
                     "created_at": "2026-05-10T16:44:29+00:00"

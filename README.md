@@ -24,6 +24,13 @@
 
 ## Vercel Blob 同步（生产推荐）
 - 上传逻辑支持自动同步到 Blob：设置环境变量 `BLOB_READ_WRITE_TOKEN` 后，后台新上传的图/视频/音频会自动写入 Blob，并把 URL 存入数据文件。
+- 发版前可执行下面的校验，确保 `data/site-content.json` 里没有残留本地 `/uploads/...` 路径，否则线上部署后这些资源不会同步：
+
+```bash
+cd /Users/diu/Desktop/portfolio-site
+php scripts/verify_remote_media_sync.php
+```
+
 - 历史本地上传可一次性迁移：
 
 ```bash
