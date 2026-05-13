@@ -7,6 +7,7 @@ const UPLOAD_BASE = __DIR__ . '/uploads';
 const ALLOWED_MEDIA_EXT = ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'webm'];
 const ALLOWED_IMAGE_EXT = ['jpg', 'jpeg', 'png', 'gif'];
 const ALLOWED_AUDIO_EXT = ['mp3', 'mpeg', 'mpga'];
+const DEFAULT_OSS_PUBLIC_BASE_URL = 'https://lauralian-collection.oss-cn-hongkong.aliyuncs.com';
 
 // Keep local built-in server upload limits aligned with project php.ini defaults.
 @ini_set('upload_max_filesize', '256M');
@@ -50,7 +51,10 @@ function normalizePublicPath(string $path): string
     if (str_starts_with($normalized, '/uploads/')) {
         $mediaBase = rtrim(trim((string) getenv('MEDIA_PUBLIC_BASE_URL')), '/');
         if ($mediaBase === '') {
-            $mediaBase = rtrim(trim((string) getenv('BLOB_PUBLIC_BASE_URL')), '/');
+            $mediaBase = rtrim(trim((string) getenv('OSS_PUBLIC_BASE_URL')), '/');
+        }
+        if ($mediaBase === '') {
+            $mediaBase = DEFAULT_OSS_PUBLIC_BASE_URL;
         }
         if ($mediaBase !== '') {
             return $mediaBase . $normalized;
@@ -632,8 +636,7 @@ function mediaPublicBaseUrl(): string
     if ($ossBase !== '') {
         return $ossBase;
     }
-    $blobBase = rtrim(trim((string) getenv('BLOB_PUBLIC_BASE_URL')), '/');
-    return $blobBase;
+    return DEFAULT_OSS_PUBLIC_BASE_URL;
 }
 
 function siteContentObjectPath(): string
@@ -652,6 +655,10 @@ function siteContentPublicUrl(): string
     $explicit = trim((string) getenv('SITE_CONTENT_PUBLIC_URL'));
     if ($explicit !== '') {
         $explicitHost = strtolower((string) (parse_url($explicit, PHP_URL_HOST) ?: ''));
+        if (str_contains($explicitHost, '.public.blob.vercel-storage.com')) {
+            $preferredBase = $mediaBase !== '' ? $mediaBase : mediaPublicBaseUrl();
+            return $preferredBase . '/' . $objectPath;
+        }
         if ($mediaBase !== '' && (str_contains($explicitHost, '.aliyuncs.com') || $explicitHost === 'aliyuncs.com')) {
             return $mediaBase . '/' . $objectPath;
         }
@@ -675,12 +682,7 @@ function siteContentPublicUrl(): string
         }
     }
 
-    $blobBase = rtrim(trim((string) getenv('BLOB_PUBLIC_BASE_URL')), '/');
-    if ($blobBase !== '') {
-        return $blobBase . '/' . $objectPath;
-    }
-
-    return '';
+    return DEFAULT_OSS_PUBLIC_BASE_URL . '/' . $objectPath;
 }
 
 function shouldUseRemoteSiteContent(): bool

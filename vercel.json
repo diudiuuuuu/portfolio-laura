@@ -1,6 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
+  "env": {
+    "MEDIA_PUBLIC_BASE_URL": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com",
+    "OSS_PUBLIC_BASE_URL": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com",
+    "SITE_CONTENT_PUBLIC_URL": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/data/site-content.json",
+    "SITE_CONTENT_REMOTE_ENABLED": "1"
+  },
   "builds": [
     {
       "src": "public/**/*.php",
