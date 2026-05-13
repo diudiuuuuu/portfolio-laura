@@ -6,6 +6,7 @@ $logo = setting('logo_text', 'LOGO');
 $logoImage = setting('logo_image', '');
 $menuWorks = setting('menu_works', 'Works');
 $menuIntro = setting('menu_intro', 'Introduction');
+$floatingCornerImage = setting('floating_corner_image', '');
 
 $intro = fetchIntroContent();
 $introStyle = introStyleString($intro);
@@ -46,5 +47,11 @@ $introStyle = introStyleString($intro);
       <div class="intro-col" style="<?= esc($introStyle) ?>"><?= nl2br(esc((string) ($intro['col3_text'] ?? ''))) ?></div>
     </section>
   </div>
+
+  <?php if ($floatingCornerImage !== ''): ?>
+    <button class="corner-float" type="button" aria-label="floating corner image">
+      <img src="<?= esc(mediaPreviewPath($floatingCornerImage, 'sm')) ?>" alt="floating corner">
+    </button>
+  <?php endif; ?>
 </body>
 </html>

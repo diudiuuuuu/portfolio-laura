@@ -75,6 +75,7 @@ function loadSiteContent(): array
             'banner_bg' => '',
             'logo_image' => '',
             'music_file' => '',
+            'floating_corner_image' => '',
             'cat_active_bg' => '#000000',
             'cat_border_color' => '#111111',
         ],
@@ -250,7 +251,7 @@ function setting(string $key, string $fallback = ''): string
         $value = $fallback;
     }
 
-    if (in_array($key, ['logo_image', 'music_file', 'banner_overlay', 'banner_bg'], true)) {
+    if (in_array($key, ['logo_image', 'music_file', 'banner_overlay', 'banner_bg', 'floating_corner_image'], true)) {
         return normalizePublicPath($value);
     }
     return $value;
@@ -1440,6 +1441,42 @@ function fetchAuditLogs(int $limit = 120): array
     return array_slice(array_values($logs), 0, max(0, $limit));
 }
 
+function normalizeWorkCategoryIds(array $work): array
+{
+    $ids = [];
+    $raw = $work['category_ids'] ?? null;
+    if (is_array($raw)) {
+        foreach ($raw as $id) {
+            $intId = (int) $id;
+            if ($intId > 0) {
+                $ids[] = $intId;
+            }
+        }
+    }
+
+    $legacyId = (int) ($work['category_id'] ?? 0);
+    if ($legacyId > 0) {
+        $ids[] = $legacyId;
+    }
+
+    $ids = array_values(array_unique($ids));
+    if ($ids === []) {
+        $defaultId = defaultCategoryId();
+        if ($defaultId > 0) {
+            $ids[] = $defaultId;
+        }
+    }
+    return $ids;
+}
+
+function workBelongsToCategory(array $work, int $categoryId): bool
+{
+    if ($categoryId <= 0) {
+        return true;
+    }
+    return in_array($categoryId, normalizeWorkCategoryIds($work), true);
+}
+
 function fetchWorksWithMedia(?int $categoryId = null): array
 {
     $works = loadSiteContent()['works'] ?? [];
@@ -1453,8 +1490,9 @@ function fetchWorksWithMedia(?int $categoryId = null): array
             continue;
         }
         $work['id'] = (int) ($work['id'] ?? 0);
-        $work['category_id'] = (int) ($work['category_id'] ?? 0);
-        if ($categoryId !== null && $categoryId > 0 && $work['category_id'] !== $categoryId) {
+        $work['category_ids'] = normalizeWorkCategoryIds($work);
+        $work['category_id'] = (int) ($work['category_ids'][0] ?? defaultCategoryId());
+        if ($categoryId !== null && $categoryId > 0 && !workBelongsToCategory($work, $categoryId)) {
             continue;
         }
         $work['cover_path'] = normalizePublicPath((string) ($work['cover_path'] ?? ''));

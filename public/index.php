@@ -18,6 +18,7 @@ $categories = fetchCategories();
 $catActiveBg = normalizeColor(setting('cat_active_bg', '#000000'));
 $catBorderColor = normalizeColor(setting('cat_border_color', '#111111'));
 $musicFile = setting('music_file', '');
+$floatingCornerImage = setting('floating_corner_image', '');
 
 $works = arrangeWorks(fetchWorksWithMedia($activeCategory > 0 ? $activeCategory : null));
 $preloadImage = '';
@@ -69,7 +70,7 @@ foreach ($works as $w) {
 
       <header class="top-nav banner-nav">
         <div class="logo">
-          <?php if ($logoImage !== ''): ?>
+            <?php if ($logoImage !== ''): ?>
             <img src="<?= esc(mediaPreviewPath($logoImage, 'sm')) ?>" alt="logo" style="height:32px;width:auto;display:block;" fetchpriority="high">
           <?php else: ?>
             <?= esc($logo) ?>
@@ -116,14 +117,15 @@ foreach ($works as $w) {
           if ($coverDisplay !== '') {
               $coverDisplay .= (str_contains($coverDisplay, '?') ? '&' : '?') . 'v=' . rawurlencode((string) ($w['updated_at'] ?? ''));
           }
-          $coverThumb = $coverDisplay !== '' && !$isVideoThumb ? mediaPreviewPath($coverDisplay, 'sm') : $coverDisplay;
+          $coverThumbSize = !empty($w['_is_big']) ? 'md' : 'sm';
+          $coverThumb = $coverDisplay !== '' && !$isVideoThumb ? mediaPreviewPath($coverDisplay, $coverThumbSize) : $coverDisplay;
           $modalMedia = array_map(static function (array $item): array {
               $path = normalizePublicPath((string) ($item['media_path'] ?? ''));
               $type = (string) ($item['media_type'] ?? mediaTypeFromPath($path));
               return [
                   'media_path' => $path,
                   'media_type' => $type,
-                  'preview_path' => $type === 'video' ? '' : mediaPreviewPath($path, 'md'),
+                  'preview_path' => $type === 'video' ? '' : mediaPreviewPath($path, 'lg'),
               ];
           }, array_values(array_filter($w['media'] ?? [], 'is_array')));
           $mediaJson = json_encode($modalMedia, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
@@ -165,6 +167,12 @@ foreach ($works as $w) {
       <source src="<?= esc($musicFile) ?>" type="audio/mpeg">
     </audio>
     <button class="music-tab" type="button" data-music-toggle aria-label="toggle music">▶ MUSIC</button>
+  <?php endif; ?>
+
+  <?php if ($floatingCornerImage !== ''): ?>
+    <button class="corner-float" type="button" aria-label="floating corner image">
+      <img src="<?= esc(mediaPreviewPath($floatingCornerImage, 'sm')) ?>" alt="floating corner">
+    </button>
   <?php endif; ?>
 
   <div class="modal-layer" data-modal-layer>

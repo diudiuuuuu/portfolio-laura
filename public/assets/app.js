@@ -65,6 +65,17 @@
     return attempt();
   }
 
+  function upgradeImageToFullResolution(img, fullSrc) {
+    if (!(img instanceof HTMLImageElement) || !fullSrc) return;
+    if (img.currentSrc === fullSrc || img.src === fullSrc) return;
+    const hiRes = new Image();
+    hiRes.decoding = "async";
+    hiRes.onload = () => {
+      img.src = fullSrc;
+    };
+    hiRes.src = fullSrc;
+  }
+
   async function runWithConcurrency(tasks, limit = 3) {
     const queue = tasks.slice();
     const workers = new Array(Math.max(1, Math.min(limit, queue.length))).fill(null).map(async () => {
@@ -266,12 +277,15 @@
           el.decoding = "async";
           el.loading = idx < 4 ? "eager" : "lazy";
           imageTasks.push(async () => {
-            const preview = item.preview_path || buildImageVariantPath(item.media_path || "", "md");
+            const preview = item.preview_path || buildImageVariantPath(item.media_path || "", "lg");
             const full = item.media_path || "";
             try {
-              await loadImageWithFallback(el, [preview, full], 5000);
+              const loadedSrc = await loadImageWithFallback(el, [preview, full], 5000);
               wrap.classList.remove("is-loading");
               wrap.classList.add("is-loaded");
+              if (full && loadedSrc !== full) {
+                upgradeImageToFullResolution(el, full);
+              }
             } catch (_) {
               wrap.classList.remove("is-loading");
               wrap.classList.add("is-error");

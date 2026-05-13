@@ -40,6 +40,35 @@ function nextMediaIdFromWorks(array $works): int
     return $max + 1;
 }
 
+function selectedCategoryIdsFromPost(): array
+{
+    $selected = $_POST['category_ids'] ?? [];
+    if (!is_array($selected)) {
+        $selected = [];
+    }
+    $ids = [];
+    foreach ($selected as $id) {
+        $intId = (int) $id;
+        if ($intId > 0) {
+            $ids[] = $intId;
+        }
+    }
+
+    $legacyId = (int) ($_POST['category_id'] ?? 0);
+    if ($legacyId > 0) {
+        $ids[] = $legacyId;
+    }
+
+    $ids = array_values(array_unique($ids));
+    if ($ids === []) {
+        $defaultId = defaultCategoryId();
+        if ($defaultId > 0) {
+            $ids[] = $defaultId;
+        }
+    }
+    return $ids;
+}
+
 function requestHasUploadedFiles(array $files): bool
 {
     foreach ($files as $entry) {
@@ -152,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $works = is_array($content['works'] ?? null) ? $content['works'] : [];
             $used = false;
             foreach ($works as $work) {
-                if ((int) ($work['category_id'] ?? 0) === $id) {
+                if (workBelongsToCategory(is_array($work) ? $work : [], $id)) {
                     $used = true;
                     break;
                 }
@@ -182,10 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $createdTime = trim((string) ($_POST['created_time'] ?? ''));
         $emphasized = isset($_POST['emphasized']) ? 1 : 0;
         $sortOrder = (int) ($_POST['sort_order'] ?? 0);
-        $categoryId = (int) ($_POST['category_id'] ?? defaultCategoryId());
-        if ($categoryId <= 0) {
-            $categoryId = defaultCategoryId();
-        }
+        $categoryIds = selectedCategoryIdsFromPost();
         $fontSize = max(10, min(80, (int) ($_POST['title_font_size'] ?? 16)));
         $modalFontSize = max(10, min(80, (int) ($_POST['modal_font_size'] ?? 28)));
         $fontWeight = normalizeFontWeight((string) ($_POST['title_font_weight'] ?? '600'));
@@ -223,7 +249,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'title_italic' => $titleItalic,
             'title_underline' => $titleUnderline,
             'modal_font_size' => $modalFontSize,
-            'category_id' => $categoryId,
+            'category_id' => (int) ($categoryIds[0] ?? defaultCategoryId()),
+            'category_ids' => $categoryIds,
             'card_bg' => $cardBg,
             'sort_order' => $sortOrder,
             'created_at' => $now,
@@ -278,10 +305,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $createdTime = trim((string) ($_POST['created_time'] ?? ''));
         $emphasized = isset($_POST['emphasized']) ? 1 : 0;
         $sortOrder = (int) ($_POST['sort_order'] ?? 0);
-        $categoryId = (int) ($_POST['category_id'] ?? defaultCategoryId());
-        if ($categoryId <= 0) {
-            $categoryId = defaultCategoryId();
-        }
+        $categoryIds = selectedCategoryIdsFromPost();
         $fontSize = max(10, min(80, (int) ($_POST['title_font_size'] ?? 16)));
         $modalFontSize = max(10, min(80, (int) ($_POST['modal_font_size'] ?? 28)));
         $fontWeight = normalizeFontWeight((string) ($_POST['title_font_weight'] ?? '600'));
@@ -359,7 +383,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $works[$workIndex]['title_italic'] = $titleItalic;
         $works[$workIndex]['title_underline'] = $titleUnderline;
         $works[$workIndex]['modal_font_size'] = $modalFontSize;
-        $works[$workIndex]['category_id'] = $categoryId;
+        $works[$workIndex]['category_id'] = (int) ($categoryIds[0] ?? defaultCategoryId());
+        $works[$workIndex]['category_ids'] = $categoryIds;
         $works[$workIndex]['card_bg'] = $cardBg;
         $works[$workIndex]['sort_order'] = $sortOrder;
         $works[$workIndex]['updated_at'] = date('c');
@@ -689,6 +714,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         updateSetting('logo_image', $logoCurrent);
+        $floatingCornerImage = setting('floating_corner_image', '');
+        if (isset($_FILES['floating_corner_image'])) {
+            $saved = saveUpload($_FILES['floating_corner_image'], 'banner', ALLOWED_IMAGE_EXT);
+            if ($saved !== null) {
+                $floatingCornerImage = finalizeUploadedPath($saved);
+            }
+        }
+        updateSetting('floating_corner_image', $floatingCornerImage);
         updateSetting('cat_active_bg', normalizeColor((string) ($_POST['cat_active_bg'] ?? '#000000')));
         updateSetting('cat_border_color', normalizeColor((string) ($_POST['cat_border_color'] ?? '#111111')));
         flash('菜单与Banner设置已更新', $flashTarget);
@@ -748,6 +781,24 @@ function renderMediaPreview(string $path, string $title, string $versionSeed = '
 function renderFlashAt(string $target, ?array $flashData): string
 {
     return '';
+}
+
+function renderCategoryCheckboxes(array $categories, array $selectedIds, string $inputName = 'category_ids[]'): string
+{
+    $html = '<div class="category-checklist">';
+    foreach ($categories as $cat) {
+        if (!is_array($cat)) {
+            continue;
+        }
+        $catId = (int) ($cat['id'] ?? 0);
+        if ($catId <= 0) {
+            continue;
+        }
+        $checked = in_array($catId, $selectedIds, true) ? ' checked' : '';
+        $html .= '<label class="category-check-item"><input type="checkbox" name="' . esc($inputName) . '" value="' . $catId . '"' . $checked . '> <span>' . esc((string) ($cat['name'] ?? '')) . '</span></label>';
+    }
+    $html .= '</div>';
+    return $html;
 }
 ?>
 <!doctype html>
@@ -932,12 +983,8 @@ function renderFlashAt(string $target, ?array $flashData): string
             </div>
           </div>
           <div>
-            <label>分类（封面图下方）</label>
-            <select name="category_id">
-              <?php foreach ($categories as $cat): ?>
-                <option value="<?= (int) $cat['id'] ?>"><?= esc((string) $cat['name']) ?></option>
-              <?php endforeach; ?>
-            </select>
+            <label>分类（支持多选，可同时出现在多个菜单）</label>
+            <?= renderCategoryCheckboxes($categories, [defaultCategoryId()]) ?>
           </div>
           <div class="full">
             <label>作品详情媒体（多选，按选择顺序展示，统一宽度）</label>
@@ -1023,6 +1070,15 @@ function renderFlashAt(string $target, ?array $flashData): string
             <?php if (setting('logo_image', '') !== ''): ?>
               <div class="thumb-inline" style="margin-top:8px;">
                 <img src="<?= esc(setting('logo_image', '')) ?>" alt="logo thumb">
+              </div>
+            <?php endif; ?>
+          </div>
+          <div>
+            <label>右下角悬浮方图</label>
+            <input type="file" name="floating_corner_image" accept=".png,.jpg,.jpeg,.gif,.webp">
+            <?php if (setting('floating_corner_image', '') !== ''): ?>
+              <div class="thumb-inline" style="margin-top:8px;">
+                <img src="<?= esc(setting('floating_corner_image', '')) ?>" alt="floating corner thumb">
               </div>
             <?php endif; ?>
           </div>
@@ -1268,12 +1324,8 @@ function renderFlashAt(string $target, ?array $flashData): string
                   </div>
                 </div>
                 <div>
-                  <label>分类（封面图下方）</label>
-                  <select name="category_id">
-                    <?php foreach ($categories as $cat): ?>
-                      <option value="<?= (int) $cat['id'] ?>" <?= (int) $w['category_id'] === (int) $cat['id'] ? 'selected' : '' ?>><?= esc((string) $cat['name']) ?></option>
-                    <?php endforeach; ?>
-                  </select>
+                  <label>分类（支持多选，可同时出现在多个菜单）</label>
+                  <?= renderCategoryCheckboxes($categories, normalizeWorkCategoryIds($w)) ?>
                 </div>
                 <div class="full">
                   <label>追加详情媒体（多选）</label>

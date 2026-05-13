@@ -13,4 +13,9 @@ if [[ -f ".env.local" ]]; then
   set +a
 fi
 
-exec php -S "${HOST}:${PORT}" -t public
+PHP_ARGS=()
+if [[ -f "php.ini" ]]; then
+  PHP_ARGS+=("-c" "php.ini")
+fi
+
+exec php "${PHP_ARGS[@]}" -S "${HOST}:${PORT}" -t public

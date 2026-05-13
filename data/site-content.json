@@ -5,9 +5,10 @@
         "menu_intro": "Introduction",
         "banner_ratio": "2.6",
         "banner_overlay": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/banner/20260429161021_077948d581.png",
-        "banner_bg": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/banner/20260429173014_5515588ea8.jpg",
+        "banner_bg": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/banner/20260513190843_324177f677_157156.jpg",
         "logo_image": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/banner/20260411094750_c1b97e4027.png",
         "music_file": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/banner/20260421161021_711ac5bb31.mp3",
+        "floating_corner_image": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/banner/20260513185447_50e21d764a_0b5966.jpg",
         "cat_active_bg": "#ffffff",
         "cat_border_color": "#111111"
     },
@@ -219,7 +220,7 @@
             "title_underline": 0,
             "sort_order": 4,
             "created_at": "2026-04-22T17:02:37+00:00",
-            "updated_at": "2026-05-10T16:58:05+00:00",
+            "updated_at": "2026-05-13T18:13:35+00:00",
             "modal_font_size": 14,
             "category_id": 1,
             "card_bg": "black",
@@ -251,17 +252,25 @@
                 {
                     "id": 112,
                     "work_id": 11,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260510163045_36be29afdb_e70006.jpg",
+                    "media_path": "/uploads/media/20260510163045_36be29afdb_e70006.jpg",
                     "media_type": "image",
                     "position": 3,
                     "created_at": "2026-05-10T16:30:46+00:00"
+                },
+                {
+                    "id": 124,
+                    "work_id": 11,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260513181252_98ff3157df_2fa43d.jpg",
+                    "media_type": "image",
+                    "position": 4,
+                    "created_at": "2026-05-13T18:13:02+00:00"
                 },
                 {
                     "id": 91,
                     "work_id": 11,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501083359_24365b6b73.jpg",
                     "media_type": "image",
-                    "position": 4,
+                    "position": 5,
                     "created_at": "2026-05-01T08:33:59+00:00"
                 },
                 {
@@ -269,17 +278,21 @@
                     "work_id": 11,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501083359_7f5b158129.jpg",
                     "media_type": "image",
-                    "position": 5,
+                    "position": 6,
                     "created_at": "2026-05-01T08:33:59+00:00"
                 }
+            ],
+            "category_ids": [
+                1,
+                2
             ]
         },
         {
             "id": 10,
-            "title": "FANZIO.AI",
+            "title": "FANZIO.AI (AI产品挑战赛作品）",
             "description": "本案的设计核心在于“将复杂的 AI 底层逻辑，包装成极简的社媒灵感库”。你成功地解决了一个行业痛点：当大多数 AI 工具还在比拼“指令（Prompt）”时，Fanzio 已经开始提供“结果（Validated Viral Content）\r\n\r\n从“提示词焦虑”到“爆款直达”的视觉革命\r\nFanzio.ai 的视觉体系是典型的“降维打击”：它通过沉浸式的深色模式 UI 与 Pinterest 式的瀑布流布图，将海量复杂的 AI 算力转化为直觉性的“灵感货架”。设计逻辑上，我们不再强调技术难点，而是构建了一个“数字化创意买手店”。通过对 OOTD、超现实、艺术画廊等社媒高频场景的分类视觉定义，本案将 AI 创作从“黑盒测试”转变为“确定性产出”。\r\n\r\n这种视觉语言不仅极大丰富了产品的品牌美学溢价，更通过“解决决策疲劳”的核心洞察，将用户的审美向往高效转化为订阅转化，让 Fanzio 成为社媒创作者的“创意外挂”。",
             "meta_text": "展示“高质量自定义结果”\r\n将“审美力”直接转化为“生产力”。",
-            "created_time": "Date: 2026",
+            "created_time": "Date: 2026\r\n\r\nFanizo.ai\r\n0-1web搭建与落地",
             "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260508155657_db50cf61d5.jpg",
             "emphasized": 1,
             "title_font_size": 14,
@@ -290,9 +303,9 @@
             "title_underline": 0,
             "sort_order": 0,
             "created_at": "2026-04-22T16:59:35+00:00",
-            "updated_at": "2026-05-10T16:31:11+00:00",
+            "updated_at": "2026-05-13T18:52:37+00:00",
             "modal_font_size": 14,
-            "category_id": 2,
+            "category_id": 1,
             "card_bg": "black",
             "media": [
                 {
@@ -304,27 +317,35 @@
                     "created_at": "2026-04-29T17:17:47+00:00"
                 },
                 {
-                    "id": 58,
-                    "work_id": 10,
-                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260429171747_629a7371ac.jpg",
-                    "media_type": "image",
-                    "position": 1,
-                    "created_at": "2026-04-29T17:17:47+00:00"
-                },
-                {
                     "id": 93,
                     "work_id": 10,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155514_09f26c7425.jpg",
                     "media_type": "image",
-                    "position": 2,
+                    "position": 1,
                     "created_at": "2026-05-08T15:55:14+00:00"
+                },
+                {
+                    "id": 58,
+                    "work_id": 10,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260429171747_629a7371ac.jpg",
+                    "media_type": "image",
+                    "position": 2,
+                    "created_at": "2026-04-29T17:17:47+00:00"
+                },
+                {
+                    "id": 138,
+                    "work_id": 10,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260513184707_bbc7c468c1_1a4761.png",
+                    "media_type": "image",
+                    "position": 3,
+                    "created_at": "2026-05-13T18:47:19+00:00"
                 },
                 {
                     "id": 94,
                     "work_id": 10,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155514_7caa93db1d.jpg",
                     "media_type": "image",
-                    "position": 3,
+                    "position": 4,
                     "created_at": "2026-05-08T15:55:14+00:00"
                 },
                 {
@@ -332,7 +353,7 @@
                     "work_id": 10,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155514_a15e830b0c.jpg",
                     "media_type": "image",
-                    "position": 4,
+                    "position": 5,
                     "created_at": "2026-05-08T15:55:14+00:00"
                 },
                 {
@@ -340,7 +361,7 @@
                     "work_id": 10,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155514_cd10a1ebaf.jpg",
                     "media_type": "image",
-                    "position": 5,
+                    "position": 6,
                     "created_at": "2026-05-08T15:55:14+00:00"
                 },
                 {
@@ -348,7 +369,7 @@
                     "work_id": 10,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260508155514_de35112fd5.jpg",
                     "media_type": "image",
-                    "position": 6,
+                    "position": 7,
                     "created_at": "2026-05-08T15:55:14+00:00"
                 },
                 {
@@ -356,7 +377,7 @@
                     "work_id": 10,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260510163111_cb8fee86e7_3fe94d.mp4",
                     "media_type": "video",
-                    "position": 7,
+                    "position": 8,
                     "created_at": "2026-05-10T16:31:15+00:00"
                 },
                 {
@@ -364,9 +385,13 @@
                     "work_id": 10,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260510163115_8ae442c301_eb384c.mp4",
                     "media_type": "video",
-                    "position": 8,
+                    "position": 9,
                     "created_at": "2026-05-10T16:31:17+00:00"
                 }
+            ],
+            "category_ids": [
+                1,
+                2
             ]
         },
         {
@@ -439,14 +464,6 @@
                     "created_at": "2026-05-01T06:31:35+00:00"
                 },
                 {
-                    "id": 119,
-                    "work_id": 9,
-                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260511180047_3bda8ecfd1_3a9129.jpg",
-                    "media_type": "image",
-                    "position": 6,
-                    "created_at": "2026-05-11T18:00:58+00:00"
-                },
-                {
                     "id": 70,
                     "work_id": 9,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063142_22bae6347d.jpg",
@@ -472,9 +489,9 @@
             "title_underline": 0,
             "sort_order": 8,
             "created_at": "2026-04-22T16:29:33+00:00",
-            "updated_at": "2026-05-11T18:11:48+00:00",
+            "updated_at": "2026-05-13T19:09:56+00:00",
             "modal_font_size": 14,
-            "category_id": 1,
+            "category_id": 3,
             "card_bg": "black",
             "media": [
                 {
@@ -533,11 +550,14 @@
                     "position": 6,
                     "created_at": "2026-05-11T18:02:36+00:00"
                 }
+            ],
+            "category_ids": [
+                3
             ]
         },
         {
             "id": 7,
-            "title": "会员订阅/增长",
+            "title": "会员订阅/增长（AI提效）",
             "description": "「强社交关联」与「高保真 3D 叙事」，重新定义了工具类产品的会员促活逻辑。设计不再仅仅是信息的罗列，而是构建了一个充满诱惑力的“虚拟礼赠场景”。从“闺蜜双人年卡”的粉色社交梦境，到“元旦专享”的剧场仪式感，你利用高饱和度的色彩心理学与极致的材质细节（如丝绒、金属、流体 C4D），赋予了会员权益极高的视觉含金量",
             "meta_text": "通过信封、礼盒等元素包装“年卡”，\r\n让用户产生“在买礼物而非买功能”的错觉。",
             "created_time": "Date: 2026",
@@ -551,7 +571,7 @@
             "title_underline": 0,
             "sort_order": 0,
             "created_at": "2026-04-22T16:28:38+00:00",
-            "updated_at": "2026-05-10T16:42:52+00:00",
+            "updated_at": "2026-05-13T18:50:25+00:00",
             "modal_font_size": 14,
             "category_id": 1,
             "card_bg": "black",
@@ -565,21 +585,41 @@
                     "created_at": "2026-05-01T06:36:53+00:00"
                 },
                 {
+                    "id": 135,
+                    "work_id": 7,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260513183309_5f618830c9_5e315f.png",
+                    "media_type": "image",
+                    "position": 1,
+                    "created_at": "2026-05-13T18:33:19+00:00"
+                },
+                {
                     "id": 85,
                     "work_id": 7,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063653_f1a60be25c.jpg",
                     "media_type": "image",
-                    "position": 1,
+                    "position": 2,
                     "created_at": "2026-05-01T06:36:53+00:00"
+                },
+                {
+                    "id": 134,
+                    "work_id": 7,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260513183259_367ba7ee12_e6cf3a.png",
+                    "media_type": "image",
+                    "position": 3,
+                    "created_at": "2026-05-13T18:33:09+00:00"
                 },
                 {
                     "id": 86,
                     "work_id": 7,
                     "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260501063653_b2133e2cbd.jpg",
                     "media_type": "image",
-                    "position": 2,
+                    "position": 4,
                     "created_at": "2026-05-01T06:36:53+00:00"
                 }
+            ],
+            "category_ids": [
+                1,
+                2
             ]
         },
         {
@@ -685,7 +725,7 @@
                 {
                     "id": 117,
                     "work_id": 3,
-                    "media_path": "https://jxiwkkypiuoyikfy.public.blob.vercel-storage.com/uploads/media/20260510164428_33eb8f9f4d_a0db9a.jpg",
+                    "media_path": "/uploads/media/20260510164428_33eb8f9f4d_a0db9a.jpg",
                     "media_type": "image",
                     "position": 4,
                     "created_at": "2026-05-10T16:44:29+00:00"
@@ -904,9 +944,216 @@
                     "created_at": "2026-05-08T15:58:58+00:00"
                 }
             ]
+        },
+        {
+            "id": 17,
+            "title": "AI模特/视频生成",
+            "description": "不同主题适配的AI亚洲模特生成流，可自主调控场景，穿搭，发型等",
+            "meta_text": "",
+            "created_time": "Date: 2026",
+            "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260513184502_a10877c01e_5edce6.jpg",
+            "emphasized": 0,
+            "title_font_size": 14,
+            "title_font_weight": 10,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "modal_font_size": 14,
+            "category_id": 1,
+            "category_ids": [
+                1,
+                2
+            ],
+            "card_bg": "black",
+            "sort_order": 0,
+            "created_at": "2026-05-13T18:21:52+00:00",
+            "updated_at": "2026-05-13T18:52:19+00:00",
+            "media": [
+                {
+                    "id": 137,
+                    "work_id": 17,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260513184336_a10877c01e_a02150.jpg",
+                    "media_type": "image",
+                    "position": 0,
+                    "created_at": "2026-05-13T18:43:45+00:00"
+                },
+                {
+                    "id": 132,
+                    "work_id": 17,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260513182201_4ecf03a354_a5fca2.jpg",
+                    "media_type": "image",
+                    "position": 1,
+                    "created_at": "2026-05-13T18:21:52+00:00"
+                },
+                {
+                    "id": 136,
+                    "work_id": 17,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260513184328_af0b2654f1_e219e5.jpg",
+                    "media_type": "image",
+                    "position": 2,
+                    "created_at": "2026-05-13T18:43:36+00:00"
+                }
+            ]
         }
     ],
     "deleted_works_trash": [
+        {
+            "id": 16,
+            "title": "AI模特/视频生成",
+            "description": "不同主题适配的AI亚洲模特生成流，可自主调控场景，穿搭，发型等",
+            "meta_text": "",
+            "created_time": "Date: 2026",
+            "cover_path": "",
+            "emphasized": 0,
+            "title_font_size": 14,
+            "title_font_weight": 10,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "modal_font_size": 14,
+            "category_id": 1,
+            "category_ids": [
+                1,
+                2
+            ],
+            "card_bg": "black",
+            "sort_order": 0,
+            "created_at": "2026-05-13T18:21:11+00:00",
+            "updated_at": "2026-05-13T18:21:11+00:00",
+            "media": [
+                {
+                    "id": 128,
+                    "work_id": 16,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260513182111_dfd1a15047_185bab.jpg",
+                    "media_type": "image",
+                    "position": 0,
+                    "created_at": "2026-05-13T18:21:11+00:00"
+                },
+                {
+                    "id": 129,
+                    "work_id": 16,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260513182121_4ecf03a354_74a0a4.jpg",
+                    "media_type": "image",
+                    "position": 1,
+                    "created_at": "2026-05-13T18:21:11+00:00"
+                },
+                {
+                    "id": 130,
+                    "work_id": 16,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260513182130_1ee7fc64be_c789a9.jpg",
+                    "media_type": "image",
+                    "position": 2,
+                    "created_at": "2026-05-13T18:21:11+00:00"
+                }
+            ],
+            "_deleted_at": "2026-05-13T18:29:01+00:00"
+        },
+        {
+            "id": 15,
+            "title": "AI模特/视频生成",
+            "description": "不同主题适配的AI亚洲模特生成流，可自主调控场景，穿搭，发型等",
+            "meta_text": "",
+            "created_time": "Date: 2026",
+            "cover_path": "",
+            "emphasized": 0,
+            "title_font_size": 14,
+            "title_font_weight": 10,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "modal_font_size": 14,
+            "category_id": 1,
+            "category_ids": [
+                1,
+                2
+            ],
+            "card_bg": "black",
+            "sort_order": 0,
+            "created_at": "2026-05-13T18:20:40+00:00",
+            "updated_at": "2026-05-13T18:20:40+00:00",
+            "media": [
+                {
+                    "id": 125,
+                    "work_id": 15,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260513182040_dfd1a15047_3f5114.jpg",
+                    "media_type": "image",
+                    "position": 0,
+                    "created_at": "2026-05-13T18:20:40+00:00"
+                },
+                {
+                    "id": 126,
+                    "work_id": 15,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260513182049_4ecf03a354_125cb8.jpg",
+                    "media_type": "image",
+                    "position": 1,
+                    "created_at": "2026-05-13T18:20:40+00:00"
+                },
+                {
+                    "id": 127,
+                    "work_id": 15,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260513182059_1ee7fc64be_b3121c.jpg",
+                    "media_type": "image",
+                    "position": 2,
+                    "created_at": "2026-05-13T18:20:40+00:00"
+                }
+            ],
+            "_deleted_at": "2026-05-13T18:28:56+00:00"
+        },
+        {
+            "id": 18,
+            "title": "AI模特/视频生成",
+            "description": "不同主题适配的AI亚洲模特生成流，可自主调控场景，穿搭，发型等",
+            "meta_text": "",
+            "created_time": "Date: 2026",
+            "cover_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/covers/20260513182225_dfd1a15047_8128b2.jpg",
+            "emphasized": 0,
+            "title_font_size": 14,
+            "title_font_weight": 10,
+            "title_font_family": "Arial, sans-serif",
+            "title_color": "#ffffff",
+            "title_italic": 0,
+            "title_underline": 0,
+            "modal_font_size": 14,
+            "category_id": 1,
+            "category_ids": [
+                1,
+                2
+            ],
+            "card_bg": "black",
+            "sort_order": 0,
+            "created_at": "2026-05-13T18:22:34+00:00",
+            "updated_at": "2026-05-13T18:22:34+00:00",
+            "media": [
+                {
+                    "id": 134,
+                    "work_id": 18,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260513182234_dfd1a15047_542b7b.jpg",
+                    "media_type": "image",
+                    "position": 0,
+                    "created_at": "2026-05-13T18:22:34+00:00"
+                },
+                {
+                    "id": 135,
+                    "work_id": 18,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260513182243_4ecf03a354_25ca37.jpg",
+                    "media_type": "image",
+                    "position": 1,
+                    "created_at": "2026-05-13T18:22:34+00:00"
+                },
+                {
+                    "id": 136,
+                    "work_id": 18,
+                    "media_path": "https://lauralian-collection.oss-cn-hongkong.aliyuncs.com/uploads/media/20260513182252_1ee7fc64be_1fe028.jpg",
+                    "media_type": "image",
+                    "position": 2,
+                    "created_at": "2026-05-13T18:22:34+00:00"
+                }
+            ],
+            "_deleted_at": "2026-05-13T18:28:45+00:00"
+        },
         {
             "id": 4,
             "title": "AI玩法特效",
@@ -2681,6 +2928,223 @@
             "action": "更新",
             "detail": "作品ID 12：AI场景生成",
             "created_at": "2026-05-11T18:15:49+00:00"
+        },
+        {
+            "id": 250,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 7：会员订阅/增长",
+            "created_at": "2026-05-13T18:12:15+00:00"
+        },
+        {
+            "id": 251,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 11：AI纹身/AI美甲/AI玩法",
+            "created_at": "2026-05-13T18:13:03+00:00"
+        },
+        {
+            "id": 252,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 11：AI纹身/AI美甲/AI玩法",
+            "created_at": "2026-05-13T18:13:37+00:00"
+        },
+        {
+            "id": 253,
+            "section": "Banner媒体",
+            "action": "新增",
+            "detail": "新增了漂浮媒体",
+            "created_at": "2026-05-13T18:14:32+00:00"
+        },
+        {
+            "id": 254,
+            "section": "作品",
+            "action": "创建",
+            "detail": "作品：AI模特/视频生成",
+            "created_at": "2026-05-13T18:21:09+00:00"
+        },
+        {
+            "id": 255,
+            "section": "作品",
+            "action": "创建",
+            "detail": "作品：AI模特/视频生成",
+            "created_at": "2026-05-13T18:21:40+00:00"
+        },
+        {
+            "id": 256,
+            "section": "作品",
+            "action": "创建",
+            "detail": "作品：AI模特/视频生成",
+            "created_at": "2026-05-13T18:22:21+00:00"
+        },
+        {
+            "id": 257,
+            "section": "作品",
+            "action": "创建",
+            "detail": "作品：AI模特/视频生成",
+            "created_at": "2026-05-13T18:23:03+00:00"
+        },
+        {
+            "id": 258,
+            "section": "作品",
+            "action": "删除",
+            "detail": "作品ID 18",
+            "created_at": "2026-05-13T18:28:47+00:00"
+        },
+        {
+            "id": 259,
+            "section": "作品",
+            "action": "删除",
+            "detail": "作品ID 15",
+            "created_at": "2026-05-13T18:28:58+00:00"
+        },
+        {
+            "id": 260,
+            "section": "作品",
+            "action": "删除",
+            "detail": "作品ID 16",
+            "created_at": "2026-05-13T18:29:03+00:00"
+        },
+        {
+            "id": 261,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 7：会员订阅/增长",
+            "created_at": "2026-05-13T18:33:21+00:00"
+        },
+        {
+            "id": 262,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 7：会员订阅/增长",
+            "created_at": "2026-05-13T18:33:47+00:00"
+        },
+        {
+            "id": 263,
+            "section": "作品媒体",
+            "action": "删除",
+            "detail": "媒体ID 136",
+            "created_at": "2026-05-13T18:34:59+00:00"
+        },
+        {
+            "id": 264,
+            "section": "作品媒体",
+            "action": "删除",
+            "detail": "媒体ID 137",
+            "created_at": "2026-05-13T18:35:04+00:00"
+        },
+        {
+            "id": 265,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 7：会员订阅/增长",
+            "created_at": "2026-05-13T18:35:41+00:00"
+        },
+        {
+            "id": 266,
+            "section": "作品媒体",
+            "action": "删除",
+            "detail": "媒体ID 119",
+            "created_at": "2026-05-13T18:35:53+00:00"
+        },
+        {
+            "id": 267,
+            "section": "作品媒体",
+            "action": "删除",
+            "detail": "媒体ID 133",
+            "created_at": "2026-05-13T18:42:24+00:00"
+        },
+        {
+            "id": 268,
+            "section": "作品媒体",
+            "action": "删除",
+            "detail": "媒体ID 131",
+            "created_at": "2026-05-13T18:43:09+00:00"
+        },
+        {
+            "id": 269,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 17：AI模特/视频生成",
+            "created_at": "2026-05-13T18:43:47+00:00"
+        },
+        {
+            "id": 270,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 17：AI模特/视频生成",
+            "created_at": "2026-05-13T18:44:59+00:00"
+        },
+        {
+            "id": 271,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 17：AI模特/视频生成",
+            "created_at": "2026-05-13T18:45:13+00:00"
+        },
+        {
+            "id": 272,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 10：FANZIO.AI",
+            "created_at": "2026-05-13T18:47:21+00:00"
+        },
+        {
+            "id": 273,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 10：FANZIO.AI",
+            "created_at": "2026-05-13T18:47:59+00:00"
+        },
+        {
+            "id": 274,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 10：FANZIO.AI (AI产品挑战赛作品）",
+            "created_at": "2026-05-13T18:50:14+00:00"
+        },
+        {
+            "id": 275,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 7：会员订阅/增长（AI提效）",
+            "created_at": "2026-05-13T18:50:27+00:00"
+        },
+        {
+            "id": 276,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 17：AI模特/视频生成",
+            "created_at": "2026-05-13T18:52:21+00:00"
+        },
+        {
+            "id": 277,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 10：FANZIO.AI (AI产品挑战赛作品）",
+            "created_at": "2026-05-13T18:52:39+00:00"
+        },
+        {
+            "id": 278,
+            "section": "顶部设置",
+            "action": "更新",
+            "detail": "菜单、Logo、Banner与分类样式已保存",
+            "created_at": "2026-05-13T18:55:01+00:00"
+        },
+        {
+            "id": 279,
+            "section": "顶部设置",
+            "action": "更新",
+            "detail": "菜单、Logo、Banner与分类样式已保存",
+            "created_at": "2026-05-13T19:09:01+00:00"
+        },
+        {
+            "id": 280,
+            "section": "作品",
+            "action": "更新",
+            "detail": "作品ID 8：POCKET模式",
+            "created_at": "2026-05-13T19:09:58+00:00"
         }
     ]
 }
