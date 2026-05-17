@@ -70,8 +70,8 @@ foreach ($works as $w) {
 
       <header class="top-nav banner-nav">
         <div class="logo">
-            <?php if ($logoImage !== ''): ?>
-            <img src="<?= esc(mediaPreviewPath($logoImage, 'sm')) ?>" alt="logo" style="height:32px;width:auto;display:block;" fetchpriority="high">
+          <?php if ($logoImage !== ''): ?>
+            <img src="<?= esc(mediaPreviewPath($logoImage, 'sm')) ?>" srcset="<?= esc(mediaPreviewSrcset($logoImage)) ?>" sizes="64px" alt="logo" style="height:32px;width:auto;display:block;" fetchpriority="high">
           <?php else: ?>
             <?= esc($logo) ?>
           <?php endif; ?>
@@ -89,13 +89,13 @@ foreach ($works as $w) {
               <video data-defer-src="<?= esc((string) $item['media_path']) ?>" muted loop playsinline preload="none"></video>
             <?php else: ?>
               <?php $bannerPriority = $idx < 2; ?>
-              <img src="<?= esc(mediaPreviewPath((string) $item['media_path'], 'sm')) ?>" alt="banner item" loading="<?= $bannerPriority ? 'eager' : 'lazy' ?>" fetchpriority="<?= $bannerPriority ? 'high' : 'auto' ?>" decoding="async">
+              <img src="<?= esc(mediaPreviewPath((string) $item['media_path'], 'sm')) ?>" srcset="<?= esc(mediaPreviewSrcset((string) $item['media_path'])) ?>" sizes="220px" alt="banner item" loading="<?= $bannerPriority ? 'eager' : 'lazy' ?>" fetchpriority="<?= $bannerPriority ? 'high' : 'auto' ?>" decoding="async">
             <?php endif; ?>
           </div>
         <?php endforeach; ?>
       </div>
       <?php if ($bannerOverlay !== ''): ?>
-        <div class="banner-top-image"><img src="<?= esc(mediaPreviewPath($bannerOverlay, 'md')) ?>" alt="banner top png" loading="lazy"></div>
+        <div class="banner-top-image"><img src="<?= esc(mediaPreviewPath($bannerOverlay, 'md')) ?>" srcset="<?= esc(mediaPreviewSrcset($bannerOverlay)) ?>" sizes="100vw" alt="banner top png" loading="lazy"></div>
       <?php endif; ?>
       <div class="banner-categories" style="--cat-active-bg:<?= esc($catActiveBg) ?>;--cat-border:<?= esc($catBorderColor) ?>;">
         <a class="cat-pill <?= $activeCategory === 0 ? 'active' : '' ?>" href="/index.php">All</a>
@@ -151,7 +151,7 @@ foreach ($works as $w) {
               <?php if ($isVideoThumb): ?>
                 <video class="work-media-thumb" data-defer-src="<?= esc($coverDisplay) ?>" muted playsinline preload="none"></video>
               <?php else: ?>
-                <img class="work-media-thumb" src="<?= esc($coverThumb) ?>" alt="<?= esc($w['title']) ?>" loading="<?= $cardPriority ? 'eager' : 'lazy' ?>" fetchpriority="<?= $cardPriority ? 'high' : 'auto' ?>" decoding="async">
+                <img class="work-media-thumb" src="<?= esc($coverThumb) ?>" srcset="<?= esc(mediaPreviewSrcset($coverDisplay)) ?>" sizes="<?= !empty($w['_is_big']) ? '(max-width: 960px) 100vw, 50vw' : '(max-width: 960px) 100vw, 25vw' ?>" alt="<?= esc($w['title']) ?>" loading="<?= $cardPriority ? 'eager' : 'lazy' ?>" fetchpriority="<?= $cardPriority ? 'high' : 'auto' ?>" decoding="async">
               <?php endif; ?>
             <?php endif; ?>
             <div class="work-overlay"></div>

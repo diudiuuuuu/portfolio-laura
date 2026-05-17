@@ -379,10 +379,24 @@ function isImageExtension(string $ext): bool
 
 function mediaPreviewMaxWidth(string $size): int
 {
+    return mediaPreviewWidths()[$size] ?? mediaPreviewWidths()['sm'];
+}
+
+function mediaPreviewWidths(): array
+{
+    return [
+        'sm' => 900,
+        'md' => 1600,
+        'lg' => 2600,
+    ];
+}
+
+function mediaPreviewQuality(string $size): int
+{
     return match ($size) {
-        'md' => 1200,
-        'lg' => 2000,
-        default => 600,
+        'md' => 80,
+        'lg' => 84,
+        default => 74,
     };
 }
 
@@ -445,7 +459,7 @@ function appendOssImageProcess(string $url, string $size): string
         return $url;
     }
     $maxWidth = mediaPreviewMaxWidth($size);
-    $quality = $size === 'sm' ? 68 : ($size === 'md' ? 72 : 76);
+    $quality = mediaPreviewQuality($size);
     // Keep slashes and commas unencoded so CDN caches the processed result correctly.
     $processParam = 'image/auto-orient,1/resize,m_lfit,w_' . $maxWidth . '/quality,q_' . $quality . '/format,webp';
     $sep = $existingQuery !== '' ? '&' : '';
@@ -493,6 +507,27 @@ function mediaPreviewPath(string $path, string $size = 'sm'): string
     return $path;
 }
 
+function mediaPreviewSrcset(string $path): string
+{
+    $path = normalizePublicPath($path);
+    if ($path === '' || mediaTypeFromPath($path) === 'video') {
+        return '';
+    }
+
+    $parts = [];
+    $seen = [];
+    foreach (mediaPreviewWidths() as $size => $width) {
+        $preview = mediaPreviewPath($path, $size);
+        if ($preview === '' || isset($seen[$preview])) {
+            continue;
+        }
+        $seen[$preview] = true;
+        $parts[] = $preview . ' ' . $width . 'w';
+    }
+
+    return implode(', ', $parts);
+}
+
 function generateRasterVariantsWithSips(string $absolutePath): bool
 {
     $sips = trim((string) shell_exec('command -v sips 2>/dev/null'));
@@ -508,7 +543,7 @@ function generateRasterVariantsWithSips(string $absolutePath): bool
         return false;
     }
 
-    $targets = ['sm' => 600, 'md' => 1200, 'lg' => 2000];
+    $targets = mediaPreviewWidths();
     $ok = true;
     foreach ($targets as $k => $maxW) {
         $dest = $base . '_' . $k . '.' . $ext;
@@ -548,7 +583,7 @@ function optimizeImageAndVariants(string $absolutePath): ?string
         return null;
     }
 
-    $maxW = 2000;
+    $maxW = max(mediaPreviewWidths());
     $scale = $srcW > $maxW ? ($maxW / $srcW) : 1.0;
     $dstW = max(1, (int) round($srcW * $scale));
     $dstH = max(1, (int) round($srcH * $scale));
@@ -565,9 +600,9 @@ function optimizeImageAndVariants(string $absolutePath): ?string
         return null;
     }
     $mainWebp = $targetBase . '.webp';
-    @imagewebp($master, $mainWebp, 78);
+    @imagewebp($master, $mainWebp, mediaPreviewQuality('lg'));
 
-    $variants = ['sm' => 600, 'md' => 1200, 'lg' => 2000];
+    $variants = mediaPreviewWidths();
     foreach ($variants as $key => $maxVariantW) {
         $ratio = min(1.0, $maxVariantW / $dstW);
         $vw = max(1, (int) round($dstW * $ratio));
@@ -576,7 +611,7 @@ function optimizeImageAndVariants(string $absolutePath): ?string
         imagealphablending($canvas, true);
         imagesavealpha($canvas, true);
         imagecopyresampled($canvas, $master, 0, 0, 0, 0, $vw, $vh, $dstW, $dstH);
-        @imagewebp($canvas, $targetBase . '_' . $key . '.webp', 76);
+        @imagewebp($canvas, $targetBase . '_' . $key . '.webp', mediaPreviewQuality($key));
         imagedestroy($canvas);
     }
 
@@ -687,6 +722,11 @@ function siteContentPublicUrl(): string
 
 function shouldUseRemoteSiteContent(): bool
 {
+    $host = strtolower((string) ($_SERVER['HTTP_HOST'] ?? ''));
+    if ($host !== '' && preg_match('/^(127\.0\.0\.1|localhost)(:\d+)?$/', $host)) {
+        return false;
+    }
+
     $value = strtolower(trim((string) getenv('SITE_CONTENT_REMOTE_ENABLED')));
     if ($value === '') {
         return siteContentPublicUrl() !== '';
@@ -1155,7 +1195,7 @@ function normalizeCardBg(string $value): string
 function applyCoverTransform(string $savedPath, array $params): string
 {
     $ext = strtolower(pathinfo($savedPath, PATHINFO_EXTENSION));
-    if (!in_array($ext, ALLOWED_IMAGE_EXT, true)) {
+    if (!isImageExtension($ext)) {
         return $savedPath;
     }
 
@@ -1218,7 +1258,7 @@ function applyCoverTransform(string $savedPath, array $params): string
         $srcY = max(0, min($remainY, $srcY));
     }
 
-    $destSize = 1200;
+    $destSize = 2000;
     $inner = max(1, $destSize - 2 * $borderWidth);
     $gdAvailable = function_exists('imagecreatetruecolor') && function_exists('imagecopyresampled');
     if ($gdAvailable) {
@@ -1229,6 +1269,8 @@ function applyCoverTransform(string $savedPath, array $params): string
             $srcImage = @imagecreatefrompng($absolute);
         } elseif ($ext === 'gif') {
             $srcImage = @imagecreatefromgif($absolute);
+        } elseif ($ext === 'webp' && function_exists('imagecreatefromwebp')) {
+            $srcImage = @imagecreatefromwebp($absolute);
         }
         if ($srcImage) {
             $dest = imagecreatetruecolor($destSize, $destSize);
@@ -1243,10 +1285,13 @@ function applyCoverTransform(string $savedPath, array $params): string
                     @imagepng($dest, $absolute, 5);
                 } elseif ($ext === 'gif') {
                     @imagegif($dest, $absolute);
+                } elseif ($ext === 'webp' && function_exists('imagewebp')) {
+                    @imagewebp($dest, $absolute, 90);
                 }
                 imagedestroy($dest);
             }
             imagedestroy($srcImage);
+            regenerateImageVariants($absolute);
             return $savedPath;
         }
     }
@@ -1256,7 +1301,16 @@ function applyCoverTransform(string $savedPath, array $params): string
     if (!$ok) {
         return $savedPath;
     }
+    regenerateImageVariants($absolute);
     return $savedPath;
+}
+
+function regenerateImageVariants(string $absolutePath): void
+{
+    if (!is_file($absolutePath)) {
+        return;
+    }
+    optimizeImageAndVariants($absolutePath);
 }
 
 function runSipsCropResizePad(string $absolutePath, int $srcX, int $srcY, int $cropSize, int $inner, int $destSize, string $borderColor, bool $needPad): bool
@@ -1526,81 +1580,33 @@ function fetchWorksWithMedia(?int $categoryId = null): array
 
 function arrangeWorks(array $works): array
 {
-    $pool = [];
-    foreach ($works as $w) {
-        $w['_used'] = false;
-        $w['_is_big'] = false;
-        $pool[] = $w;
+    $emphasized = [];
+    $normal = [];
+    foreach ($works as $work) {
+        $work['_is_big'] = false;
+        if ((int) ($work['emphasized'] ?? 0) === 1) {
+            $work['_is_big'] = true;
+            $emphasized[] = $work;
+            continue;
+        }
+        $normal[] = $work;
     }
+
+    if ($emphasized === []) {
+        return $normal;
+    }
+
     $out = [];
-
-    for ($i = 0; $i < 4; $i++) {
-        $idx = nextUnusedIndex($pool, false, true);
-        if ($idx === null) {
-            $idx = nextUnusedIndex($pool);
+    while ($emphasized !== [] || $normal !== []) {
+        if ($emphasized !== []) {
+            $out[] = array_shift($emphasized);
         }
-        if ($idx === null) {
-            break;
-        }
-        $pool[$idx]['_used'] = true;
-        $out[] = $pool[$idx];
-    }
-
-    while (hasUnused($pool)) {
-        $bigIdx = nextUnusedIndex($pool, true);
-        if ($bigIdx === null) {
-            // No emphasized work left: append all remaining as normal cards.
-            while (true) {
-                $idx = nextUnusedIndex($pool);
-                if ($idx === null) {
-                    break;
-                }
-                $pool[$idx]['_used'] = true;
-                $out[] = $pool[$idx];
-            }
-            break;
-        }
-        $pool[$bigIdx]['_used'] = true;
-        $pool[$bigIdx]['_is_big'] = true;
-        $out[] = $pool[$bigIdx];
-
-        for ($i = 0; $i < 4; $i++) {
-            $idx = nextUnusedIndex($pool);
-            if ($idx === null) {
-                break;
-            }
-            $pool[$idx]['_used'] = true;
-            $out[] = $pool[$idx];
+        for ($i = 0; $i < 4 && $normal !== []; $i++) {
+            $out[] = array_shift($normal);
         }
     }
+
     return $out;
-}
-
-function nextUnusedIndex(array $pool, bool $mustEmphasized = false, bool $excludeEmphasized = false): ?int
-{
-    foreach ($pool as $idx => $item) {
-        if ($item['_used']) {
-            continue;
-        }
-        if ($mustEmphasized && (int) $item['emphasized'] !== 1) {
-            continue;
-        }
-        if ($excludeEmphasized && (int) $item['emphasized'] === 1) {
-            continue;
-        }
-        return $idx;
-    }
-    return null;
-}
-
-function hasUnused(array $pool): bool
-{
-    foreach ($pool as $item) {
-        if (!$item['_used']) {
-            return true;
-        }
-    }
-    return false;
 }
 
 ensureUploadDirs();

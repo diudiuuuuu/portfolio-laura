@@ -388,6 +388,11 @@ a {
   background: var(--modal-media-bg, #111);
 }
 
+.modal-media-item.is-constrained {
+  display: flex;
+  justify-content: center;
+}
+
 .modal-media-item.is-loading::before {
   content: "";
   position: absolute;
@@ -413,6 +418,10 @@ a {
   display: block;
   height: auto;
   background: var(--modal-media-bg, #111);
+}
+
+.modal-media-item.is-constrained img {
+  width: min(100%, 980px);
 }
 
 .modal-media-item.is-loading img,

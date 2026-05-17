@@ -1,6 +1,6 @@
 (() => {
-  const OSS_SIZE_MAP = { sm: 600, md: 1200, lg: 2000 };
-  const OSS_QUALITY_MAP = { sm: 68, md: 72, lg: 76 };
+  const OSS_SIZE_MAP = { sm: 900, md: 1600, lg: 2600 };
+  const OSS_QUALITY_MAP = { sm: 74, md: 80, lg: 84 };
 
   function buildImageVariantPath(path, size = "md") {
     if (!path) return "";
@@ -276,13 +276,22 @@
           el.alt = title;
           el.decoding = "async";
           el.loading = idx < 4 ? "eager" : "lazy";
+          el.style.cursor = "zoom-in";
+          el.addEventListener("click", () => {
+            const fullSrc = item.media_path || "";
+            if (!fullSrc) return;
+            window.open(fullSrc, "_blank", "noopener,noreferrer");
+          });
           imageTasks.push(async () => {
-            const preview = item.preview_path || buildImageVariantPath(item.media_path || "", "lg");
             const full = item.media_path || "";
+            const preview = item.preview_path || buildImageVariantPath(full, "lg");
             try {
-              const loadedSrc = await loadImageWithFallback(el, [preview, full], 5000);
+              const loadedSrc = await loadImageWithFallback(el, [full, preview], 8000);
               wrap.classList.remove("is-loading");
               wrap.classList.add("is-loaded");
+              if (el.naturalWidth > 0 && el.naturalHeight > el.naturalWidth * 1.35 && el.naturalWidth < 1700) {
+                wrap.classList.add("is-constrained");
+              }
               if (full && loadedSrc !== full) {
                 upgradeImageToFullResolution(el, full);
               }
